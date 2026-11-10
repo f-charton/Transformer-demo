@@ -20,6 +20,7 @@ class EnvDataset(Dataset):
         self.two_classes = params.two_classes
         self.first_class_prob = params.first_class_prob
         self.first_class_size = params.first_class_size
+        self.has_read_func = self.env.generator.has_read_func
 
         self.decoder_only = params.architecture == "decoder_only"
         self.encoder_only = params.architecture == "encoder_only"
@@ -251,9 +252,12 @@ class EnvDataset(Dataset):
                     idx = self.rng.integers(len(self.data))
 
         problem_str, question_str, answer_str = self.data[idx]
-        problem = problem_str.split()
-        question = question_str.split() if question_str else None
-        answer = answer_str.split()
+        if self.has_read_func:
+            problem, question, answer = self.env.generator.read_func(problem_str, question_str, answer_str)
+        else:
+            problem = problem_str.split()
+            question = question_str.split() if question_str else None
+            answer = answer_str.split()
         assert len(problem) >= 1 and len(answer) >= 1
         if self.train:
             return problem, question, answer
@@ -281,9 +285,12 @@ class EnvDataset(Dataset):
             question_str = None
         else:
             return self._read_sample_indexed(index)
-        problem = problem_str.split()
-        question = question_str.split() if question_str else None
-        answer = answer_str.split()
+        if self.has_read_func:
+            problem, question, answer = self.env.generator.read_func(problem_str, question_str, answer_str)
+        else:
+            problem = problem_str.split()
+            question = question_str.split() if question_str else None
+            answer = answer_str.split()
         if not problem or not answer:
             return self._read_sample_indexed(index)
         if self.train:

@@ -85,7 +85,7 @@ def _process_batch(single_batch, env, params, is_beam, task, display_logs, metri
 
         for gen in gens:
             iv = gen["metrics"]["is_valid"]
-            beam_log[i]["hyps"].append((gen["hyp"], gen["score"], iv > 0))
+            beam_log[i]["hyps"].append((gen["hyp_tokens"], gen["score"], iv > 0))
             if not valid[i]:
                 if iv >= 0:
                     best_well_formed = 1
@@ -380,9 +380,9 @@ class Evaluator:
         for metric_name, metric_sum in stats["metrics_sum"].items():
             if metric_name == "is_valid":
                 continue
-            count = stats["metrics_count"][metric_name]
+            count = _n_total #stats["metrics_count"][metric_name] + stats['n_perfect_match']
             if count > 0:
-                avg = metric_sum / count
+                avg = (metric_sum + stats['n_perfect_match']) / count
                 scores[f"{data_type}_{task.upper()}_avg_{metric_name}"] = avg
                 logger.info(f"{metric_name}: {avg:.6f} (over {count} samples)")
 

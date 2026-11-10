@@ -5,6 +5,7 @@ from src.envs.ops.integration import OPERATIONS as _integration
 from src.envs.ops.matrix import OPERATIONS as _matrix
 from src.envs.ops.polynomial import OPERATIONS as _polynomial
 from src.envs.ops.synthetic import OPERATIONS as _synthetic
+from src.envs.ops.amplitudes import OPERATIONS as _amplitude
 
 REGISTRY = {}
 REGISTRY.update(_arithmetic)
@@ -13,6 +14,7 @@ REGISTRY.update(_integration)
 REGISTRY.update(_matrix)
 REGISTRY.update(_polynomial)
 REGISTRY.update(_synthetic)
+REGISTRY.update(_amplitude)
 
 
 def build_env(params):

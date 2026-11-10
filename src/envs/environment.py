@@ -15,6 +15,7 @@ class Environment:
         self.query_tokenizer = query_tokenizer
         self.answer_tokenizer = answer_tokenizer
         self.generator = generator
+        self.generator.has_read_func = hasattr(self.generator,'read_func') 
         self.max_len = params.max_len
         self.max_output_len = params.max_output_len
 
@@ -111,5 +112,5 @@ def create_test_iterator(env, task, data_type, data_path, params):
     else:
         assert data_type.startswith("test")
         path_iter = data_path[int(data_type[4:])]
-    dataset = EnvDataset(env, train=False, params=params, path=path_iter, size=params.eval_size)
+    dataset = EnvDataset(env, train=False, params=params, path=path_iter, size=params.eval_size if params.eval_size>0 else None)
     return DataLoader(dataset, timeout=0, batch_size=params.batch_size_eval, num_workers=0, shuffle=False, collate_fn=dataset.collate_fn)

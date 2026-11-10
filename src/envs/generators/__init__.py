@@ -23,3 +23,4 @@ from src.envs.generators.matrix import (
 )
 from src.envs.generators.polynomial import PolynomialRootsGenerator
 from src.envs.generators.synthetic import BracketMatchGenerator, CopyGenerator, DeduplicateGenerator, ParityGenerator, ReverseGenerator, SortGenerator
+from src.envs.generators.amplitudes import AmplitudeGenerator
