@@ -36,7 +36,7 @@ class Environment:
         self.query_index = params.query_index = 2
         self.ans_index = params.ans_index = 3
 
-        logger.info(f"words: {self.word2id}")
+        #logger.info(f"words: {self.word2id}")
 
     def input_to_infix(self, lst):
         return " ".join(lst)

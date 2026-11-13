@@ -106,7 +106,7 @@ def get_parser():
     parser.add_argument("--first_class_size", type=int, default=0, help="Size of the first class")
 
     # environment parameters
-    parser.add_argument("--task", type=str, required=True, help="Task name")
+    parser.add_argument("--task", type=str, default='amplitude', help="Task name")
     REGISTRY[parser.parse_known_args()[0].task]["register_args"](parser)
 
     # generation parameters
