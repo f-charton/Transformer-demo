@@ -112,7 +112,7 @@ class EnvDataset(Dataset):
                 n_read += 1
                 if not filter_by_rank or (n_read - 1) % self.n_gpu_per_node == self.local_rank:
                     lines.append(line.rstrip())
-            endfile = max_lines is None or n_read < max_lines
+            endfile = max_lines is None or n_read <= max_lines
             self.seekpos = 0 if endfile else f.tell()
 
         # Format: problem \t question \t answer (question can be empty)
