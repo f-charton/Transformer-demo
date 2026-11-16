@@ -173,7 +173,7 @@ def main(params):
         for k, v in scores.items():
             logger.info(f"{k} -> {v:.6f}")
         logger.info(f"__log__:{json.dumps(scores)}")
-        exit()
+        return
 
     # training
     for _ in range(params.max_epoch):
@@ -188,7 +188,7 @@ def main(params):
         if params.export_data:
             trainer.close_export_files()
             logger.info("Exported data successfully")
-            exit()
+            return
 
         if params.device == "cuda":
             logger.info(
