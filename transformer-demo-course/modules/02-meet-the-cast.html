@@ -1,0 +1,386 @@
+<section class="module" id="module-2" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">02</span>
+      <h1 class="module-title">Meet the cast</h1>
+      <p class="module-subtitle">Six pieces of code do all the work. Knowing who does what tells you where any change belongs.</p>
+    </header>
+
+    <div class="module-body">
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">A sports club, not one big program</h2>
+        <p>The code is organised like a small sports club. Each role has one job, and the manager only decides who goes next.</p>
+
+        <div class="icon-rows">
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-1)">📋</div>
+            <div>
+              <strong>train.py: the club manager</strong>
+              <p>Reads the settings, hires everyone, then calls "train" and "evaluate" in turn.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-4)">📖</div>
+            <div>
+              <strong>Environment: the rulebook</strong>
+              <p>Knows the task: which symbols exist, how to write an answer, how to judge one.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-3)">🧺</div>
+            <div>
+              <strong>EnvDataset: the kit manager</strong>
+              <p>Hands out the drills: reads cards from a file and packs them into small groups.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-2)">🏃</div>
+            <div>
+              <strong>Model: the athlete</strong>
+              <p>The transformer. It is the only piece that actually learns.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-5)">📣</div>
+            <div>
+              <strong>Trainer: the coach</strong>
+              <p>Runs each practice step, corrects the athlete, and keeps the save files.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-info)">⚖️</div>
+            <div>
+              <strong>Evaluator: the referee</strong>
+              <p>Sets the exam on held-back cards and reports the scores. Never corrects the athlete.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Where each one lives</h2>
+        <p>Every role has its own file. The <code>src/</code> folder is a <span class="term" data-definition="A package is a folder of code files that other files can borrow from with an import line, like: from src.trainer import Trainer.">package</span> that <code>train.py</code> borrows from.</p>
+
+        <div class="file-tree">
+          <div class="ft-file">
+            <span class="ft-name">train.py</span>
+            <span class="ft-desc">The manager. Start reading here.</span>
+          </div>
+          <div class="ft-folder open">
+            <span class="ft-name">src/</span>
+            <span class="ft-desc">Everything the manager calls</span>
+            <div class="ft-children">
+              <div class="ft-file">
+                <span class="ft-name">trainer.py</span>
+                <span class="ft-desc">The coach</span>
+              </div>
+              <div class="ft-file">
+                <span class="ft-name">evaluator.py</span>
+                <span class="ft-desc">The referee</span>
+              </div>
+              <div class="ft-file">
+                <span class="ft-name">dataset.py</span>
+                <span class="ft-desc">The kit manager</span>
+              </div>
+              <div class="ft-folder">
+                <span class="ft-name">model/</span>
+                <span class="ft-desc">The athlete: transformer.py, plus an older-style alternative in rnn.py</span>
+              </div>
+              <div class="ft-folder">
+                <span class="ft-name">envs/</span>
+                <span class="ft-desc">The rulebook, with one small file per task in ops/</span>
+              </div>
+              <div class="ft-file">
+                <span class="ft-name">optim.py, utils.py, logger.py, slurm.py</span>
+                <span class="ft-desc">Support staff: the optimiser, the experiment folder, the log, multi-machine runs</span>
+              </div>
+            </div>
+          </div>
+          <div class="ft-folder">
+            <span class="ft-name">data/</span>
+            <span class="ft-desc">The flashcard decks, zipped</span>
+          </div>
+          <div class="ft-folder">
+            <span class="ft-name">notebooks/</span>
+            <span class="ft-desc">Base.ipynb, the friendly way to launch runs</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The hiring, line by line</h2>
+        <p>This is the moment in <code>train.py</code> where the manager builds the team. The order matters: each new hire is handed the ones before it.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · train.py</span>
+            <pre><code><span class="code-line">    <span class="code-comment"># build environment / model / trainer / evaluator</span></span><span class="code-line">    env = <span class="code-function">build_env</span>(params)</span><span class="code-line">    use_torch_compile = params.use_torch_compile <span class="code-keyword">and not</span> params.cpu</span><span class="code-line">    model = <span class="code-function">build_model</span>(params)</span><span class="code-line">    <span class="code-comment"># NOTE: torch.compile seems less efficient than no compilation</span></span><span class="code-line">    <span class="code-keyword">if</span> use_torch_compile:</span><span class="code-line">        model = torch.<span class="code-function">compile</span>(model, dynamic=<span class="code-keyword">True</span>)</span><span class="code-line">    trainer = <span class="code-function">Trainer</span>(model, env, params)</span><span class="code-line">    evaluator = <span class="code-function">Evaluator</span>(trainer)</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">A note to human readers; the computer ignores it.</p>
+              <p class="tl">Write the rulebook for the chosen task. It comes first because it decides how many symbols exist.</p>
+              <p class="tl">Work out whether an optional speed-up is wanted and possible.</p>
+              <p class="tl">Build the athlete, sized according to the settings and the rulebook.</p>
+              <p class="tl">The author's own warning: the speed-up did not help when they tried it.</p>
+              <p class="tl">Apply the speed-up only if it was asked for.</p>
+              <p class="tl">Hire the coach and hand over the athlete, the rulebook and the settings.</p>
+              <p class="tl">Hire the referee and hand over the coach, so the referee can reach everything the coach holds.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">Separation of concerns</strong>
+            <p>Giving each piece one job is called <strong>separation of concerns</strong>. It is why you can swap the task without touching the model, or change the model without touching the scoring. When you ask an AI assistant for a change, name the piece: "change how answers are scored in the generator's evaluate function" gets a far better result than "fix the accuracy".</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Click a piece to see what it does</h2>
+
+        <div class="arch-diagram">
+          <div class="arch-zone">
+            <h4 class="arch-zone-label">Control</h4>
+            <div class="arch-component" data-desc="train.py parses the flags, creates the experiment folder, builds the other pieces, then loops: train until the epoch is full, evaluate, save.">
+              <div class="arch-icon">📋</div>
+              <span>train.py</span>
+            </div>
+            <div class="arch-component" data-desc="The Trainer owns the optimiser. Each step it fetches a batch, asks the model for a loss, and nudges the model's numbers. It also writes and reloads checkpoint files.">
+              <div class="arch-icon">📣</div>
+              <span>Trainer</span>
+            </div>
+            <div class="arch-component" data-desc="The Evaluator runs the model on the validation and test files without changing it, checks each answer with the rulebook, and returns a dictionary of scores.">
+              <div class="arch-icon">⚖️</div>
+              <span>Evaluator</span>
+            </div>
+          </div>
+          <div class="arch-zone">
+            <h4 class="arch-zone-label">Learning</h4>
+            <div class="arch-component" data-desc="The Model is a transformer with an encoder that reads the word and a decoder that writes the answer. The shipped run has 2,856,000 adjustable numbers.">
+              <div class="arch-icon">🏃</div>
+              <span>Model</span>
+            </div>
+          </div>
+          <div class="arch-zone">
+            <h4 class="arch-zone-label">Data</h4>
+            <div class="arch-component" data-desc="EnvDataset reads lines from a data file (or asks the task to invent examples), turns symbols into numbers, and pads them into equal-length batches.">
+              <div class="arch-icon">🧺</div>
+              <span>EnvDataset</span>
+            </div>
+            <div class="arch-component" data-desc="The Environment bundles a tokenizer for the problem, a tokenizer for the answer, and a generator that knows how to read a line and how to grade a prediction.">
+              <div class="arch-icon">📖</div>
+              <span>Environment</span>
+            </div>
+          </div>
+          <div class="arch-zone">
+            <h4 class="arch-zone-label">On disk</h4>
+            <div class="arch-component" data-desc="Plain text files, one example per line: the word, a tab, the integer. They ship zipped (.gz) and the notebook unzips them once.">
+              <div class="arch-icon">🗂️</div>
+              <span>data/ files</span>
+            </div>
+            <div class="arch-component" data-desc="One folder per run holding params.pkl (settings), train.log (the diary) and checkpoint.pth (the saved model).">
+              <div class="arch-icon">💾</div>
+              <span>Experiment folder</span>
+            </div>
+          </div>
+          <div class="arch-description">Click any component to learn what it does</div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">One epoch, as a group chat</h2>
+        <p>If the pieces could text each other, one round of training would read like this.</p>
+
+        <div class="chat-window" id="chat-module2">
+          <div class="chat-messages">
+            <div class="chat-message" data-msg="0" data-sender="manager" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">M</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">train.py</span>
+                <p>Epoch 0 starts. Trainer, keep stepping until you have seen 300,000 examples.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="1" data-sender="trainer" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-5)">T</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-5)">Trainer</span>
+                <p>EnvDataset, next batch please. 32 examples.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="2" data-sender="dataset" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">D</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">EnvDataset</span>
+                <p>Environment, here are 32 raw lines. What are they in your symbols?</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="3" data-sender="env" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-4)">E</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4)">Environment</span>
+                <p>Letters stay letters. -1216 becomes INT-, 1, 216. Here are the ID numbers for each symbol.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="4" data-sender="dataset" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">D</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">EnvDataset</span>
+                <p>Trainer, one batch, padded to equal length. Problems and answers.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="5" data-sender="trainer" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-5)">T</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-5)">Trainer</span>
+                <p>Model, read these problems and predict the answers.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="6" data-sender="model" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">A</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">Model</span>
+                <p>Done. My loss is 12.3. That was mostly guessing.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="7" data-sender="trainer" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-5)">T</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-5)">Trainer</span>
+                <p>Adjusting your numbers a little. Again. (This repeats thousands of times.)</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="8" data-sender="manager" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">M</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">train.py</span>
+                <p>Epoch is full. Evaluator, your turn.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="9" data-sender="evaluator" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-info)">R</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-info)">Evaluator</span>
+                <p>5,000 held-back cards checked with the rulebook. 11% correct.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="10" data-sender="trainer" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-5)">T</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-5)">Trainer</span>
+                <p>Saved checkpoint.pth. Ready for epoch 1.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-typing" style="display:none">
+            <div class="chat-avatar" id="chat-module2-typing-avatar">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+
+        <p>The numbers in the chat are from the shipped run: 300,000 examples per epoch, batches of 32, a first logged loss of 12.3, and 11% after epoch 0.</p>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check your understanding</h2>
+        <p>Drag each request to the piece of code you would point an AI assistant at.</p>
+
+        <div class="dnd-container" id="dnd-module2">
+          <div class="dnd-chips">
+            <div class="dnd-chip" draggable="true" data-answer="env">Environment (src/envs/)</div>
+            <div class="dnd-chip" draggable="true" data-answer="trainer">Trainer</div>
+            <div class="dnd-chip" draggable="true" data-answer="evaluator">Evaluator</div>
+            <div class="dnd-chip" draggable="true" data-answer="model">Model (src/model/)</div>
+          </div>
+          <div class="dnd-zones">
+            <div class="dnd-zone" data-correct="trainer">
+              <p class="dnd-zone-label">"Save a checkpoint every 1,000 steps, not only at the end of an epoch."</p>
+              <div class="dnd-zone-target">Drop here</div>
+            </div>
+            <div class="dnd-zone" data-correct="env">
+              <p class="dnd-zone-label">"Add a new task where the answer is a fraction."</p>
+              <div class="dnd-zone-target">Drop here</div>
+            </div>
+            <div class="dnd-zone" data-correct="model">
+              <p class="dnd-zone-label">"Try a different kind of attention layer."</p>
+              <div class="dnd-zone-target">Drop here</div>
+            </div>
+            <div class="dnd-zone" data-correct="evaluator">
+              <p class="dnd-zone-label">"Also report accuracy separately for long and short answers."</p>
+              <div class="dnd-zone-target">Drop here</div>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="checkDnD('dnd-module2')">Check Matches</button>
+          <button class="btn" onclick="resetDnD('dnd-module2')">Reset</button>
+        </div>
+
+        <div class="quiz-container" id="quiz-module2">
+          <div class="quiz-question-block"
+               data-correct="b"
+               data-explanation-right="Yes. The Evaluator only reads the model. If training changed during evaluation, the exam would stop being a fair measurement."
+               data-explanation-wrong="Not quite. Think about the referee: it measures but never coaches. Only one piece is allowed to change the model's numbers.">
+            <h3 class="quiz-question">An AI assistant proposes a change in which the Evaluator also updates the model whenever it sees a wrong answer. Why should you push back?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>It would make evaluation slower</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The model would be learning from the held-back cards, so the score would no longer mean anything</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The Evaluator cannot reach the model</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="a"
+               data-explanation-right="Right. The model's size depends on how many symbols exist, and only the Environment knows that. So it has to be built first."
+               data-explanation-wrong="Not quite. Look again at the hiring order in train.py. One piece decides how many symbols exist, and the model needs that number.">
+            <h3 class="quiz-question">Someone reorders train.py so the model is built before the environment. The run crashes immediately. What is the most likely reason?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The model needs the number of symbols, which the Environment works out</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The data files are still zipped</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The Trainer was not told the batch size</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module2')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module2')">Try Again</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>

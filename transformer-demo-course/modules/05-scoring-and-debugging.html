@@ -1,0 +1,314 @@
+<section class="module" id="module-5" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">05</span>
+      <h1 class="module-title">Scoring, saving and debugging</h1>
+      <p class="module-subtitle">How an answer is graded, what the real numbers say, how a run survives a crash, and what to check when training misbehaves.</p>
+    </header>
+
+    <div class="module-body">
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Marking with partial credit</h2>
+        <p>A good maths teacher does not only write "wrong". They note whether the size of the answer was right and only the sign slipped. This project grades the same way.</p>
+        <p>At evaluation time the model writes its answer alone, token by token, until it produces <code>&lt;eos&gt;</code>. The tokens are turned back into an integer and passed to this function.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · src/envs/generators/amplitudes.py</span>
+            <pre><code><span class="code-line">    <span class="code-keyword">def</span> <span class="code-function">evaluate</span>(self, problem, question, answer, hyp, metrics):</span><span class="code-line">        <span class="code-keyword">if</span> hyp <span class="code-keyword">is</span> <span class="code-keyword">None</span>:</span><span class="code-line">            <span class="code-keyword">return</span> {<span class="code-string">"is_valid"</span>: <span class="code-number">-1</span>}</span><span class="code-line">        <span class="code-keyword">if</span> hyp == answer:</span><span class="code-line">            <span class="code-keyword">return</span> {<span class="code-string">"is_valid"</span>: <span class="code-number">1</span>, <span class="code-string">"correct_sign"</span>:<span class="code-number">1</span>, <span class="code-string">"correct_module"</span>: <span class="code-number">1</span>}</span><span class="code-line">        same_sign = (hyp * answer &gt; <span class="code-number">0</span>)</span><span class="code-line">        same_module = (<span class="code-function">abs</span>(hyp) == <span class="code-function">abs</span>(answer))</span><span class="code-line">        res = {<span class="code-string">"is_valid"</span>: <span class="code-number">0</span>}</span><span class="code-line">        res[<span class="code-string">"correct_sign"</span>]= <span class="code-number">1</span> <span class="code-keyword">if</span> same_sign <span class="code-keyword">else</span> <span class="code-number">0</span></span><span class="code-line">        res[<span class="code-string">"correct_module"</span>]= <span class="code-number">1</span> <span class="code-keyword">if</span> same_module <span class="code-keyword">else</span> <span class="code-number">0</span></span><span class="code-line">        <span class="code-keyword">return</span> res</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Grade one prediction (<code>hyp</code>, short for hypothesis) against the true <code>answer</code>.</p>
+              <p class="tl">If the model's tokens could not be read as a number at all, mark it malformed (-1).</p>
+              <p class="tl">If it matches exactly, full marks on everything.</p>
+              <p class="tl">Otherwise: do the two numbers have the same sign? (Their product is positive only if they do.)</p>
+              <p class="tl">Do they have the same size once the sign is ignored?</p>
+              <p class="tl">Record it as wrong overall...</p>
+              <p class="tl">...but note separately whether the sign was right...</p>
+              <p class="tl">...and whether the size was right.</p>
+              <p class="tl">Hand the marks back.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">What the shipped run actually scored</h2>
+        <p>These are the validation scores after the last epoch (50) in <code>checkpoint/train.log</code>.</p>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1)">🎯</div>
+            <h4 class="pattern-title">70.3%</h4>
+            <p class="pattern-desc"><strong>Exactly right.</strong> Logged as <code>acc</code>.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-5)">
+            <div class="pattern-icon" style="background: var(--color-actor-5)">📏</div>
+            <h4 class="pattern-title">95.1%</h4>
+            <p class="pattern-desc"><strong>Size right.</strong> Logged as <code>avg_correct_module</code>.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-4)">
+            <div class="pattern-icon" style="background: var(--color-actor-4)">➕</div>
+            <h4 class="pattern-title">72.9%</h4>
+            <p class="pattern-desc"><strong>Sign right.</strong> Logged as <code>avg_correct_sign</code>.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2)">✅</div>
+            <h4 class="pattern-title">100%</h4>
+            <p class="pattern-desc"><strong>Readable as a number.</strong> Logged as <code>well_formed</code>.</p>
+          </div>
+        </div>
+
+        <p>So the model nearly always gets the size of the coefficient. Most of its mistakes are a wrong sign on an otherwise correct number. The single accuracy number hides that; the partial-credit marks reveal it.</p>
+
+        <p>The log also splits accuracy by whether the true answer is positive or negative. Watch what happens across four epochs:</p>
+
+        <div class="badge-list">
+          <div class="badge-item">
+            <code class="badge-code">epoch 47</code>
+            <span class="badge-desc">positive answers <strong>93.5%</strong> · negative answers <strong>45.8%</strong></span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">epoch 48</code>
+            <span class="badge-desc">positive answers <strong>41.6%</strong> · negative answers <strong>94.9%</strong></span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">epoch 49</code>
+            <span class="badge-desc">positive answers <strong>93.6%</strong> · negative answers <strong>44.0%</strong></span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">epoch 50</code>
+            <span class="badge-desc">positive answers <strong>72.4%</strong> · negative answers <strong>68.2%</strong></span>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">One number is never the whole story</strong>
+            <p>Overall accuracy sat near 70% in all four epochs, yet underneath the model was flipping between favouring plus and favouring minus. Whenever a score looks stable, ask for it to be broken down by category. This habit catches more problems than any other.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Save points</h2>
+        <p>After every epoch the Trainer writes a <span class="term" data-definition="A checkpoint is a file holding everything needed to continue a run: the model's parameters, the optimizer's state, the epoch number and the best scores so far.">checkpoint</span>. When a run starts, the first thing the Trainer does is look for one.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · src/trainer.py</span>
+            <pre><code><span class="code-line">        auto_path = os.path.<span class="code-function">join</span>(self.params.dump_path, <span class="code-string">"checkpoint.pth"</span>)</span><span class="code-line">        <span class="code-keyword">if</span> os.path.<span class="code-function">isfile</span>(auto_path):</span><span class="code-line">            checkpoint_path = auto_path</span><span class="code-line">        <span class="code-keyword">elif</span> self.params.reload_checkpoint != <span class="code-string">""</span>:</span><span class="code-line">            checkpoint_path = self.params.reload_checkpoint</span><span class="code-line">            <span class="code-keyword">assert</span> os.path.<span class="code-function">isfile</span>(checkpoint_path)</span><span class="code-line">        <span class="code-keyword">else</span>:</span><span class="code-line">            <span class="code-keyword">return</span></span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Work out where this run's own checkpoint would be.</p>
+              <p class="tl">If one is already there, the run was interrupted earlier. Use it.</p>
+              <p class="tl">Otherwise, if you named a checkpoint with <code>--reload_checkpoint</code>, use that one...</p>
+              <p class="tl">...and stop with an error if the file does not exist.</p>
+              <p class="tl">Otherwise there is nothing to reload. Start from scratch.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="icon-rows">
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-5)">💾</div>
+            <div>
+              <strong>checkpoint.pth</strong>
+              <p>Rewritten at the end of every epoch. The "continue from here" file.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-4)">🏆</div>
+            <div>
+              <strong>best-&lt;metric&gt;.pth</strong>
+              <p>Written only when a score you listed in <code>--validation_metrics</code> beats its previous best.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-1)">🚨</div>
+            <div>
+              <strong>checkpoint_nan.pth</strong>
+              <p>Written if the loss stops being a number. The run then exits so you can inspect what happened.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">When training misbehaves</h2>
+        <p>Four symptoms cover most bad runs. The first two come with the author's own notes from the notebook.</p>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1)">📉</div>
+            <h4 class="pattern-title">Training loss falls, test loss rises</h4>
+            <p class="pattern-desc">The model is memorising. This is <span class="term" data-definition="Overfitting is when a model learns the training examples by heart and does worse on new ones. More data or a smaller model are the usual cures.">overfitting</span>. The notebook sees it with 5,000 examples and almost none with 20,000.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-4)">
+            <div class="pattern-icon" style="background: var(--color-actor-4)">🪨</div>
+            <h4 class="pattern-title">Loss never comes down</h4>
+            <p class="pattern-desc">Suspect the learning rate first. The notebook notes that 0.01 does not learn and 0.001 does.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-3)">
+            <div class="pattern-icon" style="background: var(--color-actor-3)">🛑</div>
+            <h4 class="pattern-title">Stops at once with AssertionError</h4>
+            <p class="pattern-desc">A sanity check failed before training: a missing file, a width that does not divide by the heads, or a task name that does not match.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2)">🔁</div>
+            <h4 class="pattern-title">A "new" run resumes an old one</h4>
+            <p class="pattern-desc">The experiment folder already held a <code>checkpoint.pth</code>, so the Trainer reloaded it. Use a fresh <code>--exp_id</code>.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-content">
+            <strong class="callout-title">Two easy mistakes with the data flags</strong>
+            <p>The files in <code>data/</code> ship zipped and the loader reads plain text, so they must be unzipped first (the notebook's first cell does this). And <code>reload_data</code> needs the task name in front: <code>amplitude:../data/5.train</code>, not just the path.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check your understanding</h2>
+        <div class="quiz-container" id="quiz-module5">
+
+          <div class="quiz-question-block"
+               data-correct="b"
+               data-explanation-right="Exactly. With size right 95% of the time and sign right only 73%, the sign is where the model is weak. Breaking the score down told you where to spend your effort."
+               data-explanation-wrong="Not quite. Compare the two partial-credit numbers: one is near 95%, the other near 73%. Which part of the answer is the model struggling with?">
+            <h3 class="quiz-question">Based on the shipped run's scores, where would extra effort most likely improve accuracy?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Making the model write well-formed numbers</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Helping the model predict the sign</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Helping the model predict the size of the number</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="a"
+               data-explanation-right="Right. The Trainer found the old checkpoint.pth in the experiment folder and carried on from it, including its old model size. A new exp_id gives a clean folder."
+               data-explanation-wrong="Not quite. Think about the first thing the Trainer does when it starts, and what was already sitting in the folder.">
+            <h3 class="quiz-question">You rerun an experiment with the same exp_name and exp_id but a different number of layers. It fails while loading, complaining that the saved model does not match. Why?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The folder already contains a checkpoint from the earlier run, and the Trainer tried to reload it</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The number of layers cannot be changed after the first run</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The data file was modified</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="c"
+               data-explanation-right="Yes. A widening gap between training and test loss is the signature of overfitting, and the notebook's own experiment shows more examples closing that gap."
+               data-explanation-wrong="Not quite. The model is doing well on what it studied and badly on new cards. Which change gives it less to memorise and more to generalise from?">
+            <h3 class="quiz-question">On a small data file, training loss keeps falling while test loss starts climbing. What is the most sensible next step?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Train for many more epochs</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Make the model bigger</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Give it more training examples</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="b"
+               data-explanation-right="Exactly. Grading belongs to the task, so it lives in the generator's evaluate function. The Evaluator will pick up any new mark you return and average it for you."
+               data-explanation-wrong="Not quite. Remember separation of concerns from Module 2. Which piece knows what a correct answer looks like for this particular task?">
+            <h3 class="quiz-question">You want a new mark: "the prediction is within 10% of the true value". Where should you ask an AI assistant to add it?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>In the transformer's layer code</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>In the evaluate function of the amplitude generator</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>In the Trainer's optimize step</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module5')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module5')">Try Again</button>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">What you can now say out loud</h2>
+        <p>You have the vocabulary to direct changes to this code precisely.</p>
+
+        <div class="step-cards">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>"Add a flag for..."</strong>
+              <p>Every setting is a flag defined in <code>train.py</code>'s parser.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>"Change the tokenizer so that..."</strong>
+              <p>How text becomes tokens lives in <code>src/envs/tokenizers/</code>, and it sets the vocabulary size.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>"Report this metric broken down by..."</strong>
+              <p>Marks come from the generator's <code>evaluate</code>; the Evaluator averages and logs them.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <strong>"Is this overfitting, or is the learning rate wrong?"</strong>
+              <p>Compare training loss with validation loss in <code>train.log</code> before changing anything.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>

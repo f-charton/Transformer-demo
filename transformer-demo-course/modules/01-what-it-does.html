@@ -1,0 +1,269 @@
+<section class="module" id="module-1" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">01</span>
+      <h1 class="module-title">Letters in, a number out</h1>
+      <p class="module-subtitle">What Transformer-demo does, and what happens between pressing "run" and getting a trained model.</p>
+    </header>
+
+    <div class="module-body">
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The whole project in one picture</h2>
+        <p>The project teaches a <span class="term" data-definition="A transformer is a kind of neural network that reads a sequence of symbols and writes another sequence. It is the design behind modern language models.">transformer</span> one task, called <code>amplitude</code>. The input is a word made of the letters a to f. The output is a whole number.</p>
+
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <p><code class="badge-code">ceeceabaecdd</code><br>a word of letters</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <p>The model reads it</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <p><code class="badge-code">-1216</code><br>its integer</p>
+          </div>
+        </div>
+
+        <p>Nobody writes a rule for turning the word into the number. The model has to find the pattern by looking at examples.</p>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Think of it as a deck of flashcards</h2>
+        <p>Each line in a data file is one flashcard: the word on the front, the number on the back. These are real lines from the files in <code>data/</code>.</p>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1)">🃏</div>
+            <h4 class="pattern-title">cccbceee</h4>
+            <p class="pattern-desc">Answer: <strong>64</strong><br>from <code>4.train</code>, 8 letters</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2)">🃏</div>
+            <h4 class="pattern-title">abbabfafbd</h4>
+            <p class="pattern-desc">Answer: <strong>-16</strong><br>from <code>5.train</code>, 10 letters</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-3)">
+            <div class="pattern-icon" style="background: var(--color-actor-3)">🃏</div>
+            <h4 class="pattern-title">ceeceabaecdd</h4>
+            <p class="pattern-desc">Answer: <strong>-1216</strong><br>from <code>6.train</code>, 12 letters</p>
+          </div>
+        </div>
+
+        <div class="badge-list">
+          <div class="badge-item">
+            <code class="badge-code">5.train</code>
+            <span class="badge-desc">253,880 cards the model studies</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">5.valid / 5.test</code>
+            <span class="badge-desc">Cards held back for checking the model during and after training</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">6.train</code>
+            <span class="badge-desc">4,906,466 cards with longer words</span>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">Why some cards are held back</strong>
+            <p>A student who has memorised the deck can still fail on a new card. Checking the model on cards it never studied is the only way to know whether it learned the pattern. Engineers call the studied cards the <strong>training set</strong> and the held-back cards the <strong>validation</strong> and <strong>test sets</strong>.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">How you start a run</h2>
+        <p>The usual way in is the <span class="term" data-definition="A notebook is a document that mixes text with small blocks of code you can run one at a time. This project ships one at notebooks/Base.ipynb.">notebook</span> <code>notebooks/Base.ipynb</code>. One cell lists the settings you want to change; everything else keeps its default.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · notebooks/Base.ipynb</span>
+            <pre><code><span class="code-line">my_params= {<span class="code-string">'reload_data'</span>:<span class="code-string">'amplitude:../data/5.train'</span>,</span><span class="code-line">         <span class="code-string">'eval_data'</span>:<span class="code-string">'../data/5.test'</span>, </span><span class="code-line">         <span class="code-string">'eval_size'</span>:<span class="code-number">-1</span>,</span><span class="code-line">         <span class="code-string">'epoch_size'</span>:<span class="code-number">100000</span>,</span><span class="code-line">         <span class="code-string">'max_epoch'</span>: <span class="code-number">1</span>,</span><span class="code-line">        <span class="code-string">'batch_size_eval'</span>:<span class="code-number">1000</span>,</span><span class="code-line">         <span class="code-string">'n_enc_layers'</span>:<span class="code-number">2</span>,</span><span class="code-line">         <span class="code-string">'n_dec_layers'</span>:<span class="code-number">2</span>,</span><span class="code-line">         <span class="code-string">'enc_emb_dim'</span>:<span class="code-number">128</span>,</span><span class="code-line">         <span class="code-string">'dec_emb_dim'</span>:<span class="code-number">128</span>,</span><span class="code-line">         }</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Study the cards in <code>5.train</code>. The word before the colon names the task.</p>
+              <p class="tl">Check the model on the cards in <code>5.test</code>.</p>
+              <p class="tl">Use every card in that file for the check (-1 means "all").</p>
+              <p class="tl">Call it an <span class="term" data-definition="An epoch is one round of training followed by one check-up. In this project you choose how many examples make a round with epoch_size.">epoch</span> after 100,000 cards.</p>
+              <p class="tl">Stop after one epoch.</p>
+              <p class="tl">During the check, look at 1,000 cards at a time.</p>
+              <p class="tl">Build a small model: 2 reading layers and 2 writing layers.</p>
+              <p class="tl">Give each symbol 128 numbers of internal "notes" (Module 4 explains these).</p>
+            </div>
+          </div>
+        </div>
+
+        <p>These settings are called <span class="term" data-definition="A hyperparameter is a setting you choose before training starts, such as model size or learning rate. The model does not learn it; you pick it.">hyperparameters</span>. On the command line, each one is a <span class="term" data-definition="A flag is an option added to a command to change its behaviour, written with two dashes, like --max_epoch 1. When talking to an AI assistant you would say: add a flag for X.">flag</span> such as <code>--max_epoch 1</code>.</p>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">What happens after you press run</h2>
+        <p>The notebook hands those settings to one function, <code>train.main(params)</code>. That function runs the same five stages every time.</p>
+
+        <div class="step-cards">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>Open an experiment folder</strong>
+              <p>A new folder is created and the settings are written into it, so every run leaves a record.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>Build the pieces</strong>
+              <p>The task rules, the model, the trainer and the evaluator are created, in that order.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>Train</strong>
+              <p>The model answers small groups of cards, gets corrected, and adjusts itself. This repeats until the epoch is full.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <strong>Evaluate</strong>
+              <p>The model answers the held-back cards with no corrections, and its score is logged.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <strong>Save, then repeat</strong>
+              <p>The model is saved to disk. Stages 3 to 5 repeat until <code>max_epoch</code> is reached.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">What a run leaves behind</h2>
+        <p>The repository ships the results of one finished run in <code>checkpoint/</code>. A run of yours produces the same three files.</p>
+
+        <div class="file-tree">
+          <div class="ft-folder open">
+            <span class="ft-name">checkpoint/</span>
+            <span class="ft-desc">One finished run on the 6u data</span>
+            <div class="ft-children">
+              <div class="ft-file">
+                <span class="ft-name">params.pkl</span>
+                <span class="ft-desc">The settings used for the run</span>
+              </div>
+              <div class="ft-file">
+                <span class="ft-name">train.log</span>
+                <span class="ft-desc">A diary of the run: speed, loss, and a score line after each epoch</span>
+              </div>
+              <div class="ft-file">
+                <span class="ft-name">checkpoint.pth</span>
+                <span class="ft-desc">The trained model itself (34 MB)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-4)">
+            <div class="pattern-icon" style="background: var(--color-actor-4)">🌱</div>
+            <h4 class="pattern-title">After epoch 0</h4>
+            <p class="pattern-desc"><strong>11%</strong> of held-back cards answered correctly</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-5)">
+            <div class="pattern-icon" style="background: var(--color-actor-5)">🌳</div>
+            <h4 class="pattern-title">After epoch 50</h4>
+            <p class="pattern-desc"><strong>70.3%</strong> answered correctly, about 1 h 46 min later</p>
+          </div>
+        </div>
+
+        <p>Both numbers come straight from the shipped <code>train.log</code>. Module 5 looks at what the remaining 30% gets wrong.</p>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check your understanding</h2>
+        <div class="quiz-container" id="quiz-module1">
+
+          <div class="quiz-question-block"
+               data-correct="b"
+               data-explanation-right="Right. The score that matters is on cards the model never studied. A high score on the training cards alone could just be memorisation."
+               data-explanation-wrong="Not quite. The model has seen the training cards many times, so doing well on them proves little. Look for the option that tests it on unseen cards.">
+            <h3 class="quiz-question">A colleague says: "My model gets 99% on 5.train, so it has learned the task." What would you ask them first?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>How many layers does the model have?</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>What does it score on 5.valid or 5.test?</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>How long did training take?</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="c"
+               data-explanation-right="Exactly. The settings dictionary is the only thing you need to touch. max_epoch controls how many train-evaluate-save rounds happen."
+               data-explanation-wrong="Not quite. The model code does not need to change. The number of rounds is one of the settings in my_params.">
+            <h3 class="quiz-question">You want the notebook run to do ten rounds of training and checking instead of one. What do you change?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Copy the training cell ten times</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Edit the loop inside the model file</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Set 'max_epoch' to 10 in my_params</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="a"
+               data-explanation-right="Yes. train.log gets one score line per epoch, so you can see the whole history without re-running anything."
+               data-explanation-wrong="Not quite. checkpoint.pth holds the model and params.pkl holds the settings. The history of scores is written somewhere else.">
+            <h3 class="quiz-question">A run finished overnight. You want to know whether accuracy was still improving at the end. Where do you look?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>train.log, which has a score line after every epoch</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>checkpoint.pth, by opening it in a text editor</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>params.pkl, which stores the results</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module1')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module1')">Try Again</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,286 @@
+<section class="module" id="module-4" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">04</span>
+      <h1 class="module-title">The model and one learning step</h1>
+      <p class="module-subtitle">What is inside the transformer, how it is told it was wrong, and which settings change its size.</p>
+    </header>
+
+    <div class="module-body">
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">A mixing desk with 2.8 million sliders</h2>
+        <p>Picture a sound engineer at a mixing desk. The sound that comes out depends entirely on where the sliders sit. Training is the engineer listening, then nudging every slider a tiny amount towards a better sound.</p>
+        <p>The model's sliders are called <span class="term" data-definition="A parameter (or weight) is one adjustable number inside the model. Training changes these numbers; nothing else about the model changes. More parameters means a bigger model.">parameters</span>. The shipped run logs <code>Number of parameters: 2856000</code>.</p>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2)">👓</div>
+            <h4 class="pattern-title">Encoder: the reader</h4>
+            <p class="pattern-desc">Reads all the letters of the word at once and produces a set of internal notes about it.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1)">✍️</div>
+            <h4 class="pattern-title">Decoder: the writer</h4>
+            <p class="pattern-desc">Writes the answer one token at a time, consulting the reader's notes before each token.</p>
+          </div>
+        </div>
+
+        <p>This two-part design is the default, <code>encoder_decoder</code>. The <code>--architecture</code> flag also accepts <code>encoder_only</code> and <code>decoder_only</code>.</p>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">What one layer does</h2>
+        <p>The reader and the writer are each a stack of identical <span class="term" data-definition="A layer is one processing stage. Data passes through the layers in order, and each one refines the internal notes a little more. The n_enc_layers and n_dec_layers flags set how many there are.">layers</span>. Every layer runs the same short routine.</p>
+
+        <div class="step-cards">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>Self-attention: look at your neighbours</strong>
+              <p>Each position looks at every other position in its own sequence and decides which ones matter for it.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>Cross-attention: look at the reader's notes</strong>
+              <p>Writer layers only. Each answer position looks back at the encoded word.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>Feed-forward: think it over</strong>
+              <p>A small calculation applied to each position on its own, to digest what attention gathered.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · src/model/transformer.py</span>
+            <pre><code><span class="code-line">            attn_out = self.<span class="code-function">self_attn</span>(self.<span class="code-function">ln1</span>(x), mask=mask, kv_cache=self_attn_cache, first_loop=i == <span class="code-number">0</span>)</span><span class="code-line">            x = self.<span class="code-function">res1</span>(attn_out, x)</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Tidy the notes (<code>ln1</code> rescales them), then run self-attention on them. The <code>mask</code> says which positions may be looked at.</p>
+              <p class="tl">Add the result on top of the notes we started with, so nothing learned earlier is thrown away.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">Add, don't replace</strong>
+            <p>That second line is a <strong>residual connection</strong>: each stage adds its contribution to the running notes. It is what lets deep stacks of layers train at all, and you will find the same pattern in almost every modern neural network.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Predicting the next token</h2>
+        <p>During training the writer is shown the true answer and asked, at <strong>every</strong> position, "what comes next?". Take the answer &minus;1216. That is five separate predictions, made in one pass:</p>
+
+        <div class="badge-list">
+          <div class="badge-item">
+            <code class="badge-code">&lt;eos&gt;</code>
+            <span class="badge-desc">must predict <strong><code>&lt;ans&gt;</code></strong> (the answer starts here)</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">&lt;eos&gt; &lt;ans&gt;</code>
+            <span class="badge-desc">must predict <strong><code>INT-</code></strong> (the sign)</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">&lt;eos&gt; &lt;ans&gt; INT-</code>
+            <span class="badge-desc">must predict <strong><code>1</code></strong> (the thousands chunk)</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">&lt;eos&gt; &lt;ans&gt; INT- 1</code>
+            <span class="badge-desc">must predict <strong><code>216</code></strong> (the last chunk)</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">&lt;eos&gt; &lt;ans&gt; INT- 1 216</code>
+            <span class="badge-desc">must predict <strong><code>&lt;eos&gt;</code></strong> (the answer is finished, stop writing)</span>
+          </div>
+        </div>
+
+        <p>The middle three predictions are the number itself. A mask stops each position from peeking at the tokens to its right, so the writer cannot copy the answer. When the model is tested, the true answer is hidden: it writes one token at a time, feeds each one back in, and stops when it produces <code>&lt;eos&gt;</code>.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · src/model/base.py</span>
+            <pre><code><span class="code-line">        <span class="code-keyword">elif</span> self.architecture == <span class="code-string">"encoder_decoder"</span>:</span><span class="code-line">            src_enc, src_mask = self.<span class="code-function">_encode</span>(enc_problem, enc_problem_len)</span><span class="code-line">            dec_input = dec_tgt[:, :<span class="code-number">-1</span>]</span><span class="code-line">            logits = self.<span class="code-function">_decode_train</span>(task, dec_input, dec_tgt_len - <span class="code-number">1</span>, src_enc, src_mask)</span><span class="code-line">            targets = dec_tgt[:, <span class="code-number">1</span>:]</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">If the model has both a reader and a writer:</p>
+              <p class="tl">Let the reader encode the word. It returns its notes and a map of which positions are real rather than padding.</p>
+              <p class="tl">The writer's input is the answer with its last token removed.</p>
+              <p class="tl">Run the writer. It returns <span class="term" data-definition="Logits are the raw scores the model gives to every token in the vocabulary for one position. The highest score is its best guess.">logits</span>: a score for each of the 1,012 tokens, at every position.</p>
+              <p class="tl">The correct answers are the same sequence with its first token removed.</p>
+            </div>
+          </div>
+        </div>
+
+        <p>A few lines later the scores are compared with the targets to give one number, the <span class="term" data-definition="The loss is a single number measuring how wrong the predictions were on a batch. Lower is better. Training is the process of making this number go down.">loss</span>:</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · src/model/base.py</span>
+            <pre><code><span class="code-line">        loss = F.<span class="code-function">cross_entropy</span>(logits.<span class="code-function">reshape</span>(<span class="code-number">-1</span>, logits.<span class="code-function">size</span>(<span class="code-number">-1</span>)), targets.<span class="code-function">reshape</span>(<span class="code-number">-1</span>), ignore_index=self.pad_index)</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Measure how much score the model put on the wrong tokens, averaged over the batch. <code>ignore_index=self.pad_index</code> is the promise from Module 3: padding positions are left out.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Nudging the sliders</h2>
+        <p>Once the Trainer has the loss, it runs the same few lines after every batch.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · src/trainer.py</span>
+            <pre><code><span class="code-line">        self.scaler.<span class="code-function">scale</span>(loss).<span class="code-function">backward</span>()</span><span class="code-line"> </span><span class="code-line">        <span class="code-keyword">if</span> self.params.clip_grad_norm &gt; <span class="code-number">0</span>:</span><span class="code-line">            self.scaler.<span class="code-function">unscale_</span>(self.optimizer)</span><span class="code-line">            <span class="code-function">clip_grad_norm_</span>(<span class="code-function">_unwrap_model</span>(self.model).<span class="code-function">parameters</span>(), self.params.clip_grad_norm)</span><span class="code-line"> </span><span class="code-line">        self.scaler.<span class="code-function">step</span>(self.optimizer)</span><span class="code-line">        self.scaler.<span class="code-function">update</span>()</span><span class="code-line">        self.optimizer.<span class="code-function">zero_grad</span>(set_to_none=<span class="code-keyword">True</span>)</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Work out, for every slider, which direction would have reduced the loss. That set of directions is the <span class="term" data-definition="The gradient says, for each parameter, which way and how strongly to change it to reduce the loss. Computing it is called backpropagation, which is what .backward() does.">gradient</span>.</p>
+              <p class="tl">If a limit is set (the default is 5), shrink any oversized nudge so one odd batch cannot wreck the model.</p>
+              <p class="tl">Move every slider a small step. The <span class="term" data-definition="The optimizer is the rule for turning gradients into actual changes to the parameters. This project defaults to one called Adam.">optimizer</span> decides exactly how far.</p>
+              <p class="tl">Housekeeping for an optional speed mode.</p>
+              <p class="tl">Wipe the directions clean, ready for the next batch.</p>
+            </div>
+          </div>
+        </div>
+
+        <p>How far "a small step" goes is set by the <span class="term" data-definition="The learning rate is the size of each adjustment. Too large and the model overshoots and never settles; too small and training crawls.">learning rate</span>. Here it is written inside the optimizer setting: <code>adam,lr=0.0001</code>.</p>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The settings that shape the model</h2>
+        <p>These are the flags you are most likely to change, with their defaults from <code>train.py</code>.</p>
+
+        <div class="badge-list">
+          <div class="badge-item">
+            <code class="badge-code">--n_enc_layers 4</code>
+            <span class="badge-desc">How many layers the reader has. <code>--n_dec_layers</code> does the same for the writer.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">--enc_emb_dim 256</code>
+            <span class="badge-desc">How many numbers of notes each position carries. Wider notes mean many more parameters.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">--n_enc_heads 8</code>
+            <span class="badge-desc">How many separate "looks" attention takes at once. <code>enc_emb_dim</code> must be a multiple of this (each head gets an equal slice: 256 / 8 = 32 numbers).</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">--batch_size 32</code>
+            <span class="badge-desc">How many examples are processed per step.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">--optimizer adam,lr=0.0001</code>
+            <span class="badge-desc">The update rule and its learning rate.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">--model_type transformer</code>
+            <span class="badge-desc">Can also be <code>lstm</code> or <code>gru</code>, two older designs kept for comparison.</span>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">🧭</div>
+          <div class="callout-content">
+            <strong class="callout-title">The shipped run is smaller than the defaults</strong>
+            <p>It used 2 layers on each side and a width of 200. The notebook examples go smaller still (1 or 2 layers, width 128) so they finish in minutes on a laptop.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check your understanding</h2>
+        <div class="quiz-container" id="quiz-module4">
+
+          <div class="quiz-question-block"
+               data-correct="b"
+               data-explanation-right="Right. The code checks before building anything that the width divides evenly by the number of heads. 130 / 8 is not a whole number, so the check stops the run. 128 or 136 would pass."
+               data-explanation-wrong="Not quite. Look at the note beside --n_enc_heads in the settings list: the width has to divide evenly by the number of heads.">
+            <h3 class="quiz-question">You set 'enc_emb_dim' and 'dec_emb_dim' to 130 and leave everything else at its default. The run stops before training begins. Why?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>130 is too small for a vocabulary of 1,012 tokens</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>130 does not divide evenly by the 8 attention heads</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The data file has to be re-zipped first</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="c"
+               data-explanation-right="Exactly. The notebook's own comment says a learning rate of 0.01 does not learn while 0.001 does. Steps that are too large keep overshooting."
+               data-explanation-wrong="Not quite. A loss that refuses to come down from the very first steps usually points at the step size, not at the model's size or the data.">
+            <h3 class="quiz-question">You change the optimizer setting to adam,lr=0.01 hoping to train faster. The loss stays high and never comes down. What is the first thing to try?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Add more layers</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Use a bigger data file</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Lower the learning rate again</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="a"
+               data-explanation-right="Yes. Without ignore_index the model would be graded on predicting filler, and since filler is easy to predict the loss would look better than the model really is."
+               data-explanation-wrong="Not quite. Think about what the padding positions contain and whether predicting them says anything about the task.">
+            <h3 class="quiz-question">An AI assistant "simplifies" the loss line by removing ignore_index=self.pad_index. Training still runs. What has gone wrong?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The model is now also graded on predicting padding, which distorts the loss</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Nothing; that argument was decorative</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The model can no longer read the letters a to f</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module4')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module4')">Try Again</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>

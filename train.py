@@ -143,11 +143,17 @@ def get_parser():
 
 def main(params):
     # CPU / CUDA / MPS
-    params.device = "cpu" if params.cpu else ("mps" if torch.backends.mps.is_available() else "cuda")
-    if params.device == "cuda":
-        assert torch.cuda.is_available(), "CUDA requested but not available"
-    elif params.device == "mps":
-        assert torch.backends.mps.is_available(), "MPS requested but not available"
+    # Falls back to CPU, with a message, when no GPU is available.
+    if params.cpu:
+        params.device = "cpu"
+    elif torch.backends.mps.is_available():
+        params.device = "mps"
+    elif torch.cuda.is_available():
+        params.device = "cuda"
+    else:
+        print("WARNING: no GPU found (neither NVIDIA CUDA nor Apple MPS). Falling back to CPU.", flush=True)
+        params.cpu = True
+        params.device = "cpu"
 
     # num_workers
     if params.num_workers == -1:

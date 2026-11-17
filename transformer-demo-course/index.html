@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inside Transformer-demo</title>
+
+  <!-- Google Fonts: Bricolage Grotesque · DM Sans · JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!--
+    CUSTOMIZE PER COURSE — change only the three accent variables below.
+    Options:
+      vermillion  #D94F30 / #C4432A / #FDEEE9 / #E8836C  (default)
+      coral       #E06B56 / #C85A47 / #FDECEA / #E89585
+      teal        #2A7B9B / #1F6280 / #E4F2F7 / #5A9DB8
+      amber       #D4A843 / #BF9530 / #FDF5E0 / #E0C070
+      forest      #2D8B55 / #226B41 / #E8F5EE / #5AAD7A
+  -->
+  <style>
+    :root {
+      --color-accent:       #D94F30;
+      --color-accent-hover: #C4432A;
+      --color-accent-light: #FDEEE9;
+      --color-accent-muted: #E8836C;
+    }
+  </style>
+
+  <script src="main.js" defer></script>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="nav-inner">
+      <span class="nav-title">Inside Transformer-demo</span>
+      <div class="nav-dots" id="nav-dots" role="tablist">
+        <!--
+          One <button> per module. Replace MODULE_N_NAME with the actual module title.
+
+          <button class="nav-dot" data-target="module-1" data-tooltip="MODULE_1_NAME" role="tab" aria-label="Module 1: MODULE_1_NAME"></button>
+          <button class="nav-dot" data-target="module-2" data-tooltip="MODULE_2_NAME" role="tab" aria-label="Module 2: MODULE_2_NAME"></button>
+          ...
+        -->
+        <button class="nav-dot" data-target="module-1" data-tooltip="What this project does" role="tab" aria-label="Module 1: What this project does"></button>
+        <button class="nav-dot" data-target="module-2" data-tooltip="Meet the cast" role="tab" aria-label="Module 2: Meet the cast"></button>
+        <button class="nav-dot" data-target="module-3" data-tooltip="From letters to numbers" role="tab" aria-label="Module 3: From letters to numbers"></button>
+        <button class="nav-dot" data-target="module-4" data-tooltip="The model and one learning step" role="tab" aria-label="Module 4: The model and one learning step"></button>
+        <button class="nav-dot" data-target="module-5" data-tooltip="Scoring, saving and debugging" role="tab" aria-label="Module 5: Scoring, saving and debugging"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- modules/*.html content is assembled here by build.sh -->
+<section class="module" id="module-1" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">01</span>
+      <h1 class="module-title">Letters in, a number out</h1>
+      <p class="module-subtitle">What Transformer-demo does, and what happens between pressing "run" and getting a trained model.</p>
+    </header>
+
+    <div class="module-body">
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The whole project in one picture</h2>
+        <p>The project teaches a <span class="term" data-definition="A transformer is a kind of neural network that reads a sequence of symbols and writes another sequence. It is the design behind modern language models.">transformer</span> one task, called <code>amplitude</code>. The input is a word made of the letters a to f. The output is a whole number.</p>
+
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <p><code class="badge-code">ceeceabaecdd</code><br>a word of letters</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <p>The model reads it</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <p><code class="badge-code">-1216</code><br>its integer</p>
+          </div>
+        </div>
+
+        <p>Nobody writes a rule for turning the word into the number. The model has to find the pattern by looking at examples.</p>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Think of it as a deck of flashcards</h2>
+        <p>Each line in a data file is one flashcard: the word on the front, the number on the back. These are real lines from the files in <code>data/</code>.</p>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1)">🃏</div>
+            <h4 class="pattern-title">cccbceee</h4>
+            <p class="pattern-desc">Answer: <strong>64</strong><br>from <code>4.train</code>, 8 letters</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2)">🃏</div>
+            <h4 class="pattern-title">abbabfafbd</h4>
+            <p class="pattern-desc">Answer: <strong>-16</strong><br>from <code>5.train</code>, 10 letters</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-3)">
+            <div class="pattern-icon" style="background: var(--color-actor-3)">🃏</div>
+            <h4 class="pattern-title">ceeceabaecdd</h4>
+            <p class="pattern-desc">Answer: <strong>-1216</strong><br>from <code>6.train</code>, 12 letters</p>
+          </div>
+        </div>
+
+        <div class="badge-list">
+          <div class="badge-item">
+            <code class="badge-code">5.train</code>
+            <span class="badge-desc">253,880 cards the model studies</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">5.valid / 5.test</code>
+            <span class="badge-desc">Cards held back for checking the model during and after training</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">6.train</code>
+            <span class="badge-desc">4,906,466 cards with longer words</span>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">Why some cards are held back</strong>
+            <p>A student who has memorised the deck can still fail on a new card. Checking the model on cards it never studied is the only way to know whether it learned the pattern. Engineers call the studied cards the <strong>training set</strong> and the held-back cards the <strong>validation</strong> and <strong>test sets</strong>.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">How you start a run</h2>
+        <p>The usual way in is the <span class="term" data-definition="A notebook is a document that mixes text with small blocks of code you can run one at a time. This project ships one at notebooks/Base.ipynb.">notebook</span> <code>notebooks/Base.ipynb</code>. One cell lists the settings you want to change; everything else keeps its default.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · notebooks/Base.ipynb</span>
+            <pre><code><span class="code-line">my_params= {<span class="code-string">'reload_data'</span>:<span class="code-string">'amplitude:../data/5.train'</span>,</span><span class="code-line">         <span class="code-string">'eval_data'</span>:<span class="code-string">'../data/5.test'</span>, </span><span class="code-line">         <span class="code-string">'eval_size'</span>:<span class="code-number">-1</span>,</span><span class="code-line">         <span class="code-string">'epoch_size'</span>:<span class="code-number">100000</span>,</span><span class="code-line">         <span class="code-string">'max_epoch'</span>: <span class="code-number">1</span>,</span><span class="code-line">        <span class="code-string">'batch_size_eval'</span>:<span class="code-number">1000</span>,</span><span class="code-line">         <span class="code-string">'n_enc_layers'</span>:<span class="code-number">2</span>,</span><span class="code-line">         <span class="code-string">'n_dec_layers'</span>:<span class="code-number">2</span>,</span><span class="code-line">         <span class="code-string">'enc_emb_dim'</span>:<span class="code-number">128</span>,</span><span class="code-line">         <span class="code-string">'dec_emb_dim'</span>:<span class="code-number">128</span>,</span><span class="code-line">         }</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Study the cards in <code>5.train</code>. The word before the colon names the task.</p>
+              <p class="tl">Check the model on the cards in <code>5.test</code>.</p>
+              <p class="tl">Use every card in that file for the check (-1 means "all").</p>
+              <p class="tl">Call it an <span class="term" data-definition="An epoch is one round of training followed by one check-up. In this project you choose how many examples make a round with epoch_size.">epoch</span> after 100,000 cards.</p>
+              <p class="tl">Stop after one epoch.</p>
+              <p class="tl">During the check, look at 1,000 cards at a time.</p>
+              <p class="tl">Build a small model: 2 reading layers and 2 writing layers.</p>
+              <p class="tl">Give each symbol 128 numbers of internal "notes" (Module 4 explains these).</p>
+            </div>
+          </div>
+        </div>
+
+        <p>These settings are called <span class="term" data-definition="A hyperparameter is a setting you choose before training starts, such as model size or learning rate. The model does not learn it; you pick it.">hyperparameters</span>. On the command line, each one is a <span class="term" data-definition="A flag is an option added to a command to change its behaviour, written with two dashes, like --max_epoch 1. When talking to an AI assistant you would say: add a flag for X.">flag</span> such as <code>--max_epoch 1</code>.</p>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">What happens after you press run</h2>
+        <p>The notebook hands those settings to one function, <code>train.main(params)</code>. That function runs the same five stages every time.</p>
+
+        <div class="step-cards">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>Open an experiment folder</strong>
+              <p>A new folder is created and the settings are written into it, so every run leaves a record.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>Build the pieces</strong>
+              <p>The task rules, the model, the trainer and the evaluator are created, in that order.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>Train</strong>
+              <p>The model answers small groups of cards, gets corrected, and adjusts itself. This repeats until the epoch is full.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <strong>Evaluate</strong>
+              <p>The model answers the held-back cards with no corrections, and its score is logged.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <strong>Save, then repeat</strong>
+              <p>The model is saved to disk. Stages 3 to 5 repeat until <code>max_epoch</code> is reached.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">What a run leaves behind</h2>
+        <p>The repository ships the results of one finished run in <code>checkpoint/</code>. A run of yours produces the same three files.</p>
+
+        <div class="file-tree">
+          <div class="ft-folder open">
+            <span class="ft-name">checkpoint/</span>
+            <span class="ft-desc">One finished run on the 6u data</span>
+            <div class="ft-children">
+              <div class="ft-file">
+                <span class="ft-name">params.pkl</span>
+                <span class="ft-desc">The settings used for the run</span>
+              </div>
+              <div class="ft-file">
+                <span class="ft-name">train.log</span>
+                <span class="ft-desc">A diary of the run: speed, loss, and a score line after each epoch</span>
+              </div>
+              <div class="ft-file">
+                <span class="ft-name">checkpoint.pth</span>
+                <span class="ft-desc">The trained model itself (34 MB)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-4)">
+            <div class="pattern-icon" style="background: var(--color-actor-4)">🌱</div>
+            <h4 class="pattern-title">After epoch 0</h4>
+            <p class="pattern-desc"><strong>11%</strong> of held-back cards answered correctly</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-5)">
+            <div class="pattern-icon" style="background: var(--color-actor-5)">🌳</div>
+            <h4 class="pattern-title">After epoch 50</h4>
+            <p class="pattern-desc"><strong>70.3%</strong> answered correctly, about 1 h 46 min later</p>
+          </div>
+        </div>
+
+        <p>Both numbers come straight from the shipped <code>train.log</code>. Module 5 looks at what the remaining 30% gets wrong.</p>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check your understanding</h2>
+        <div class="quiz-container" id="quiz-module1">
+
+          <div class="quiz-question-block"
+               data-correct="b"
+               data-explanation-right="Right. The score that matters is on cards the model never studied. A high score on the training cards alone could just be memorisation."
+               data-explanation-wrong="Not quite. The model has seen the training cards many times, so doing well on them proves little. Look for the option that tests it on unseen cards.">
+            <h3 class="quiz-question">A colleague says: "My model gets 99% on 5.train, so it has learned the task." What would you ask them first?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>How many layers does the model have?</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>What does it score on 5.valid or 5.test?</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>How long did training take?</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="c"
+               data-explanation-right="Exactly. The settings dictionary is the only thing you need to touch. max_epoch controls how many train-evaluate-save rounds happen."
+               data-explanation-wrong="Not quite. The model code does not need to change. The number of rounds is one of the settings in my_params.">
+            <h3 class="quiz-question">You want the notebook run to do ten rounds of training and checking instead of one. What do you change?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Copy the training cell ten times</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Edit the loop inside the model file</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Set 'max_epoch' to 10 in my_params</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="a"
+               data-explanation-right="Yes. train.log gets one score line per epoch, so you can see the whole history without re-running anything."
+               data-explanation-wrong="Not quite. checkpoint.pth holds the model and params.pkl holds the settings. The history of scores is written somewhere else.">
+            <h3 class="quiz-question">A run finished overnight. You want to know whether accuracy was still improving at the end. Where do you look?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>train.log, which has a score line after every epoch</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>checkpoint.pth, by opening it in a text editor</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>params.pkl, which stores the results</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module1')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module1')">Try Again</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-2" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">02</span>
+      <h1 class="module-title">Meet the cast</h1>
+      <p class="module-subtitle">Six pieces of code do all the work. Knowing who does what tells you where any change belongs.</p>
+    </header>
+
+    <div class="module-body">
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">A sports club, not one big program</h2>
+        <p>The code is organised like a small sports club. Each role has one job, and the manager only decides who goes next.</p>
+
+        <div class="icon-rows">
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-1)">📋</div>
+            <div>
+              <strong>train.py: the club manager</strong>
+              <p>Reads the settings, hires everyone, then calls "train" and "evaluate" in turn.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-4)">📖</div>
+            <div>
+              <strong>Environment: the rulebook</strong>
+              <p>Knows the task: which symbols exist, how to write an answer, how to judge one.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-3)">🧺</div>
+            <div>
+              <strong>EnvDataset: the kit manager</strong>
+              <p>Hands out the drills: reads cards from a file and packs them into small groups.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-2)">🏃</div>
+            <div>
+              <strong>Model: the athlete</strong>
+              <p>The transformer. It is the only piece that actually learns.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-5)">📣</div>
+            <div>
+              <strong>Trainer: the coach</strong>
+              <p>Runs each practice step, corrects the athlete, and keeps the save files.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-info)">⚖️</div>
+            <div>
+              <strong>Evaluator: the referee</strong>
+              <p>Sets the exam on held-back cards and reports the scores. Never corrects the athlete.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Where each one lives</h2>
+        <p>Every role has its own file. The <code>src/</code> folder is a <span class="term" data-definition="A package is a folder of code files that other files can borrow from with an import line, like: from src.trainer import Trainer.">package</span> that <code>train.py</code> borrows from.</p>
+
+        <div class="file-tree">
+          <div class="ft-file">
+            <span class="ft-name">train.py</span>
+            <span class="ft-desc">The manager. Start reading here.</span>
+          </div>
+          <div class="ft-folder open">
+            <span class="ft-name">src/</span>
+            <span class="ft-desc">Everything the manager calls</span>
+            <div class="ft-children">
+              <div class="ft-file">
+                <span class="ft-name">trainer.py</span>
+                <span class="ft-desc">The coach</span>
+              </div>
+              <div class="ft-file">
+                <span class="ft-name">evaluator.py</span>
+                <span class="ft-desc">The referee</span>
+              </div>
+              <div class="ft-file">
+                <span class="ft-name">dataset.py</span>
+                <span class="ft-desc">The kit manager</span>
+              </div>
+              <div class="ft-folder">
+                <span class="ft-name">model/</span>
+                <span class="ft-desc">The athlete: transformer.py, plus an older-style alternative in rnn.py</span>
+              </div>
+              <div class="ft-folder">
+                <span class="ft-name">envs/</span>
+                <span class="ft-desc">The rulebook, with one small file per task in ops/</span>
+              </div>
+              <div class="ft-file">
+                <span class="ft-name">optim.py, utils.py, logger.py, slurm.py</span>
+                <span class="ft-desc">Support staff: the optimiser, the experiment folder, the log, multi-machine runs</span>
+              </div>
+            </div>
+          </div>
+          <div class="ft-folder">
+            <span class="ft-name">data/</span>
+            <span class="ft-desc">The flashcard decks, zipped</span>
+          </div>
+          <div class="ft-folder">
+            <span class="ft-name">notebooks/</span>
+            <span class="ft-desc">Base.ipynb, the friendly way to launch runs</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The hiring, line by line</h2>
+        <p>This is the moment in <code>train.py</code> where the manager builds the team. The order matters: each new hire is handed the ones before it.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · train.py</span>
+            <pre><code><span class="code-line">    <span class="code-comment"># build environment / model / trainer / evaluator</span></span><span class="code-line">    env = <span class="code-function">build_env</span>(params)</span><span class="code-line">    use_torch_compile = params.use_torch_compile <span class="code-keyword">and not</span> params.cpu</span><span class="code-line">    model = <span class="code-function">build_model</span>(params)</span><span class="code-line">    <span class="code-comment"># NOTE: torch.compile seems less efficient than no compilation</span></span><span class="code-line">    <span class="code-keyword">if</span> use_torch_compile:</span><span class="code-line">        model = torch.<span class="code-function">compile</span>(model, dynamic=<span class="code-keyword">True</span>)</span><span class="code-line">    trainer = <span class="code-function">Trainer</span>(model, env, params)</span><span class="code-line">    evaluator = <span class="code-function">Evaluator</span>(trainer)</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">A note to human readers; the computer ignores it.</p>
+              <p class="tl">Write the rulebook for the chosen task. It comes first because it decides how many symbols exist.</p>
+              <p class="tl">Work out whether an optional speed-up is wanted and possible.</p>
+              <p class="tl">Build the athlete, sized according to the settings and the rulebook.</p>
+              <p class="tl">The author's own warning: the speed-up did not help when they tried it.</p>
+              <p class="tl">Apply the speed-up only if it was asked for.</p>
+              <p class="tl">Hire the coach and hand over the athlete, the rulebook and the settings.</p>
+              <p class="tl">Hire the referee and hand over the coach, so the referee can reach everything the coach holds.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">Separation of concerns</strong>
+            <p>Giving each piece one job is called <strong>separation of concerns</strong>. It is why you can swap the task without touching the model, or change the model without touching the scoring. When you ask an AI assistant for a change, name the piece: "change how answers are scored in the generator's evaluate function" gets a far better result than "fix the accuracy".</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Click a piece to see what it does</h2>
+
+        <div class="arch-diagram">
+          <div class="arch-zone">
+            <h4 class="arch-zone-label">Control</h4>
+            <div class="arch-component" data-desc="train.py parses the flags, creates the experiment folder, builds the other pieces, then loops: train until the epoch is full, evaluate, save.">
+              <div class="arch-icon">📋</div>
+              <span>train.py</span>
+            </div>
+            <div class="arch-component" data-desc="The Trainer owns the optimiser. Each step it fetches a batch, asks the model for a loss, and nudges the model's numbers. It also writes and reloads checkpoint files.">
+              <div class="arch-icon">📣</div>
+              <span>Trainer</span>
+            </div>
+            <div class="arch-component" data-desc="The Evaluator runs the model on the validation and test files without changing it, checks each answer with the rulebook, and returns a dictionary of scores.">
+              <div class="arch-icon">⚖️</div>
+              <span>Evaluator</span>
+            </div>
+          </div>
+          <div class="arch-zone">
+            <h4 class="arch-zone-label">Learning</h4>
+            <div class="arch-component" data-desc="The Model is a transformer with an encoder that reads the word and a decoder that writes the answer. The shipped run has 2,856,000 adjustable numbers.">
+              <div class="arch-icon">🏃</div>
+              <span>Model</span>
+            </div>
+          </div>
+          <div class="arch-zone">
+            <h4 class="arch-zone-label">Data</h4>
+            <div class="arch-component" data-desc="EnvDataset reads lines from a data file (or asks the task to invent examples), turns symbols into numbers, and pads them into equal-length batches.">
+              <div class="arch-icon">🧺</div>
+              <span>EnvDataset</span>
+            </div>
+            <div class="arch-component" data-desc="The Environment bundles a tokenizer for the problem, a tokenizer for the answer, and a generator that knows how to read a line and how to grade a prediction.">
+              <div class="arch-icon">📖</div>
+              <span>Environment</span>
+            </div>
+          </div>
+          <div class="arch-zone">
+            <h4 class="arch-zone-label">On disk</h4>
+            <div class="arch-component" data-desc="Plain text files, one example per line: the word, a tab, the integer. They ship zipped (.gz) and the notebook unzips them once.">
+              <div class="arch-icon">🗂️</div>
+              <span>data/ files</span>
+            </div>
+            <div class="arch-component" data-desc="One folder per run holding params.pkl (settings), train.log (the diary) and checkpoint.pth (the saved model).">
+              <div class="arch-icon">💾</div>
+              <span>Experiment folder</span>
+            </div>
+          </div>
+          <div class="arch-description">Click any component to learn what it does</div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">One epoch, as a group chat</h2>
+        <p>If the pieces could text each other, one round of training would read like this.</p>
+
+        <div class="chat-window" id="chat-module2">
+          <div class="chat-messages">
+            <div class="chat-message" data-msg="0" data-sender="manager" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">M</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">train.py</span>
+                <p>Epoch 0 starts. Trainer, keep stepping until you have seen 300,000 examples.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="1" data-sender="trainer" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-5)">T</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-5)">Trainer</span>
+                <p>EnvDataset, next batch please. 32 examples.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="2" data-sender="dataset" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">D</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">EnvDataset</span>
+                <p>Environment, here are 32 raw lines. What are they in your symbols?</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="3" data-sender="env" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-4)">E</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4)">Environment</span>
+                <p>Letters stay letters. -1216 becomes INT-, 1, 216. Here are the ID numbers for each symbol.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="4" data-sender="dataset" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">D</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">EnvDataset</span>
+                <p>Trainer, one batch, padded to equal length. Problems and answers.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="5" data-sender="trainer" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-5)">T</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-5)">Trainer</span>
+                <p>Model, read these problems and predict the answers.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="6" data-sender="model" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">A</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">Model</span>
+                <p>Done. My loss is 12.3. That was mostly guessing.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="7" data-sender="trainer" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-5)">T</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-5)">Trainer</span>
+                <p>Adjusting your numbers a little. Again. (This repeats thousands of times.)</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="8" data-sender="manager" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">M</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">train.py</span>
+                <p>Epoch is full. Evaluator, your turn.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="9" data-sender="evaluator" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-info)">R</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-info)">Evaluator</span>
+                <p>5,000 held-back cards checked with the rulebook. 11% correct.</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="10" data-sender="trainer" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-5)">T</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-5)">Trainer</span>
+                <p>Saved checkpoint.pth. Ready for epoch 1.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-typing" style="display:none">
+            <div class="chat-avatar" id="chat-module2-typing-avatar">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+
+        <p>The numbers in the chat are from the shipped run: 300,000 examples per epoch, batches of 32, a first logged loss of 12.3, and 11% after epoch 0.</p>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check your understanding</h2>
+        <p>Drag each request to the piece of code you would point an AI assistant at.</p>
+
+        <div class="dnd-container" id="dnd-module2">
+          <div class="dnd-chips">
+            <div class="dnd-chip" draggable="true" data-answer="env">Environment (src/envs/)</div>
+            <div class="dnd-chip" draggable="true" data-answer="trainer">Trainer</div>
+            <div class="dnd-chip" draggable="true" data-answer="evaluator">Evaluator</div>
+            <div class="dnd-chip" draggable="true" data-answer="model">Model (src/model/)</div>
+          </div>
+          <div class="dnd-zones">
+            <div class="dnd-zone" data-correct="trainer">
+              <p class="dnd-zone-label">"Save a checkpoint every 1,000 steps, not only at the end of an epoch."</p>
+              <div class="dnd-zone-target">Drop here</div>
+            </div>
+            <div class="dnd-zone" data-correct="env">
+              <p class="dnd-zone-label">"Add a new task where the answer is a fraction."</p>
+              <div class="dnd-zone-target">Drop here</div>
+            </div>
+            <div class="dnd-zone" data-correct="model">
+              <p class="dnd-zone-label">"Try a different kind of attention layer."</p>
+              <div class="dnd-zone-target">Drop here</div>
+            </div>
+            <div class="dnd-zone" data-correct="evaluator">
+              <p class="dnd-zone-label">"Also report accuracy separately for long and short answers."</p>
+              <div class="dnd-zone-target">Drop here</div>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="checkDnD('dnd-module2')">Check Matches</button>
+          <button class="btn" onclick="resetDnD('dnd-module2')">Reset</button>
+        </div>
+
+        <div class="quiz-container" id="quiz-module2">
+          <div class="quiz-question-block"
+               data-correct="b"
+               data-explanation-right="Yes. The Evaluator only reads the model. If training changed during evaluation, the exam would stop being a fair measurement."
+               data-explanation-wrong="Not quite. Think about the referee: it measures but never coaches. Only one piece is allowed to change the model's numbers.">
+            <h3 class="quiz-question">An AI assistant proposes a change in which the Evaluator also updates the model whenever it sees a wrong answer. Why should you push back?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>It would make evaluation slower</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The model would be learning from the held-back cards, so the score would no longer mean anything</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The Evaluator cannot reach the model</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="a"
+               data-explanation-right="Right. The model's size depends on how many symbols exist, and only the Environment knows that. So it has to be built first."
+               data-explanation-wrong="Not quite. Look again at the hiring order in train.py. One piece decides how many symbols exist, and the model needs that number.">
+            <h3 class="quiz-question">Someone reorders train.py so the model is built before the environment. The run crashes immediately. What is the most likely reason?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The model needs the number of symbols, which the Environment works out</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The data files are still zipped</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The Trainer was not told the batch size</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module2')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module2')">Try Again</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-3" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">03</span>
+      <h1 class="module-title">From letters to numbers</h1>
+      <p class="module-subtitle">A model can only do arithmetic. Follow one line of the data file as it is turned into something the model can read.</p>
+    </header>
+
+    <div class="module-body">
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The codebook</h2>
+        <p>A telegraph operator cannot send the word "storm". They look each letter up in a codebook and send the code. The receiver uses the same codebook to turn it back.</p>
+        <p>The project does the same thing in two steps. First it cuts the text into pieces called <span class="term" data-definition="A token is one unit the model reads or writes: here a single letter, a sign marker, or a chunk of digits. Tokenizing means cutting text into tokens.">tokens</span>. Then it replaces each token with its line number in a list called the <span class="term" data-definition="The vocabulary is the complete list of tokens the model knows. Each token has a fixed position in the list, and that position is its ID number.">vocabulary</span>.</p>
+
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <p>Raw text<br><code class="badge-code">abbabfafbd&nbsp;&nbsp;-16</code></p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <p>Tokens<br><code class="badge-code">a b b a … INT- 16</code></p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <p>ID numbers<br><code class="badge-code">1006 1007 … 1005 72</code></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">How an integer becomes tokens</h2>
+        <p>The letters are easy: one letter, one token. The answer needs a decision. The code writes the sign as its own token, then cuts the digits into chunks using a number <span class="term" data-definition="The base is how many different values one digit position can hold. Everyday numbers use base 10. With base 1000, each position holds a value from 0 to 999, so three everyday digits fit in one token.">base</span> of 1000.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · src/envs/tokenizers/integer.py</span>
+            <pre><code><span class="code-line">    <span class="code-keyword">def</span> <span class="code-function">encode</span>(self, value):</span><span class="code-line">        value = <span class="code-function">int</span>(value)</span><span class="code-line">        base = self.base</span><span class="code-line">        neg = value &lt; <span class="code-number">0</span></span><span class="code-line">        value = -value <span class="code-keyword">if</span> neg <span class="code-keyword">else</span> value</span><span class="code-line">        res = []</span><span class="code-line">        <span class="code-keyword">while</span> <span class="code-keyword">True</span>:</span><span class="code-line">            rem = value % base</span><span class="code-line">            value = value // base</span><span class="code-line">            res.<span class="code-function">append</span>(<span class="code-function">str</span>(rem))</span><span class="code-line">            <span class="code-keyword">if</span> value == <span class="code-number">0</span>:</span><span class="code-line">                <span class="code-keyword">break</span></span><span class="code-line">        tag = <span class="code-string">"INT-"</span> <span class="code-keyword">if</span> neg <span class="code-keyword">else</span> <span class="code-string">"INT+"</span></span><span class="code-line">        <span class="code-keyword">return</span> [tag] + res[::<span class="code-number">-1</span>]</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">A recipe named "encode" that takes one number.</p>
+              <p class="tl">Make sure it is a whole number.</p>
+              <p class="tl">Look up the base (1000 by default).</p>
+              <p class="tl">Remember whether the number is negative, then drop the minus sign.</p>
+              <p class="tl">Start an empty list of chunks.</p>
+              <p class="tl">Repeat: peel off the last three digits (the remainder after dividing by 1000) and keep what is left.</p>
+              <p class="tl">Store the chunk as text.</p>
+              <p class="tl">Stop once nothing is left.</p>
+              <p class="tl">Pick the sign token.</p>
+              <p class="tl">Hand back the sign followed by the chunks, biggest first.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="badge-list">
+          <div class="badge-item">
+            <code class="badge-code">288</code>
+            <span class="badge-desc">becomes <strong>INT+ 288</strong> (two tokens)</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">-16</code>
+            <span class="badge-desc">becomes <strong>INT- 16</strong> (two tokens)</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">-1216</code>
+            <span class="badge-desc">becomes <strong>INT- 1 216</strong> (three tokens)</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Building the vocabulary</h2>
+        <p>When the Environment is created, it collects every token the task could ever use and numbers them. This list is fixed before training starts.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · src/envs/environment.py</span>
+            <pre><code><span class="code-line">        all_symbols = <span class="code-function">set</span>()</span><span class="code-line">        all_symbols.<span class="code-function">update</span>(self.problem_tokenizer.symbols)</span><span class="code-line">        <span class="code-keyword">if</span> self.query_tokenizer <span class="code-keyword">is not</span> <span class="code-keyword">None</span>:</span><span class="code-line">            all_symbols.<span class="code-function">update</span>(self.query_tokenizer.symbols)</span><span class="code-line">        all_symbols.<span class="code-function">update</span>(self.answer_tokenizer.symbols)</span><span class="code-line">        self.words = SPECIAL_WORDS + <span class="code-function">sorted</span>(all_symbols)</span><span class="code-line">        self.id2word = {i: s <span class="code-keyword">for</span> i, s <span class="code-keyword">in</span> <span class="code-function">enumerate</span>(self.words)}</span><span class="code-line">        self.word2id = {s: i <span class="code-keyword">for</span> i, s <span class="code-keyword">in</span> self.id2word.<span class="code-function">items</span>()}</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Start an empty collection that ignores duplicates.</p>
+              <p class="tl">Add the problem's symbols: the letters a to f.</p>
+              <p class="tl">Some tasks also ask a question; this one does not, so these two lines are skipped.</p>
+              <p class="tl">Add the answer's symbols: INT+, INT- and the chunks 0 to 999.</p>
+              <p class="tl">Put four special tokens first, then everything else in sorted order.</p>
+              <p class="tl">Build a lookup from ID number to token...</p>
+              <p class="tl">...and the reverse lookup from token to ID number.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1)">🏷️</div>
+            <h4 class="pattern-title">4 special tokens</h4>
+            <p class="pattern-desc"><code>&lt;eos&gt;</code> end of sequence, <code>&lt;pad&gt;</code> filler, <code>&lt;query&gt;</code>, and <code>&lt;ans&gt;</code> "answer starts here". IDs 0 to 3.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2)">🔢</div>
+            <h4 class="pattern-title">1,002 answer tokens</h4>
+            <p class="pattern-desc">The chunks 0 to 999, plus INT+ and INT-.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-3)">
+            <div class="pattern-icon" style="background: var(--color-actor-3)">🔤</div>
+            <h4 class="pattern-title">6 letters</h4>
+            <p class="pattern-desc">a to f, which land at IDs 1006 to 1011.</p>
+          </div>
+        </div>
+
+        <p>That makes a vocabulary of <strong>1,012</strong> tokens. The model's first and last layers are sized to exactly this number.</p>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Follow one line into the model</h2>
+
+        <div class="flow-animation" data-steps='[
+          {"highlight":"flow-actor-1","label":"A line sits in 5.train: abbabfafbd, a tab, then -16"},
+          {"highlight":"flow-actor-2","label":"EnvDataset picks a line at random and splits it at the tab","packet":true,"from":"actor-1","to":"actor-2"},
+          {"highlight":"flow-actor-3","label":"It hands both halves to the task generator","packet":true,"from":"actor-2","to":"actor-3"},
+          {"highlight":"flow-actor-3","label":"The word becomes ten single letters. -16 becomes INT- and 16"},
+          {"highlight":"flow-actor-2","label":"The tokens go back to EnvDataset","packet":true,"from":"actor-3","to":"actor-2"},
+          {"highlight":"flow-actor-4","label":"Each token is looked up in the vocabulary: a is 1006, INT- is 1005, 16 is 72","packet":true,"from":"actor-2","to":"actor-4"},
+          {"highlight":"flow-actor-2","label":"32 examples are stacked into a grid. Short rows are filled with the pad ID","packet":true,"from":"actor-4","to":"actor-2"},
+          {"highlight":"flow-actor-5","label":"The grid of numbers is handed to the model","packet":true,"from":"actor-2","to":"actor-5"}
+        ]'>
+          <div class="flow-actors">
+            <div class="flow-actor" id="flow-actor-1">
+              <div class="flow-actor-icon">🗂️</div>
+              <span>Data file</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-2">
+              <div class="flow-actor-icon">🧺</div>
+              <span>EnvDataset</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-3">
+              <div class="flow-actor-icon">✂️</div>
+              <span>Generator</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-4">
+              <div class="flow-actor-icon">📖</div>
+              <span>Vocabulary</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-5">
+              <div class="flow-actor-icon">🏃</div>
+              <span>Model</span>
+            </div>
+          </div>
+
+          <div class="flow-packet"></div>
+
+          <div class="flow-step-label">Click "Next Step" to begin</div>
+
+          <div class="flow-controls">
+            <button class="btn flow-next-btn">Next Step</button>
+            <button class="btn flow-reset-btn">Restart</button>
+            <span class="flow-progress"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Why batches need padding</h2>
+        <p>The model processes a <span class="term" data-definition="A batch is a small group of examples processed together in one step. It is faster than one at a time and gives a steadier correction signal. Here the default batch size is 32.">batch</span> as a rectangular grid, so every row must have the same length. Answers have different lengths, so shorter rows are filled with <code>&lt;pad&gt;</code>.</p>
+
+        <div class="badge-list">
+          <div class="badge-item">
+            <code class="badge-code">&lt;eos&gt; &lt;ans&gt; INT- 1 216 &lt;eos&gt;</code>
+            <span class="badge-desc">The answer -1216, six positions</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">&lt;eos&gt; &lt;ans&gt; INT+ 288 &lt;eos&gt; &lt;pad&gt;</code>
+            <span class="badge-desc">The answer 288, one filler added to match</span>
+          </div>
+        </div>
+
+        <p>Notice that <code>&lt;eos&gt;</code> appears at both ends. This code uses the same token to mark the start and the end of a sequence.</p>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">🧭</div>
+          <div class="callout-content">
+            <strong class="callout-title">Padding must not count</strong>
+            <p>Filler positions carry no information, so the model must be neither rewarded nor punished for them. Module 4 shows the one line that tells the scoring to ignore the pad ID. Forgetting this is a classic bug in sequence models.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check your understanding</h2>
+        <div class="quiz-container" id="quiz-module3">
+
+          <div class="quiz-question-block"
+               data-correct="c"
+               data-explanation-right="Exactly. With base 10 the vocabulary shrinks to 22 tokens, but -1216 now takes five tokens. Smaller vocabulary, longer answers: that is the trade-off."
+               data-explanation-wrong="Not quite. The base only affects how integers are cut into chunks. Think about how many different chunks exist in base 10, and how many chunks -1216 needs.">
+            <h3 class="quiz-question">You rerun training with the flag --base 10. What changes?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The letters a to f are replaced by digits</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Nothing; the base is only used for display</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The vocabulary gets much smaller and each answer takes more tokens</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="a"
+               data-explanation-right="Right. The vocabulary is built once from the tokenizers. A letter the problem tokenizer was never told about has no ID, so the lookup fails. The fix belongs in the task definition, src/envs/ops/amplitudes.py."
+               data-explanation-wrong="Not quite. Think about the lookup step. What happens when the kit manager asks the vocabulary for a token that is not in the list?">
+            <h3 class="quiz-question">A new data file contains words with a seventh letter, g. Training crashes on the first batch. What is the most likely cause?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>g is not in the vocabulary, so it has no ID number to look up</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The model has too few layers for seven letters</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The batch size must be a multiple of the number of letters</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="b"
+               data-explanation-right="Yes. A checkpoint's first and last layers have one slot per vocabulary token. Change the base and the slots no longer line up with the tokens."
+               data-explanation-wrong="Not quite. Remember that the model's first and last layers are sized to the vocabulary. What happens to the vocabulary when the base changes?">
+            <h3 class="quiz-question">You trained a model with base 1000 and want to keep training the same checkpoint with base 100. Why will that not work?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Checkpoints can only be used once</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The vocabulary changes size, so the saved model no longer matches it</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Base 100 is not a valid setting</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module3')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module3')">Try Again</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-4" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">04</span>
+      <h1 class="module-title">The model and one learning step</h1>
+      <p class="module-subtitle">What is inside the transformer, how it is told it was wrong, and which settings change its size.</p>
+    </header>
+
+    <div class="module-body">
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">A mixing desk with 2.8 million sliders</h2>
+        <p>Picture a sound engineer at a mixing desk. The sound that comes out depends entirely on where the sliders sit. Training is the engineer listening, then nudging every slider a tiny amount towards a better sound.</p>
+        <p>The model's sliders are called <span class="term" data-definition="A parameter (or weight) is one adjustable number inside the model. Training changes these numbers; nothing else about the model changes. More parameters means a bigger model.">parameters</span>. The shipped run logs <code>Number of parameters: 2856000</code>.</p>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2)">👓</div>
+            <h4 class="pattern-title">Encoder: the reader</h4>
+            <p class="pattern-desc">Reads all the letters of the word at once and produces a set of internal notes about it.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1)">✍️</div>
+            <h4 class="pattern-title">Decoder: the writer</h4>
+            <p class="pattern-desc">Writes the answer one token at a time, consulting the reader's notes before each token.</p>
+          </div>
+        </div>
+
+        <p>This two-part design is the default, <code>encoder_decoder</code>. The <code>--architecture</code> flag also accepts <code>encoder_only</code> and <code>decoder_only</code>.</p>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">What one layer does</h2>
+        <p>The reader and the writer are each a stack of identical <span class="term" data-definition="A layer is one processing stage. Data passes through the layers in order, and each one refines the internal notes a little more. The n_enc_layers and n_dec_layers flags set how many there are.">layers</span>. Every layer runs the same short routine.</p>
+
+        <div class="step-cards">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>Self-attention: look at your neighbours</strong>
+              <p>Each position looks at every other position in its own sequence and decides which ones matter for it.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>Cross-attention: look at the reader's notes</strong>
+              <p>Writer layers only. Each answer position looks back at the encoded word.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>Feed-forward: think it over</strong>
+              <p>A small calculation applied to each position on its own, to digest what attention gathered.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · src/model/transformer.py</span>
+            <pre><code><span class="code-line">            attn_out = self.<span class="code-function">self_attn</span>(self.<span class="code-function">ln1</span>(x), mask=mask, kv_cache=self_attn_cache, first_loop=i == <span class="code-number">0</span>)</span><span class="code-line">            x = self.<span class="code-function">res1</span>(attn_out, x)</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Tidy the notes (<code>ln1</code> rescales them), then run self-attention on them. The <code>mask</code> says which positions may be looked at.</p>
+              <p class="tl">Add the result on top of the notes we started with, so nothing learned earlier is thrown away.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">Add, don't replace</strong>
+            <p>That second line is a <strong>residual connection</strong>: each stage adds its contribution to the running notes. It is what lets deep stacks of layers train at all, and you will find the same pattern in almost every modern neural network.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Predicting the next token</h2>
+        <p>During training the writer is shown the true answer and asked, at <strong>every</strong> position, "what comes next?". Take the answer &minus;1216. That is five separate predictions, made in one pass:</p>
+
+        <div class="badge-list">
+          <div class="badge-item">
+            <code class="badge-code">&lt;eos&gt;</code>
+            <span class="badge-desc">must predict <strong><code>&lt;ans&gt;</code></strong> (the answer starts here)</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">&lt;eos&gt; &lt;ans&gt;</code>
+            <span class="badge-desc">must predict <strong><code>INT-</code></strong> (the sign)</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">&lt;eos&gt; &lt;ans&gt; INT-</code>
+            <span class="badge-desc">must predict <strong><code>1</code></strong> (the thousands chunk)</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">&lt;eos&gt; &lt;ans&gt; INT- 1</code>
+            <span class="badge-desc">must predict <strong><code>216</code></strong> (the last chunk)</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">&lt;eos&gt; &lt;ans&gt; INT- 1 216</code>
+            <span class="badge-desc">must predict <strong><code>&lt;eos&gt;</code></strong> (the answer is finished, stop writing)</span>
+          </div>
+        </div>
+
+        <p>The middle three predictions are the number itself. A mask stops each position from peeking at the tokens to its right, so the writer cannot copy the answer. When the model is tested, the true answer is hidden: it writes one token at a time, feeds each one back in, and stops when it produces <code>&lt;eos&gt;</code>.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · src/model/base.py</span>
+            <pre><code><span class="code-line">        <span class="code-keyword">elif</span> self.architecture == <span class="code-string">"encoder_decoder"</span>:</span><span class="code-line">            src_enc, src_mask = self.<span class="code-function">_encode</span>(enc_problem, enc_problem_len)</span><span class="code-line">            dec_input = dec_tgt[:, :<span class="code-number">-1</span>]</span><span class="code-line">            logits = self.<span class="code-function">_decode_train</span>(task, dec_input, dec_tgt_len - <span class="code-number">1</span>, src_enc, src_mask)</span><span class="code-line">            targets = dec_tgt[:, <span class="code-number">1</span>:]</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">If the model has both a reader and a writer:</p>
+              <p class="tl">Let the reader encode the word. It returns its notes and a map of which positions are real rather than padding.</p>
+              <p class="tl">The writer's input is the answer with its last token removed.</p>
+              <p class="tl">Run the writer. It returns <span class="term" data-definition="Logits are the raw scores the model gives to every token in the vocabulary for one position. The highest score is its best guess.">logits</span>: a score for each of the 1,012 tokens, at every position.</p>
+              <p class="tl">The correct answers are the same sequence with its first token removed.</p>
+            </div>
+          </div>
+        </div>
+
+        <p>A few lines later the scores are compared with the targets to give one number, the <span class="term" data-definition="The loss is a single number measuring how wrong the predictions were on a batch. Lower is better. Training is the process of making this number go down.">loss</span>:</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · src/model/base.py</span>
+            <pre><code><span class="code-line">        loss = F.<span class="code-function">cross_entropy</span>(logits.<span class="code-function">reshape</span>(<span class="code-number">-1</span>, logits.<span class="code-function">size</span>(<span class="code-number">-1</span>)), targets.<span class="code-function">reshape</span>(<span class="code-number">-1</span>), ignore_index=self.pad_index)</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Measure how much score the model put on the wrong tokens, averaged over the batch. <code>ignore_index=self.pad_index</code> is the promise from Module 3: padding positions are left out.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Nudging the sliders</h2>
+        <p>Once the Trainer has the loss, it runs the same few lines after every batch.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · src/trainer.py</span>
+            <pre><code><span class="code-line">        self.scaler.<span class="code-function">scale</span>(loss).<span class="code-function">backward</span>()</span><span class="code-line"> </span><span class="code-line">        <span class="code-keyword">if</span> self.params.clip_grad_norm &gt; <span class="code-number">0</span>:</span><span class="code-line">            self.scaler.<span class="code-function">unscale_</span>(self.optimizer)</span><span class="code-line">            <span class="code-function">clip_grad_norm_</span>(<span class="code-function">_unwrap_model</span>(self.model).<span class="code-function">parameters</span>(), self.params.clip_grad_norm)</span><span class="code-line"> </span><span class="code-line">        self.scaler.<span class="code-function">step</span>(self.optimizer)</span><span class="code-line">        self.scaler.<span class="code-function">update</span>()</span><span class="code-line">        self.optimizer.<span class="code-function">zero_grad</span>(set_to_none=<span class="code-keyword">True</span>)</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Work out, for every slider, which direction would have reduced the loss. That set of directions is the <span class="term" data-definition="The gradient says, for each parameter, which way and how strongly to change it to reduce the loss. Computing it is called backpropagation, which is what .backward() does.">gradient</span>.</p>
+              <p class="tl">If a limit is set (the default is 5), shrink any oversized nudge so one odd batch cannot wreck the model.</p>
+              <p class="tl">Move every slider a small step. The <span class="term" data-definition="The optimizer is the rule for turning gradients into actual changes to the parameters. This project defaults to one called Adam.">optimizer</span> decides exactly how far.</p>
+              <p class="tl">Housekeeping for an optional speed mode.</p>
+              <p class="tl">Wipe the directions clean, ready for the next batch.</p>
+            </div>
+          </div>
+        </div>
+
+        <p>How far "a small step" goes is set by the <span class="term" data-definition="The learning rate is the size of each adjustment. Too large and the model overshoots and never settles; too small and training crawls.">learning rate</span>. Here it is written inside the optimizer setting: <code>adam,lr=0.0001</code>.</p>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The settings that shape the model</h2>
+        <p>These are the flags you are most likely to change, with their defaults from <code>train.py</code>.</p>
+
+        <div class="badge-list">
+          <div class="badge-item">
+            <code class="badge-code">--n_enc_layers 4</code>
+            <span class="badge-desc">How many layers the reader has. <code>--n_dec_layers</code> does the same for the writer.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">--enc_emb_dim 256</code>
+            <span class="badge-desc">How many numbers of notes each position carries. Wider notes mean many more parameters.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">--n_enc_heads 8</code>
+            <span class="badge-desc">How many separate "looks" attention takes at once. <code>enc_emb_dim</code> must be a multiple of this (each head gets an equal slice: 256 / 8 = 32 numbers).</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">--batch_size 32</code>
+            <span class="badge-desc">How many examples are processed per step.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">--optimizer adam,lr=0.0001</code>
+            <span class="badge-desc">The update rule and its learning rate.</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">--model_type transformer</code>
+            <span class="badge-desc">Can also be <code>lstm</code> or <code>gru</code>, two older designs kept for comparison.</span>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">🧭</div>
+          <div class="callout-content">
+            <strong class="callout-title">The shipped run is smaller than the defaults</strong>
+            <p>It used 2 layers on each side and a width of 200. The notebook examples go smaller still (1 or 2 layers, width 128) so they finish in minutes on a laptop.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check your understanding</h2>
+        <div class="quiz-container" id="quiz-module4">
+
+          <div class="quiz-question-block"
+               data-correct="b"
+               data-explanation-right="Right. The code checks before building anything that the width divides evenly by the number of heads. 130 / 8 is not a whole number, so the check stops the run. 128 or 136 would pass."
+               data-explanation-wrong="Not quite. Look at the note beside --n_enc_heads in the settings list: the width has to divide evenly by the number of heads.">
+            <h3 class="quiz-question">You set 'enc_emb_dim' and 'dec_emb_dim' to 130 and leave everything else at its default. The run stops before training begins. Why?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>130 is too small for a vocabulary of 1,012 tokens</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>130 does not divide evenly by the 8 attention heads</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The data file has to be re-zipped first</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="c"
+               data-explanation-right="Exactly. The notebook's own comment says a learning rate of 0.01 does not learn while 0.001 does. Steps that are too large keep overshooting."
+               data-explanation-wrong="Not quite. A loss that refuses to come down from the very first steps usually points at the step size, not at the model's size or the data.">
+            <h3 class="quiz-question">You change the optimizer setting to adam,lr=0.01 hoping to train faster. The loss stays high and never comes down. What is the first thing to try?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Add more layers</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Use a bigger data file</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Lower the learning rate again</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="a"
+               data-explanation-right="Yes. Without ignore_index the model would be graded on predicting filler, and since filler is easy to predict the loss would look better than the model really is."
+               data-explanation-wrong="Not quite. Think about what the padding positions contain and whether predicting them says anything about the task.">
+            <h3 class="quiz-question">An AI assistant "simplifies" the loss line by removing ignore_index=self.pad_index. Training still runs. What has gone wrong?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The model is now also graded on predicting padding, which distorts the loss</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Nothing; that argument was decorative</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The model can no longer read the letters a to f</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module4')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module4')">Try Again</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-5" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">05</span>
+      <h1 class="module-title">Scoring, saving and debugging</h1>
+      <p class="module-subtitle">How an answer is graded, what the real numbers say, how a run survives a crash, and what to check when training misbehaves.</p>
+    </header>
+
+    <div class="module-body">
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Marking with partial credit</h2>
+        <p>A good maths teacher does not only write "wrong". They note whether the size of the answer was right and only the sign slipped. This project grades the same way.</p>
+        <p>At evaluation time the model writes its answer alone, token by token, until it produces <code>&lt;eos&gt;</code>. The tokens are turned back into an integer and passed to this function.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · src/envs/generators/amplitudes.py</span>
+            <pre><code><span class="code-line">    <span class="code-keyword">def</span> <span class="code-function">evaluate</span>(self, problem, question, answer, hyp, metrics):</span><span class="code-line">        <span class="code-keyword">if</span> hyp <span class="code-keyword">is</span> <span class="code-keyword">None</span>:</span><span class="code-line">            <span class="code-keyword">return</span> {<span class="code-string">"is_valid"</span>: <span class="code-number">-1</span>}</span><span class="code-line">        <span class="code-keyword">if</span> hyp == answer:</span><span class="code-line">            <span class="code-keyword">return</span> {<span class="code-string">"is_valid"</span>: <span class="code-number">1</span>, <span class="code-string">"correct_sign"</span>:<span class="code-number">1</span>, <span class="code-string">"correct_module"</span>: <span class="code-number">1</span>}</span><span class="code-line">        same_sign = (hyp * answer &gt; <span class="code-number">0</span>)</span><span class="code-line">        same_module = (<span class="code-function">abs</span>(hyp) == <span class="code-function">abs</span>(answer))</span><span class="code-line">        res = {<span class="code-string">"is_valid"</span>: <span class="code-number">0</span>}</span><span class="code-line">        res[<span class="code-string">"correct_sign"</span>]= <span class="code-number">1</span> <span class="code-keyword">if</span> same_sign <span class="code-keyword">else</span> <span class="code-number">0</span></span><span class="code-line">        res[<span class="code-string">"correct_module"</span>]= <span class="code-number">1</span> <span class="code-keyword">if</span> same_module <span class="code-keyword">else</span> <span class="code-number">0</span></span><span class="code-line">        <span class="code-keyword">return</span> res</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Grade one prediction (<code>hyp</code>, short for hypothesis) against the true <code>answer</code>.</p>
+              <p class="tl">If the model's tokens could not be read as a number at all, mark it malformed (-1).</p>
+              <p class="tl">If it matches exactly, full marks on everything.</p>
+              <p class="tl">Otherwise: do the two numbers have the same sign? (Their product is positive only if they do.)</p>
+              <p class="tl">Do they have the same size once the sign is ignored?</p>
+              <p class="tl">Record it as wrong overall...</p>
+              <p class="tl">...but note separately whether the sign was right...</p>
+              <p class="tl">...and whether the size was right.</p>
+              <p class="tl">Hand the marks back.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">What the shipped run actually scored</h2>
+        <p>These are the validation scores after the last epoch (50) in <code>checkpoint/train.log</code>.</p>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1)">🎯</div>
+            <h4 class="pattern-title">70.3%</h4>
+            <p class="pattern-desc"><strong>Exactly right.</strong> Logged as <code>acc</code>.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-5)">
+            <div class="pattern-icon" style="background: var(--color-actor-5)">📏</div>
+            <h4 class="pattern-title">95.1%</h4>
+            <p class="pattern-desc"><strong>Size right.</strong> Logged as <code>avg_correct_module</code>.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-4)">
+            <div class="pattern-icon" style="background: var(--color-actor-4)">➕</div>
+            <h4 class="pattern-title">72.9%</h4>
+            <p class="pattern-desc"><strong>Sign right.</strong> Logged as <code>avg_correct_sign</code>.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2)">✅</div>
+            <h4 class="pattern-title">100%</h4>
+            <p class="pattern-desc"><strong>Readable as a number.</strong> Logged as <code>well_formed</code>.</p>
+          </div>
+        </div>
+
+        <p>So the model nearly always gets the size of the coefficient. Most of its mistakes are a wrong sign on an otherwise correct number. The single accuracy number hides that; the partial-credit marks reveal it.</p>
+
+        <p>The log also splits accuracy by whether the true answer is positive or negative. Watch what happens across four epochs:</p>
+
+        <div class="badge-list">
+          <div class="badge-item">
+            <code class="badge-code">epoch 47</code>
+            <span class="badge-desc">positive answers <strong>93.5%</strong> · negative answers <strong>45.8%</strong></span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">epoch 48</code>
+            <span class="badge-desc">positive answers <strong>41.6%</strong> · negative answers <strong>94.9%</strong></span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">epoch 49</code>
+            <span class="badge-desc">positive answers <strong>93.6%</strong> · negative answers <strong>44.0%</strong></span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">epoch 50</code>
+            <span class="badge-desc">positive answers <strong>72.4%</strong> · negative answers <strong>68.2%</strong></span>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">One number is never the whole story</strong>
+            <p>Overall accuracy sat near 70% in all four epochs, yet underneath the model was flipping between favouring plus and favouring minus. Whenever a score looks stable, ask for it to be broken down by category. This habit catches more problems than any other.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Save points</h2>
+        <p>After every epoch the Trainer writes a <span class="term" data-definition="A checkpoint is a file holding everything needed to continue a run: the model's parameters, the optimizer's state, the epoch number and the best scores so far.">checkpoint</span>. When a run starts, the first thing the Trainer does is look for one.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · src/trainer.py</span>
+            <pre><code><span class="code-line">        auto_path = os.path.<span class="code-function">join</span>(self.params.dump_path, <span class="code-string">"checkpoint.pth"</span>)</span><span class="code-line">        <span class="code-keyword">if</span> os.path.<span class="code-function">isfile</span>(auto_path):</span><span class="code-line">            checkpoint_path = auto_path</span><span class="code-line">        <span class="code-keyword">elif</span> self.params.reload_checkpoint != <span class="code-string">""</span>:</span><span class="code-line">            checkpoint_path = self.params.reload_checkpoint</span><span class="code-line">            <span class="code-keyword">assert</span> os.path.<span class="code-function">isfile</span>(checkpoint_path)</span><span class="code-line">        <span class="code-keyword">else</span>:</span><span class="code-line">            <span class="code-keyword">return</span></span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Work out where this run's own checkpoint would be.</p>
+              <p class="tl">If one is already there, the run was interrupted earlier. Use it.</p>
+              <p class="tl">Otherwise, if you named a checkpoint with <code>--reload_checkpoint</code>, use that one...</p>
+              <p class="tl">...and stop with an error if the file does not exist.</p>
+              <p class="tl">Otherwise there is nothing to reload. Start from scratch.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="icon-rows">
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-5)">💾</div>
+            <div>
+              <strong>checkpoint.pth</strong>
+              <p>Rewritten at the end of every epoch. The "continue from here" file.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-4)">🏆</div>
+            <div>
+              <strong>best-&lt;metric&gt;.pth</strong>
+              <p>Written only when a score you listed in <code>--validation_metrics</code> beats its previous best.</p>
+            </div>
+          </div>
+          <div class="icon-row">
+            <div class="icon-circle" style="background: var(--color-actor-1)">🚨</div>
+            <div>
+              <strong>checkpoint_nan.pth</strong>
+              <p>Written if the loss stops being a number. The run then exits so you can inspect what happened.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">When training misbehaves</h2>
+        <p>Four symptoms cover most bad runs. The first two come with the author's own notes from the notebook.</p>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1)">📉</div>
+            <h4 class="pattern-title">Training loss falls, test loss rises</h4>
+            <p class="pattern-desc">The model is memorising. This is <span class="term" data-definition="Overfitting is when a model learns the training examples by heart and does worse on new ones. More data or a smaller model are the usual cures.">overfitting</span>. The notebook sees it with 5,000 examples and almost none with 20,000.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-4)">
+            <div class="pattern-icon" style="background: var(--color-actor-4)">🪨</div>
+            <h4 class="pattern-title">Loss never comes down</h4>
+            <p class="pattern-desc">Suspect the learning rate first. The notebook notes that 0.01 does not learn and 0.001 does.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-3)">
+            <div class="pattern-icon" style="background: var(--color-actor-3)">🛑</div>
+            <h4 class="pattern-title">Stops at once with AssertionError</h4>
+            <p class="pattern-desc">A sanity check failed before training: a missing file, a width that does not divide by the heads, or a task name that does not match.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2)">🔁</div>
+            <h4 class="pattern-title">A "new" run resumes an old one</h4>
+            <p class="pattern-desc">The experiment folder already held a <code>checkpoint.pth</code>, so the Trainer reloaded it. Use a fresh <code>--exp_id</code>.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-content">
+            <strong class="callout-title">Two easy mistakes with the data flags</strong>
+            <p>The files in <code>data/</code> ship zipped and the loader reads plain text, so they must be unzipped first (the notebook's first cell does this). And <code>reload_data</code> needs the task name in front: <code>amplitude:../data/5.train</code>, not just the path.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check your understanding</h2>
+        <div class="quiz-container" id="quiz-module5">
+
+          <div class="quiz-question-block"
+               data-correct="b"
+               data-explanation-right="Exactly. With size right 95% of the time and sign right only 73%, the sign is where the model is weak. Breaking the score down told you where to spend your effort."
+               data-explanation-wrong="Not quite. Compare the two partial-credit numbers: one is near 95%, the other near 73%. Which part of the answer is the model struggling with?">
+            <h3 class="quiz-question">Based on the shipped run's scores, where would extra effort most likely improve accuracy?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Making the model write well-formed numbers</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Helping the model predict the sign</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Helping the model predict the size of the number</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="a"
+               data-explanation-right="Right. The Trainer found the old checkpoint.pth in the experiment folder and carried on from it, including its old model size. A new exp_id gives a clean folder."
+               data-explanation-wrong="Not quite. Think about the first thing the Trainer does when it starts, and what was already sitting in the folder.">
+            <h3 class="quiz-question">You rerun an experiment with the same exp_name and exp_id but a different number of layers. It fails while loading, complaining that the saved model does not match. Why?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The folder already contains a checkpoint from the earlier run, and the Trainer tried to reload it</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The number of layers cannot be changed after the first run</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The data file was modified</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="c"
+               data-explanation-right="Yes. A widening gap between training and test loss is the signature of overfitting, and the notebook's own experiment shows more examples closing that gap."
+               data-explanation-wrong="Not quite. The model is doing well on what it studied and badly on new cards. Which change gives it less to memorise and more to generalise from?">
+            <h3 class="quiz-question">On a small data file, training loss keeps falling while test loss starts climbing. What is the most sensible next step?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Train for many more epochs</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Make the model bigger</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Give it more training examples</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="b"
+               data-explanation-right="Exactly. Grading belongs to the task, so it lives in the generator's evaluate function. The Evaluator will pick up any new mark you return and average it for you."
+               data-explanation-wrong="Not quite. Remember separation of concerns from Module 2. Which piece knows what a correct answer looks like for this particular task?">
+            <h3 class="quiz-question">You want a new mark: "the prediction is within 10% of the true value". Where should you ask an AI assistant to add it?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>In the transformer's layer code</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>In the evaluate function of the amplitude generator</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>In the Trainer's optimize step</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module5')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module5')">Try Again</button>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">What you can now say out loud</h2>
+        <p>You have the vocabulary to direct changes to this code precisely.</p>
+
+        <div class="step-cards">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>"Add a flag for..."</strong>
+              <p>Every setting is a flag defined in <code>train.py</code>'s parser.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>"Change the tokenizer so that..."</strong>
+              <p>How text becomes tokens lives in <code>src/envs/tokenizers/</code>, and it sets the vocabulary size.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>"Report this metric broken down by..."</strong>
+              <p>Marks come from the generator's <code>evaluate</code>; the Evaluator averages and logs them.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <strong>"Is this overfitting, or is the learning rate wrong?"</strong>
+              <p>Compare training loss with validation loss in <code>train.log</code> before changing anything.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+  </main>
+
+</body>
+</html>

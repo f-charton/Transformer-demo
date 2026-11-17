@@ -1,0 +1,271 @@
+<section class="module" id="module-3" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">03</span>
+      <h1 class="module-title">From letters to numbers</h1>
+      <p class="module-subtitle">A model can only do arithmetic. Follow one line of the data file as it is turned into something the model can read.</p>
+    </header>
+
+    <div class="module-body">
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The codebook</h2>
+        <p>A telegraph operator cannot send the word "storm". They look each letter up in a codebook and send the code. The receiver uses the same codebook to turn it back.</p>
+        <p>The project does the same thing in two steps. First it cuts the text into pieces called <span class="term" data-definition="A token is one unit the model reads or writes: here a single letter, a sign marker, or a chunk of digits. Tokenizing means cutting text into tokens.">tokens</span>. Then it replaces each token with its line number in a list called the <span class="term" data-definition="The vocabulary is the complete list of tokens the model knows. Each token has a fixed position in the list, and that position is its ID number.">vocabulary</span>.</p>
+
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <p>Raw text<br><code class="badge-code">abbabfafbd&nbsp;&nbsp;-16</code></p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <p>Tokens<br><code class="badge-code">a b b a … INT- 16</code></p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <p>ID numbers<br><code class="badge-code">1006 1007 … 1005 72</code></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">How an integer becomes tokens</h2>
+        <p>The letters are easy: one letter, one token. The answer needs a decision. The code writes the sign as its own token, then cuts the digits into chunks using a number <span class="term" data-definition="The base is how many different values one digit position can hold. Everyday numbers use base 10. With base 1000, each position holds a value from 0 to 999, so three everyday digits fit in one token.">base</span> of 1000.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · src/envs/tokenizers/integer.py</span>
+            <pre><code><span class="code-line">    <span class="code-keyword">def</span> <span class="code-function">encode</span>(self, value):</span><span class="code-line">        value = <span class="code-function">int</span>(value)</span><span class="code-line">        base = self.base</span><span class="code-line">        neg = value &lt; <span class="code-number">0</span></span><span class="code-line">        value = -value <span class="code-keyword">if</span> neg <span class="code-keyword">else</span> value</span><span class="code-line">        res = []</span><span class="code-line">        <span class="code-keyword">while</span> <span class="code-keyword">True</span>:</span><span class="code-line">            rem = value % base</span><span class="code-line">            value = value // base</span><span class="code-line">            res.<span class="code-function">append</span>(<span class="code-function">str</span>(rem))</span><span class="code-line">            <span class="code-keyword">if</span> value == <span class="code-number">0</span>:</span><span class="code-line">                <span class="code-keyword">break</span></span><span class="code-line">        tag = <span class="code-string">"INT-"</span> <span class="code-keyword">if</span> neg <span class="code-keyword">else</span> <span class="code-string">"INT+"</span></span><span class="code-line">        <span class="code-keyword">return</span> [tag] + res[::<span class="code-number">-1</span>]</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">A recipe named "encode" that takes one number.</p>
+              <p class="tl">Make sure it is a whole number.</p>
+              <p class="tl">Look up the base (1000 by default).</p>
+              <p class="tl">Remember whether the number is negative, then drop the minus sign.</p>
+              <p class="tl">Start an empty list of chunks.</p>
+              <p class="tl">Repeat: peel off the last three digits (the remainder after dividing by 1000) and keep what is left.</p>
+              <p class="tl">Store the chunk as text.</p>
+              <p class="tl">Stop once nothing is left.</p>
+              <p class="tl">Pick the sign token.</p>
+              <p class="tl">Hand back the sign followed by the chunks, biggest first.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="badge-list">
+          <div class="badge-item">
+            <code class="badge-code">288</code>
+            <span class="badge-desc">becomes <strong>INT+ 288</strong> (two tokens)</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">-16</code>
+            <span class="badge-desc">becomes <strong>INT- 16</strong> (two tokens)</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">-1216</code>
+            <span class="badge-desc">becomes <strong>INT- 1 216</strong> (three tokens)</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Building the vocabulary</h2>
+        <p>When the Environment is created, it collects every token the task could ever use and numbers them. This list is fixed before training starts.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE · src/envs/environment.py</span>
+            <pre><code><span class="code-line">        all_symbols = <span class="code-function">set</span>()</span><span class="code-line">        all_symbols.<span class="code-function">update</span>(self.problem_tokenizer.symbols)</span><span class="code-line">        <span class="code-keyword">if</span> self.query_tokenizer <span class="code-keyword">is not</span> <span class="code-keyword">None</span>:</span><span class="code-line">            all_symbols.<span class="code-function">update</span>(self.query_tokenizer.symbols)</span><span class="code-line">        all_symbols.<span class="code-function">update</span>(self.answer_tokenizer.symbols)</span><span class="code-line">        self.words = SPECIAL_WORDS + <span class="code-function">sorted</span>(all_symbols)</span><span class="code-line">        self.id2word = {i: s <span class="code-keyword">for</span> i, s <span class="code-keyword">in</span> <span class="code-function">enumerate</span>(self.words)}</span><span class="code-line">        self.word2id = {s: i <span class="code-keyword">for</span> i, s <span class="code-keyword">in</span> self.id2word.<span class="code-function">items</span>()}</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Start an empty collection that ignores duplicates.</p>
+              <p class="tl">Add the problem's symbols: the letters a to f.</p>
+              <p class="tl">Some tasks also ask a question; this one does not, so these two lines are skipped.</p>
+              <p class="tl">Add the answer's symbols: INT+, INT- and the chunks 0 to 999.</p>
+              <p class="tl">Put four special tokens first, then everything else in sorted order.</p>
+              <p class="tl">Build a lookup from ID number to token...</p>
+              <p class="tl">...and the reverse lookup from token to ID number.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1)">🏷️</div>
+            <h4 class="pattern-title">4 special tokens</h4>
+            <p class="pattern-desc"><code>&lt;eos&gt;</code> end of sequence, <code>&lt;pad&gt;</code> filler, <code>&lt;query&gt;</code>, and <code>&lt;ans&gt;</code> "answer starts here". IDs 0 to 3.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2)">🔢</div>
+            <h4 class="pattern-title">1,002 answer tokens</h4>
+            <p class="pattern-desc">The chunks 0 to 999, plus INT+ and INT-.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-3)">
+            <div class="pattern-icon" style="background: var(--color-actor-3)">🔤</div>
+            <h4 class="pattern-title">6 letters</h4>
+            <p class="pattern-desc">a to f, which land at IDs 1006 to 1011.</p>
+          </div>
+        </div>
+
+        <p>That makes a vocabulary of <strong>1,012</strong> tokens. The model's first and last layers are sized to exactly this number.</p>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Follow one line into the model</h2>
+
+        <div class="flow-animation" data-steps='[
+          {"highlight":"flow-actor-1","label":"A line sits in 5.train: abbabfafbd, a tab, then -16"},
+          {"highlight":"flow-actor-2","label":"EnvDataset picks a line at random and splits it at the tab","packet":true,"from":"actor-1","to":"actor-2"},
+          {"highlight":"flow-actor-3","label":"It hands both halves to the task generator","packet":true,"from":"actor-2","to":"actor-3"},
+          {"highlight":"flow-actor-3","label":"The word becomes ten single letters. -16 becomes INT- and 16"},
+          {"highlight":"flow-actor-2","label":"The tokens go back to EnvDataset","packet":true,"from":"actor-3","to":"actor-2"},
+          {"highlight":"flow-actor-4","label":"Each token is looked up in the vocabulary: a is 1006, INT- is 1005, 16 is 72","packet":true,"from":"actor-2","to":"actor-4"},
+          {"highlight":"flow-actor-2","label":"32 examples are stacked into a grid. Short rows are filled with the pad ID","packet":true,"from":"actor-4","to":"actor-2"},
+          {"highlight":"flow-actor-5","label":"The grid of numbers is handed to the model","packet":true,"from":"actor-2","to":"actor-5"}
+        ]'>
+          <div class="flow-actors">
+            <div class="flow-actor" id="flow-actor-1">
+              <div class="flow-actor-icon">🗂️</div>
+              <span>Data file</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-2">
+              <div class="flow-actor-icon">🧺</div>
+              <span>EnvDataset</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-3">
+              <div class="flow-actor-icon">✂️</div>
+              <span>Generator</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-4">
+              <div class="flow-actor-icon">📖</div>
+              <span>Vocabulary</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-5">
+              <div class="flow-actor-icon">🏃</div>
+              <span>Model</span>
+            </div>
+          </div>
+
+          <div class="flow-packet"></div>
+
+          <div class="flow-step-label">Click "Next Step" to begin</div>
+
+          <div class="flow-controls">
+            <button class="btn flow-next-btn">Next Step</button>
+            <button class="btn flow-reset-btn">Restart</button>
+            <span class="flow-progress"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Why batches need padding</h2>
+        <p>The model processes a <span class="term" data-definition="A batch is a small group of examples processed together in one step. It is faster than one at a time and gives a steadier correction signal. Here the default batch size is 32.">batch</span> as a rectangular grid, so every row must have the same length. Answers have different lengths, so shorter rows are filled with <code>&lt;pad&gt;</code>.</p>
+
+        <div class="badge-list">
+          <div class="badge-item">
+            <code class="badge-code">&lt;eos&gt; &lt;ans&gt; INT- 1 216 &lt;eos&gt;</code>
+            <span class="badge-desc">The answer -1216, six positions</span>
+          </div>
+          <div class="badge-item">
+            <code class="badge-code">&lt;eos&gt; &lt;ans&gt; INT+ 288 &lt;eos&gt; &lt;pad&gt;</code>
+            <span class="badge-desc">The answer 288, one filler added to match</span>
+          </div>
+        </div>
+
+        <p>Notice that <code>&lt;eos&gt;</code> appears at both ends. This code uses the same token to mark the start and the end of a sequence.</p>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">🧭</div>
+          <div class="callout-content">
+            <strong class="callout-title">Padding must not count</strong>
+            <p>Filler positions carry no information, so the model must be neither rewarded nor punished for them. Module 4 shows the one line that tells the scoring to ignore the pad ID. Forgetting this is a classic bug in sequence models.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check your understanding</h2>
+        <div class="quiz-container" id="quiz-module3">
+
+          <div class="quiz-question-block"
+               data-correct="c"
+               data-explanation-right="Exactly. With base 10 the vocabulary shrinks to 22 tokens, but -1216 now takes five tokens. Smaller vocabulary, longer answers: that is the trade-off."
+               data-explanation-wrong="Not quite. The base only affects how integers are cut into chunks. Think about how many different chunks exist in base 10, and how many chunks -1216 needs.">
+            <h3 class="quiz-question">You rerun training with the flag --base 10. What changes?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The letters a to f are replaced by digits</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Nothing; the base is only used for display</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The vocabulary gets much smaller and each answer takes more tokens</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="a"
+               data-explanation-right="Right. The vocabulary is built once from the tokenizers. A letter the problem tokenizer was never told about has no ID, so the lookup fails. The fix belongs in the task definition, src/envs/ops/amplitudes.py."
+               data-explanation-wrong="Not quite. Think about the lookup step. What happens when the kit manager asks the vocabulary for a token that is not in the list?">
+            <h3 class="quiz-question">A new data file contains words with a seventh letter, g. Training crashes on the first batch. What is the most likely cause?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>g is not in the vocabulary, so it has no ID number to look up</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The model has too few layers for seven letters</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The batch size must be a multiple of the number of letters</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="b"
+               data-explanation-right="Yes. A checkpoint's first and last layers have one slot per vocabulary token. Change the base and the slots no longer line up with the tokens."
+               data-explanation-wrong="Not quite. Remember that the model's first and last layers are sized to the vocabulary. What happens to the vocabulary when the base changes?">
+            <h3 class="quiz-question">You trained a model with base 1000 and want to keep training the same checkpoint with base 100. Why will that not work?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Checkpoints can only be used once</span>
+              </button>
+              <button class="quiz-option" data-value="b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The vocabulary changes size, so the saved model no longer matches it</span>
+              </button>
+              <button class="quiz-option" data-value="c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Base 100 is not a valid setting</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module3')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module3')">Try Again</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
