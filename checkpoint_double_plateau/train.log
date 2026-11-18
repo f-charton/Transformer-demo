@@ -1,0 +1,1632 @@
+INFO - 11/17/26 17:17:47 - 0:00:00 - ============ Initialized logger ============
+INFO - 11/17/26 17:17:47 - 0:00:00 - activation: gelu
+                                     amp: False
+                                     architecture: encoder_decoder
+                                     attention_dropout: 0
+                                     base: 1000
+                                     batch_size: 64
+                                     batch_size_eval: 1000
+                                     beam_eval: False
+                                     beam_length_penalty: 1
+                                     beam_size: 1
+                                     clip_grad_norm: 5
+                                     command: run_cfg.py '.' . B '{"n_enc_layers":2,"n_dec_layers":2,"enc_emb_dim":256,"dec_emb_dim":256,"optimizer":"adam,lr=0.0003"}' --exp_id run
+                                     cpu: False
+                                     dec_emb_dim: 256
+                                     dec_gated: False
+                                     dec_loop_idx: -1
+                                     dec_loops: 1
+                                     dec_pos_emb: abs_learned
+                                     decouple_cpu_gpu: False
+                                     device: mps
+                                     dropout: 0
+                                     dump_path: ./checkpoint_double_plateau
+                                     enc_emb_dim: 256
+                                     enc_gated: False
+                                     enc_loop_idx: -1
+                                     enc_loops: 1
+                                     enc_pos_emb: abs_learned
+                                     env_base_seed: -1
+                                     epoch_size: 100000
+                                     eval_data: ./data/5.valid
+                                     eval_from_exp: 
+                                     eval_only: False
+                                     eval_size: -1
+                                     eval_verbose: 0
+                                     exp_id: run
+                                     exp_name: B
+                                     export_data: False
+                                     first_class_prob: 0.5
+                                     first_class_size: 0
+                                     gate_bias: 0
+                                     gated: False
+                                     global_rank: 0
+                                     index_dataset: False
+                                     is_master: True
+                                     local_rank: 0
+                                     max_epoch: 100000
+                                     max_examples: -1
+                                     max_len: 256
+                                     max_output_len: 512
+                                     max_src_len: 0
+                                     metrics_eval: 
+                                     model_type: transformer
+                                     multi_gpu: False
+                                     n_dec_heads: 8
+                                     n_dec_hidden_layers: 1
+                                     n_dec_layers: 2
+                                     n_enc_heads: 8
+                                     n_enc_hidden_layers: 1
+                                     n_enc_layers: 2
+                                     n_gpu_per_node: 1
+                                     norm: layernorm
+                                     num_workers: 12
+                                     optimizer: adam,lr=0.0003
+                                     process_pool: False
+                                     reload_checkpoint: 
+                                     reload_data: amplitude:./data/5.train
+                                     reload_size: -1
+                                     report_loss_every: 200
+                                     scalar_gate: False
+                                     share_inout_emb: True
+                                     stopping_criterion: 
+                                     task: amplitude
+                                     temperature: 1.0
+                                     top_k: 0
+                                     top_p: 1.0
+                                     two_classes: False
+                                     use_torch_compile: False
+                                     validation_metrics: 
+                                     world_size: 1
+INFO - 11/17/26 17:17:47 - 0:00:00 - The experiment will be stored in ./checkpoint_double_plateau
+                                     
+INFO - 11/17/26 17:17:47 - 0:00:00 - Running command: run_cfg.py '.' . B '{"n_enc_layers":2,"n_dec_layers":2,"enc_emb_dim":256,"dec_emb_dim":256,"optimizer":"adam,lr=0.0003"}'
+
+INFO - 11/17/26 17:17:47 - 0:00:00 - Number of parameters: 4458496
+INFO - 11/17/26 17:17:47 - 0:00:01 - Creating train iterator for amplitude ...
+INFO - 11/17/26 17:17:47 - 0:00:01 - Loading data from ./data/5.train ... seekpos 0
+INFO - 11/17/26 17:17:47 - 0:00:01 - Loaded 253880 equations from the disk.
+INFO - 11/17/26 17:17:47 - 0:00:01 - Loaded 253880 equations from the disk.
+INFO - 11/17/26 17:17:47 - 0:00:01 - ============ Starting epoch 0 ... ============
+INFO - 11/17/26 17:17:47 - 0:00:01 - Initialized random generator for worker 0, with seed [0, 0, 615626903] (base seed=615626903).
+INFO - 11/17/26 17:17:56 - 0:00:10 -     200 - 1373.31 examples/s - 19303.04 words/s - LOSS:  5.9587 - LR: 3.0000e-04
+INFO - 11/17/26 17:18:03 - 0:00:16 -     400 - 1967.97 examples/s - 27652.15 words/s - LOSS:  1.8743 - LR: 3.0000e-04
+INFO - 11/17/26 17:18:09 - 0:00:23 -     600 - 1978.90 examples/s - 27809.58 words/s - LOSS:  1.5677 - LR: 3.0000e-04
+INFO - 11/17/26 17:18:16 - 0:00:29 -     800 - 2013.30 examples/s - 28293.22 words/s - LOSS:  1.4267 - LR: 3.0000e-04
+INFO - 11/17/26 17:18:22 - 0:00:36 -    1000 - 1958.88 examples/s - 27527.05 words/s - LOSS:  1.3214 - LR: 3.0000e-04
+INFO - 11/17/26 17:18:29 - 0:00:42 -    1200 - 2007.60 examples/s - 28211.84 words/s - LOSS:  1.2445 - LR: 3.0000e-04
+INFO - 11/17/26 17:18:35 - 0:00:49 -    1400 - 2013.55 examples/s - 28296.14 words/s - LOSS:  1.1906 - LR: 3.0000e-04
+INFO - 11/17/26 17:18:40 - 0:00:54 - Memory allocated: 74.95MB, reserved: 175.80MB
+INFO - 11/17/26 17:18:40 - 0:00:54 - ============ End of epoch 0 ============
+INFO - 11/17/26 17:18:40 - 0:00:54 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:18:40 - 0:00:54 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:18:40 - 0:00:54 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:18:40 - 0:00:54 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:18:43 - 0:00:56 - (1000/5000) Found 145/1000 valid top-1 predictions.
+INFO - 11/17/26 17:18:43 - 0:00:56 - Found 184/1000 solutions in hypotheses.
+INFO - 11/17/26 17:18:43 - 0:00:56 - (2000/5000) Found 171/1000 valid top-1 predictions.
+INFO - 11/17/26 17:18:43 - 0:00:56 - Found 213/1000 solutions in hypotheses.
+INFO - 11/17/26 17:18:43 - 0:00:57 - (3000/5000) Found 173/1000 valid top-1 predictions.
+INFO - 11/17/26 17:18:43 - 0:00:57 - Found 214/1000 solutions in hypotheses.
+INFO - 11/17/26 17:18:43 - 0:00:57 - (4000/5000) Found 149/1000 valid top-1 predictions.
+INFO - 11/17/26 17:18:43 - 0:00:57 - Found 203/1000 solutions in hypotheses.
+INFO - 11/17/26 17:18:43 - 0:00:57 - (5000/5000) Found 157/1000 valid top-1 predictions.
+INFO - 11/17/26 17:18:43 - 0:00:57 - Found 203/1000 solutions in hypotheses.
+INFO - 11/17/26 17:18:43 - 0:00:57 - 1017/5000 (20.34%) equations were evaluated correctly.
+INFO - 11/17/26 17:18:43 - 0:00:57 - -1: 874 / 2440 (35.82%)
+INFO - 11/17/26 17:18:43 - 0:00:57 - 1: 143 / 2560 (5.59%)
+INFO - 11/17/26 17:18:43 - 0:00:57 - correct_sign: 0.532000 (over 5000 samples)
+INFO - 11/17/26 17:18:43 - 0:00:57 - correct_module: 0.302000 (over 5000 samples)
+INFO - 11/17/26 17:18:43 - 0:00:57 - Memory allocated: 74.95MB, reserved: 3296.50MB
+INFO - 11/17/26 17:18:43 - 0:00:57 - __log__:{"epoch": 0, "valid_AMPLITUDE_xe_loss": 1.1148244783358476, "valid_AMPLITUDE_greedy_acc": 15.9, "valid_AMPLITUDE_acc": 20.34, "valid_AMPLITUDE_well_formed": 99.96, "valid_AMPLITUDE_acc_-1": 35.81967213114754, "valid_AMPLITUDE_acc_1": 5.5859375, "valid_AMPLITUDE_avg_correct_sign": 0.532, "valid_AMPLITUDE_avg_correct_module": 0.302}
+INFO - 11/17/26 17:18:43 - 0:00:57 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:18:43 - 0:00:57 - ============ Starting epoch 1 ... ============
+INFO - 11/17/26 17:18:45 - 0:00:58 -    1600 - 1346.77 examples/s - 18928.05 words/s - LOSS:  1.1306 - LR: 3.0000e-04
+INFO - 11/17/26 17:18:51 - 0:01:05 -    1800 - 1995.26 examples/s - 28040.95 words/s - LOSS:  1.0939 - LR: 3.0000e-04
+INFO - 11/17/26 17:18:57 - 0:01:11 -    2000 - 2011.51 examples/s - 28268.46 words/s - LOSS:  1.0289 - LR: 3.0000e-04
+INFO - 11/17/26 17:19:04 - 0:01:17 -    2200 - 1979.99 examples/s - 27823.04 words/s - LOSS:  0.9830 - LR: 3.0000e-04
+INFO - 11/17/26 17:19:11 - 0:01:24 -    2400 - 1892.28 examples/s - 26589.59 words/s - LOSS:  0.9278 - LR: 3.0000e-04
+INFO - 11/17/26 17:19:17 - 0:01:31 -    2600 - 1976.54 examples/s - 27775.47 words/s - LOSS:  0.8936 - LR: 3.0000e-04
+INFO - 11/17/26 17:19:23 - 0:01:37 -    2800 - 2042.25 examples/s - 28703.55 words/s - LOSS:  0.8435 - LR: 3.0000e-04
+INFO - 11/17/26 17:19:30 - 0:01:43 -    3000 - 1991.84 examples/s - 27991.56 words/s - LOSS:  0.8030 - LR: 3.0000e-04
+INFO - 11/17/26 17:19:34 - 0:01:47 - Memory allocated: 74.95MB, reserved: 3264.50MB
+INFO - 11/17/26 17:19:34 - 0:01:47 - ============ End of epoch 1 ============
+INFO - 11/17/26 17:19:34 - 0:01:47 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:19:34 - 0:01:47 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:19:34 - 0:01:47 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:19:34 - 0:01:47 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:19:34 - 0:01:48 - (1000/5000) Found 245/1000 valid top-1 predictions.
+INFO - 11/17/26 17:19:34 - 0:01:48 - Found 328/1000 solutions in hypotheses.
+INFO - 11/17/26 17:19:34 - 0:01:48 - (2000/5000) Found 269/1000 valid top-1 predictions.
+INFO - 11/17/26 17:19:34 - 0:01:48 - Found 349/1000 solutions in hypotheses.
+INFO - 11/17/26 17:19:46 - 0:01:59 - (3000/5000) Found 284/1000 valid top-1 predictions.
+INFO - 11/17/26 17:19:46 - 0:01:59 - Found 353/1000 solutions in hypotheses.
+INFO - 11/17/26 17:19:46 - 0:01:59 - (4000/5000) Found 239/1000 valid top-1 predictions.
+INFO - 11/17/26 17:19:46 - 0:01:59 - Found 318/1000 solutions in hypotheses.
+INFO - 11/17/26 17:19:46 - 0:02:00 - (5000/5000) Found 274/1000 valid top-1 predictions.
+INFO - 11/17/26 17:19:46 - 0:02:00 - Found 353/1000 solutions in hypotheses.
+INFO - 11/17/26 17:19:46 - 0:02:00 - 1701/5000 (34.02%) equations were evaluated correctly.
+INFO - 11/17/26 17:19:46 - 0:02:00 - -1: 1388 / 2440 (56.89%)
+INFO - 11/17/26 17:19:46 - 0:02:00 - 1: 313 / 2560 (12.23%)
+INFO - 11/17/26 17:19:46 - 0:02:00 - correct_sign: 0.562200 (over 5000 samples)
+INFO - 11/17/26 17:19:46 - 0:02:00 - correct_module: 0.518200 (over 5000 samples)
+INFO - 11/17/26 17:19:46 - 0:02:00 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 17:19:46 - 0:02:00 - __log__:{"epoch": 1, "valid_AMPLITUDE_xe_loss": 0.7952352579196096, "valid_AMPLITUDE_greedy_acc": 26.22, "valid_AMPLITUDE_acc": 34.02, "valid_AMPLITUDE_well_formed": 99.96, "valid_AMPLITUDE_acc_-1": 56.885245901639344, "valid_AMPLITUDE_acc_1": 12.2265625, "valid_AMPLITUDE_avg_correct_sign": 0.5622, "valid_AMPLITUDE_avg_correct_module": 0.5182}
+INFO - 11/17/26 17:19:46 - 0:02:00 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:19:47 - 0:02:01 - ============ Starting epoch 2 ... ============
+INFO - 11/17/26 17:19:49 - 0:02:03 -    3200 -  654.40 examples/s -  9194.92 words/s - LOSS:  0.7607 - LR: 3.0000e-04
+INFO - 11/17/26 17:19:56 - 0:02:09 -    3400 - 2050.47 examples/s - 28811.60 words/s - LOSS:  0.7220 - LR: 3.0000e-04
+INFO - 11/17/26 17:20:02 - 0:02:15 -    3600 - 2002.23 examples/s - 28133.40 words/s - LOSS:  0.6880 - LR: 3.0000e-04
+INFO - 11/17/26 17:20:08 - 0:02:22 -    3800 - 2081.32 examples/s - 29257.95 words/s - LOSS:  0.6641 - LR: 3.0000e-04
+INFO - 11/17/26 17:20:15 - 0:02:28 -    4000 - 1962.80 examples/s - 27582.77 words/s - LOSS:  0.6325 - LR: 3.0000e-04
+INFO - 11/17/26 17:20:21 - 0:02:34 -    4200 - 2020.17 examples/s - 28392.43 words/s - LOSS:  0.5969 - LR: 3.0000e-04
+INFO - 11/17/26 17:20:27 - 0:02:41 -    4400 - 1977.58 examples/s - 27787.30 words/s - LOSS:  0.5684 - LR: 3.0000e-04
+INFO - 11/17/26 17:20:34 - 0:02:47 -    4600 - 2045.34 examples/s - 28746.96 words/s - LOSS:  0.5536 - LR: 3.0000e-04
+INFO - 11/17/26 17:20:37 - 0:02:50 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:20:37 - 0:02:50 - ============ End of epoch 2 ============
+INFO - 11/17/26 17:20:37 - 0:02:50 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:20:37 - 0:02:50 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:20:37 - 0:02:50 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:20:37 - 0:02:50 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:20:37 - 0:02:51 - (1000/5000) Found 369/1000 valid top-1 predictions.
+INFO - 11/17/26 17:20:37 - 0:02:51 - Found 516/1000 solutions in hypotheses.
+INFO - 11/17/26 17:20:38 - 0:02:51 - (2000/5000) Found 382/1000 valid top-1 predictions.
+INFO - 11/17/26 17:20:38 - 0:02:51 - Found 551/1000 solutions in hypotheses.
+INFO - 11/17/26 17:20:38 - 0:02:51 - (3000/5000) Found 368/1000 valid top-1 predictions.
+INFO - 11/17/26 17:20:38 - 0:02:51 - Found 524/1000 solutions in hypotheses.
+INFO - 11/17/26 17:20:38 - 0:02:51 - (4000/5000) Found 362/1000 valid top-1 predictions.
+INFO - 11/17/26 17:20:38 - 0:02:51 - Found 532/1000 solutions in hypotheses.
+INFO - 11/17/26 17:20:38 - 0:02:51 - (5000/5000) Found 360/1000 valid top-1 predictions.
+INFO - 11/17/26 17:20:38 - 0:02:51 - Found 509/1000 solutions in hypotheses.
+INFO - 11/17/26 17:20:38 - 0:02:51 - 2632/5000 (52.64%) equations were evaluated correctly.
+INFO - 11/17/26 17:20:38 - 0:02:51 - -1: 1330 / 2440 (54.51%)
+INFO - 11/17/26 17:20:38 - 0:02:51 - 1: 1302 / 2560 (50.86%)
+INFO - 11/17/26 17:20:38 - 0:02:51 - correct_sign: 0.664600 (over 5000 samples)
+INFO - 11/17/26 17:20:38 - 0:02:51 - correct_module: 0.718600 (over 5000 samples)
+INFO - 11/17/26 17:20:38 - 0:02:51 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 17:20:38 - 0:02:51 - __log__:{"epoch": 2, "valid_AMPLITUDE_xe_loss": 0.5241889764921247, "valid_AMPLITUDE_greedy_acc": 36.82, "valid_AMPLITUDE_acc": 52.64, "valid_AMPLITUDE_well_formed": 99.96, "valid_AMPLITUDE_acc_-1": 54.50819672131148, "valid_AMPLITUDE_acc_1": 50.859375, "valid_AMPLITUDE_avg_correct_sign": 0.6646, "valid_AMPLITUDE_avg_correct_module": 0.7186}
+INFO - 11/17/26 17:20:38 - 0:02:51 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:20:39 - 0:02:52 - ============ Starting epoch 3 ... ============
+INFO - 11/17/26 17:20:42 - 0:02:56 -    4800 - 1527.02 examples/s - 21456.16 words/s - LOSS:  0.5370 - LR: 3.0000e-04
+INFO - 11/17/26 17:20:48 - 0:03:02 -    5000 - 2005.17 examples/s - 28183.01 words/s - LOSS:  0.5097 - LR: 3.0000e-04
+INFO - 11/17/26 17:20:55 - 0:03:08 -    5200 - 2024.41 examples/s - 28454.73 words/s - LOSS:  0.4906 - LR: 3.0000e-04
+INFO - 11/17/26 17:21:01 - 0:03:15 -    5400 - 2041.17 examples/s - 28690.76 words/s - LOSS:  0.4674 - LR: 3.0000e-04
+INFO - 11/17/26 17:21:07 - 0:03:21 -    5600 - 2037.38 examples/s - 28637.12 words/s - LOSS:  0.4640 - LR: 3.0000e-04
+INFO - 11/17/26 17:21:14 - 0:03:27 -    5800 - 2035.59 examples/s - 28610.69 words/s - LOSS:  0.4447 - LR: 3.0000e-04
+INFO - 11/17/26 17:21:20 - 0:03:33 -    6000 - 2016.42 examples/s - 28337.26 words/s - LOSS:  0.4252 - LR: 3.0000e-04
+INFO - 11/17/26 17:21:26 - 0:03:40 -    6200 - 1997.89 examples/s - 28075.76 words/s - LOSS:  0.4134 - LR: 3.0000e-04
+INFO - 11/17/26 17:21:28 - 0:03:42 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:21:28 - 0:03:42 - ============ End of epoch 3 ============
+INFO - 11/17/26 17:21:28 - 0:03:42 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:21:28 - 0:03:42 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:21:28 - 0:03:42 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:21:28 - 0:03:42 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:21:29 - 0:03:42 - (1000/5000) Found 437/1000 valid top-1 predictions.
+INFO - 11/17/26 17:21:29 - 0:03:42 - Found 615/1000 solutions in hypotheses.
+INFO - 11/17/26 17:21:29 - 0:03:42 - (2000/5000) Found 425/1000 valid top-1 predictions.
+INFO - 11/17/26 17:21:29 - 0:03:42 - Found 620/1000 solutions in hypotheses.
+INFO - 11/17/26 17:21:29 - 0:03:42 - (3000/5000) Found 419/1000 valid top-1 predictions.
+INFO - 11/17/26 17:21:29 - 0:03:42 - Found 613/1000 solutions in hypotheses.
+INFO - 11/17/26 17:21:29 - 0:03:42 - (4000/5000) Found 442/1000 valid top-1 predictions.
+INFO - 11/17/26 17:21:29 - 0:03:42 - Found 619/1000 solutions in hypotheses.
+INFO - 11/17/26 17:21:29 - 0:03:43 - (5000/5000) Found 431/1000 valid top-1 predictions.
+INFO - 11/17/26 17:21:29 - 0:03:43 - Found 592/1000 solutions in hypotheses.
+INFO - 11/17/26 17:21:29 - 0:03:43 - 3059/5000 (61.18%) equations were evaluated correctly.
+INFO - 11/17/26 17:21:29 - 0:03:43 - -1: 1229 / 2440 (50.37%)
+INFO - 11/17/26 17:21:29 - 0:03:43 - 1: 1830 / 2560 (71.48%)
+INFO - 11/17/26 17:21:29 - 0:03:43 - correct_sign: 0.699600 (over 5000 samples)
+INFO - 11/17/26 17:21:29 - 0:03:43 - correct_module: 0.826600 (over 5000 samples)
+INFO - 11/17/26 17:21:29 - 0:03:43 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 17:21:29 - 0:03:43 - __log__:{"epoch": 3, "valid_AMPLITUDE_xe_loss": 0.40737316816345776, "valid_AMPLITUDE_greedy_acc": 43.08, "valid_AMPLITUDE_acc": 61.18, "valid_AMPLITUDE_well_formed": 99.98, "valid_AMPLITUDE_acc_-1": 50.368852459016395, "valid_AMPLITUDE_acc_1": 71.484375, "valid_AMPLITUDE_avg_correct_sign": 0.6996, "valid_AMPLITUDE_avg_correct_module": 0.8266}
+INFO - 11/17/26 17:21:29 - 0:03:43 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:21:30 - 0:03:43 - ============ Starting epoch 4 ... ============
+INFO - 11/17/26 17:21:34 - 0:03:48 -    6400 - 1618.55 examples/s - 22742.84 words/s - LOSS:  0.4069 - LR: 3.0000e-04
+INFO - 11/17/26 17:21:41 - 0:03:54 -    6600 - 2030.87 examples/s - 28535.61 words/s - LOSS:  0.3960 - LR: 3.0000e-04
+INFO - 11/17/26 17:21:47 - 0:04:00 -    6800 - 2063.58 examples/s - 29000.17 words/s - LOSS:  0.3962 - LR: 3.0000e-04
+INFO - 11/17/26 17:21:53 - 0:04:06 -    7000 - 2066.25 examples/s - 29044.73 words/s - LOSS:  0.3779 - LR: 3.0000e-04
+INFO - 11/17/26 17:21:59 - 0:04:13 -    7200 - 2052.76 examples/s - 28850.36 words/s - LOSS:  0.3711 - LR: 3.0000e-04
+INFO - 11/17/26 17:22:06 - 0:04:19 -    7400 - 2036.99 examples/s - 28629.86 words/s - LOSS:  0.3521 - LR: 3.0000e-04
+INFO - 11/17/26 17:22:12 - 0:04:26 -    7600 - 1942.12 examples/s - 27295.40 words/s - LOSS:  0.3650 - LR: 3.0000e-04
+INFO - 11/17/26 17:22:19 - 0:04:32 -    7800 - 1891.93 examples/s - 26585.04 words/s - LOSS:  0.3534 - LR: 3.0000e-04
+INFO - 11/17/26 17:22:20 - 0:04:33 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:22:20 - 0:04:33 - ============ End of epoch 4 ============
+INFO - 11/17/26 17:22:20 - 0:04:33 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:22:20 - 0:04:33 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:22:20 - 0:04:33 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:22:20 - 0:04:33 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:22:20 - 0:04:34 - (1000/5000) Found 429/1000 valid top-1 predictions.
+INFO - 11/17/26 17:22:20 - 0:04:34 - Found 571/1000 solutions in hypotheses.
+INFO - 11/17/26 17:23:35 - 0:05:49 - (2000/5000) Found 441/1000 valid top-1 predictions.
+INFO - 11/17/26 17:23:35 - 0:05:49 - Found 597/1000 solutions in hypotheses.
+INFO - 11/17/26 17:23:35 - 0:05:49 - (3000/5000) Found 452/1000 valid top-1 predictions.
+INFO - 11/17/26 17:23:35 - 0:05:49 - Found 614/1000 solutions in hypotheses.
+INFO - 11/17/26 17:23:36 - 0:05:49 - (4000/5000) Found 417/1000 valid top-1 predictions.
+INFO - 11/17/26 17:23:36 - 0:05:49 - Found 572/1000 solutions in hypotheses.
+INFO - 11/17/26 17:23:36 - 0:05:49 - (5000/5000) Found 443/1000 valid top-1 predictions.
+INFO - 11/17/26 17:23:36 - 0:05:49 - Found 591/1000 solutions in hypotheses.
+INFO - 11/17/26 17:23:36 - 0:05:49 - 2945/5000 (58.9%) equations were evaluated correctly.
+INFO - 11/17/26 17:23:36 - 0:05:49 - -1: 2201 / 2440 (90.20%)
+INFO - 11/17/26 17:23:36 - 0:05:49 - 1: 744 / 2560 (29.06%)
+INFO - 11/17/26 17:23:36 - 0:05:49 - correct_sign: 0.640600 (over 5000 samples)
+INFO - 11/17/26 17:23:36 - 0:05:49 - correct_module: 0.880600 (over 5000 samples)
+INFO - 11/17/26 17:23:36 - 0:05:49 - Memory allocated: 74.95MB, reserved: 11413.22MB
+INFO - 11/17/26 17:23:36 - 0:05:49 - __log__:{"epoch": 4, "valid_AMPLITUDE_xe_loss": 0.3718780154960409, "valid_AMPLITUDE_greedy_acc": 43.64, "valid_AMPLITUDE_acc": 58.9, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 90.20491803278688, "valid_AMPLITUDE_acc_1": 29.0625, "valid_AMPLITUDE_avg_correct_sign": 0.6406, "valid_AMPLITUDE_avg_correct_module": 0.8806}
+INFO - 11/17/26 17:23:36 - 0:05:49 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:23:36 - 0:05:50 - ============ Starting epoch 5 ... ============
+INFO - 11/17/26 17:23:43 - 0:05:56 -    8000 -  152.95 examples/s -  2149.13 words/s - LOSS:  0.3385 - LR: 3.0000e-04
+INFO - 11/17/26 17:23:49 - 0:06:02 -    8200 - 2030.63 examples/s - 28543.39 words/s - LOSS:  0.3410 - LR: 3.0000e-04
+INFO - 11/17/26 17:23:55 - 0:06:09 -    8400 - 1942.47 examples/s - 27298.03 words/s - LOSS:  0.3349 - LR: 3.0000e-04
+INFO - 11/17/26 17:24:02 - 0:06:15 -    8600 - 1956.01 examples/s - 27486.92 words/s - LOSS:  0.3336 - LR: 3.0000e-04
+INFO - 11/17/26 17:24:09 - 0:06:22 -    8800 - 1919.41 examples/s - 26968.66 words/s - LOSS:  0.3305 - LR: 3.0000e-04
+INFO - 11/17/26 17:24:15 - 0:06:29 -    9000 - 1958.70 examples/s - 27522.99 words/s - LOSS:  0.3269 - LR: 3.0000e-04
+INFO - 11/17/26 17:24:22 - 0:06:35 -    9200 - 1970.58 examples/s - 27693.56 words/s - LOSS:  0.3219 - LR: 3.0000e-04
+INFO - 11/17/26 17:24:28 - 0:06:41 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:24:28 - 0:06:41 - ============ End of epoch 5 ============
+INFO - 11/17/26 17:24:28 - 0:06:41 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:24:28 - 0:06:41 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:24:28 - 0:06:41 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:24:28 - 0:06:41 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:24:28 - 0:06:42 - (1000/5000) Found 439/1000 valid top-1 predictions.
+INFO - 11/17/26 17:24:28 - 0:06:42 - Found 656/1000 solutions in hypotheses.
+INFO - 11/17/26 17:24:28 - 0:06:42 - (2000/5000) Found 446/1000 valid top-1 predictions.
+INFO - 11/17/26 17:24:28 - 0:06:42 - Found 639/1000 solutions in hypotheses.
+INFO - 11/17/26 17:24:29 - 0:06:42 - (3000/5000) Found 470/1000 valid top-1 predictions.
+INFO - 11/17/26 17:24:29 - 0:06:42 - Found 645/1000 solutions in hypotheses.
+INFO - 11/17/26 17:24:29 - 0:06:42 - (4000/5000) Found 441/1000 valid top-1 predictions.
+INFO - 11/17/26 17:24:29 - 0:06:42 - Found 622/1000 solutions in hypotheses.
+INFO - 11/17/26 17:24:29 - 0:06:42 - (5000/5000) Found 464/1000 valid top-1 predictions.
+INFO - 11/17/26 17:24:29 - 0:06:42 - Found 671/1000 solutions in hypotheses.
+INFO - 11/17/26 17:24:29 - 0:06:42 - 3233/5000 (64.66%) equations were evaluated correctly.
+INFO - 11/17/26 17:24:29 - 0:06:42 - -1: 2149 / 2440 (88.07%)
+INFO - 11/17/26 17:24:29 - 0:06:42 - 1: 1084 / 2560 (42.34%)
+INFO - 11/17/26 17:24:29 - 0:06:42 - correct_sign: 0.695400 (over 5000 samples)
+INFO - 11/17/26 17:24:29 - 0:06:42 - correct_module: 0.897000 (over 5000 samples)
+INFO - 11/17/26 17:24:29 - 0:06:42 - Memory allocated: 74.95MB, reserved: 11421.22MB
+INFO - 11/17/26 17:24:29 - 0:06:42 - __log__:{"epoch": 5, "valid_AMPLITUDE_xe_loss": 0.3416191309014482, "valid_AMPLITUDE_greedy_acc": 45.2, "valid_AMPLITUDE_acc": 64.66, "valid_AMPLITUDE_well_formed": 99.94, "valid_AMPLITUDE_acc_-1": 88.07377049180327, "valid_AMPLITUDE_acc_1": 42.34375, "valid_AMPLITUDE_avg_correct_sign": 0.6954, "valid_AMPLITUDE_avg_correct_module": 0.897}
+INFO - 11/17/26 17:24:29 - 0:06:42 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:24:30 - 0:06:44 - ============ Starting epoch 6 ... ============
+INFO - 11/17/26 17:24:31 - 0:06:45 -    9400 - 1362.79 examples/s - 19149.93 words/s - LOSS:  0.3219 - LR: 3.0000e-04
+INFO - 11/17/26 17:24:38 - 0:06:51 -    9600 - 1958.93 examples/s - 27526.92 words/s - LOSS:  0.3161 - LR: 3.0000e-04
+INFO - 11/17/26 17:24:44 - 0:06:58 -    9800 - 1972.92 examples/s - 27732.59 words/s - LOSS:  0.3112 - LR: 3.0000e-04
+INFO - 11/17/26 17:24:51 - 0:07:04 -   10000 - 1995.17 examples/s - 28034.04 words/s - LOSS:  0.3157 - LR: 3.0000e-04
+INFO - 11/17/26 17:24:57 - 0:07:10 -   10200 - 1982.24 examples/s - 27856.25 words/s - LOSS:  0.2993 - LR: 3.0000e-04
+INFO - 11/17/26 17:25:03 - 0:07:17 -   10400 - 1982.76 examples/s - 27862.49 words/s - LOSS:  0.3037 - LR: 3.0000e-04
+INFO - 11/17/26 17:25:10 - 0:07:23 -   10600 - 1965.83 examples/s - 27624.57 words/s - LOSS:  0.2988 - LR: 3.0000e-04
+INFO - 11/17/26 17:25:16 - 0:07:30 -   10800 - 1960.39 examples/s - 27539.91 words/s - LOSS:  0.3003 - LR: 3.0000e-04
+INFO - 11/17/26 17:25:21 - 0:07:34 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:25:21 - 0:07:34 - ============ End of epoch 6 ============
+INFO - 11/17/26 17:25:21 - 0:07:34 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:25:21 - 0:07:34 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:25:21 - 0:07:34 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:25:21 - 0:07:34 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:25:22 - 0:07:35 - (1000/5000) Found 452/1000 valid top-1 predictions.
+INFO - 11/17/26 17:25:22 - 0:07:35 - Found 627/1000 solutions in hypotheses.
+INFO - 11/17/26 17:25:22 - 0:07:35 - (2000/5000) Found 459/1000 valid top-1 predictions.
+INFO - 11/17/26 17:25:22 - 0:07:35 - Found 669/1000 solutions in hypotheses.
+INFO - 11/17/26 17:25:22 - 0:07:35 - (3000/5000) Found 468/1000 valid top-1 predictions.
+INFO - 11/17/26 17:25:22 - 0:07:35 - Found 645/1000 solutions in hypotheses.
+INFO - 11/17/26 17:25:22 - 0:07:35 - (4000/5000) Found 445/1000 valid top-1 predictions.
+INFO - 11/17/26 17:25:22 - 0:07:35 - Found 644/1000 solutions in hypotheses.
+INFO - 11/17/26 17:25:22 - 0:07:35 - (5000/5000) Found 465/1000 valid top-1 predictions.
+INFO - 11/17/26 17:25:22 - 0:07:35 - Found 644/1000 solutions in hypotheses.
+INFO - 11/17/26 17:25:22 - 0:07:35 - 3229/5000 (64.58%) equations were evaluated correctly.
+INFO - 11/17/26 17:25:22 - 0:07:35 - -1: 2259 / 2440 (92.58%)
+INFO - 11/17/26 17:25:22 - 0:07:35 - 1: 970 / 2560 (37.89%)
+INFO - 11/17/26 17:25:22 - 0:07:35 - correct_sign: 0.680800 (over 5000 samples)
+INFO - 11/17/26 17:25:22 - 0:07:35 - correct_module: 0.923600 (over 5000 samples)
+INFO - 11/17/26 17:25:22 - 0:07:35 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 17:25:22 - 0:07:35 - __log__:{"epoch": 6, "valid_AMPLITUDE_xe_loss": 0.31883489423089184, "valid_AMPLITUDE_greedy_acc": 45.78, "valid_AMPLITUDE_acc": 64.58, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 92.58196721311475, "valid_AMPLITUDE_acc_1": 37.890625, "valid_AMPLITUDE_avg_correct_sign": 0.6808, "valid_AMPLITUDE_avg_correct_module": 0.9236}
+INFO - 11/17/26 17:25:22 - 0:07:35 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:25:23 - 0:07:36 - ============ Starting epoch 7 ... ============
+INFO - 11/17/26 17:25:25 - 0:07:38 -   11000 - 1542.35 examples/s - 21672.24 words/s - LOSS:  0.2986 - LR: 3.0000e-04
+INFO - 11/17/26 17:25:31 - 0:07:45 -   11200 - 1991.37 examples/s - 27983.82 words/s - LOSS:  0.3027 - LR: 3.0000e-04
+INFO - 11/17/26 17:25:38 - 0:07:51 -   11400 - 1995.39 examples/s - 28037.58 words/s - LOSS:  0.2951 - LR: 3.0000e-04
+INFO - 11/17/26 17:25:44 - 0:07:58 -   11600 - 1947.47 examples/s - 27368.96 words/s - LOSS:  0.2845 - LR: 3.0000e-04
+INFO - 11/17/26 17:25:51 - 0:08:04 -   11800 - 1993.92 examples/s - 28020.37 words/s - LOSS:  0.2815 - LR: 3.0000e-04
+INFO - 11/17/26 17:25:57 - 0:08:10 -   12000 - 2031.87 examples/s - 28557.77 words/s - LOSS:  0.2895 - LR: 3.0000e-04
+INFO - 11/17/26 17:26:03 - 0:08:17 -   12200 - 1972.32 examples/s - 27715.28 words/s - LOSS:  0.2896 - LR: 3.0000e-04
+INFO - 11/17/26 17:26:10 - 0:08:23 -   12400 - 1983.69 examples/s - 27874.26 words/s - LOSS:  0.2895 - LR: 3.0000e-04
+INFO - 11/17/26 17:26:13 - 0:08:27 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:26:13 - 0:08:27 - ============ End of epoch 7 ============
+INFO - 11/17/26 17:26:13 - 0:08:27 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:26:13 - 0:08:27 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:26:13 - 0:08:27 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:26:13 - 0:08:27 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:26:14 - 0:08:27 - (1000/5000) Found 495/1000 valid top-1 predictions.
+INFO - 11/17/26 17:26:14 - 0:08:27 - Found 675/1000 solutions in hypotheses.
+INFO - 11/17/26 17:27:20 - 0:09:34 - (2000/5000) Found 478/1000 valid top-1 predictions.
+INFO - 11/17/26 17:27:20 - 0:09:34 - Found 653/1000 solutions in hypotheses.
+INFO - 11/17/26 17:27:20 - 0:09:34 - (3000/5000) Found 472/1000 valid top-1 predictions.
+INFO - 11/17/26 17:27:20 - 0:09:34 - Found 655/1000 solutions in hypotheses.
+INFO - 11/17/26 17:27:20 - 0:09:34 - (4000/5000) Found 508/1000 valid top-1 predictions.
+INFO - 11/17/26 17:27:20 - 0:09:34 - Found 679/1000 solutions in hypotheses.
+INFO - 11/17/26 17:27:20 - 0:09:34 - (5000/5000) Found 496/1000 valid top-1 predictions.
+INFO - 11/17/26 17:27:20 - 0:09:34 - Found 662/1000 solutions in hypotheses.
+INFO - 11/17/26 17:27:20 - 0:09:34 - 3324/5000 (66.48%) equations were evaluated correctly.
+INFO - 11/17/26 17:27:20 - 0:09:34 - -1: 900 / 2440 (36.89%)
+INFO - 11/17/26 17:27:20 - 0:09:34 - 1: 2424 / 2560 (94.69%)
+INFO - 11/17/26 17:27:20 - 0:09:34 - correct_sign: 0.692200 (over 5000 samples)
+INFO - 11/17/26 17:27:20 - 0:09:34 - correct_module: 0.948800 (over 5000 samples)
+INFO - 11/17/26 17:27:20 - 0:09:34 - Memory allocated: 74.95MB, reserved: 11413.22MB
+INFO - 11/17/26 17:27:20 - 0:09:34 - __log__:{"epoch": 7, "valid_AMPLITUDE_xe_loss": 0.28345380275484244, "valid_AMPLITUDE_greedy_acc": 48.98, "valid_AMPLITUDE_acc": 66.48, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 36.885245901639344, "valid_AMPLITUDE_acc_1": 94.6875, "valid_AMPLITUDE_avg_correct_sign": 0.6922, "valid_AMPLITUDE_avg_correct_module": 0.9488}
+INFO - 11/17/26 17:27:20 - 0:09:34 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:27:21 - 0:09:34 - ============ Starting epoch 8 ... ============
+INFO - 11/17/26 17:27:24 - 0:09:37 -   12600 -  172.89 examples/s -  2429.73 words/s - LOSS:  0.2797 - LR: 3.0000e-04
+INFO - 11/17/26 17:27:30 - 0:09:44 -   12800 - 1994.30 examples/s - 28024.60 words/s - LOSS:  0.2878 - LR: 3.0000e-04
+INFO - 11/17/26 17:27:38 - 0:09:51 -   13000 - 1779.90 examples/s - 25010.54 words/s - LOSS:  0.2794 - LR: 3.0000e-04
+INFO - 11/17/26 17:27:44 - 0:09:57 -   13200 - 2019.69 examples/s - 28389.53 words/s - LOSS:  0.2795 - LR: 3.0000e-04
+INFO - 11/17/26 17:27:50 - 0:10:04 -   13400 - 1996.99 examples/s - 28065.55 words/s - LOSS:  0.2728 - LR: 3.0000e-04
+INFO - 11/17/26 17:27:57 - 0:10:10 -   13600 - 2030.26 examples/s - 28528.39 words/s - LOSS:  0.2799 - LR: 3.0000e-04
+INFO - 11/17/26 17:28:03 - 0:10:16 -   13800 - 2037.19 examples/s - 28634.21 words/s - LOSS:  0.2789 - LR: 3.0000e-04
+INFO - 11/17/26 17:28:09 - 0:10:23 -   14000 - 2009.58 examples/s - 28233.71 words/s - LOSS:  0.2774 - LR: 3.0000e-04
+INFO - 11/17/26 17:28:11 - 0:10:25 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:28:11 - 0:10:25 - ============ End of epoch 8 ============
+INFO - 11/17/26 17:28:11 - 0:10:25 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:28:11 - 0:10:25 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:28:11 - 0:10:25 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:28:11 - 0:10:25 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:28:12 - 0:10:25 - (1000/5000) Found 491/1000 valid top-1 predictions.
+INFO - 11/17/26 17:28:12 - 0:10:26 - Found 657/1000 solutions in hypotheses.
+INFO - 11/17/26 17:28:12 - 0:10:26 - (2000/5000) Found 471/1000 valid top-1 predictions.
+INFO - 11/17/26 17:28:12 - 0:10:26 - Found 672/1000 solutions in hypotheses.
+INFO - 11/17/26 17:28:13 - 0:10:26 - (3000/5000) Found 488/1000 valid top-1 predictions.
+INFO - 11/17/26 17:28:13 - 0:10:26 - Found 685/1000 solutions in hypotheses.
+INFO - 11/17/26 17:28:13 - 0:10:26 - (4000/5000) Found 498/1000 valid top-1 predictions.
+INFO - 11/17/26 17:28:13 - 0:10:26 - Found 681/1000 solutions in hypotheses.
+INFO - 11/17/26 17:28:13 - 0:10:26 - (5000/5000) Found 461/1000 valid top-1 predictions.
+INFO - 11/17/26 17:28:13 - 0:10:26 - Found 664/1000 solutions in hypotheses.
+INFO - 11/17/26 17:28:13 - 0:10:26 - 3359/5000 (67.18%) equations were evaluated correctly.
+INFO - 11/17/26 17:28:13 - 0:10:26 - -1: 2193 / 2440 (89.88%)
+INFO - 11/17/26 17:28:13 - 0:10:26 - 1: 1166 / 2560 (45.55%)
+INFO - 11/17/26 17:28:13 - 0:10:26 - correct_sign: 0.695600 (over 5000 samples)
+INFO - 11/17/26 17:28:13 - 0:10:26 - correct_module: 0.947200 (over 5000 samples)
+INFO - 11/17/26 17:28:13 - 0:10:26 - Memory allocated: 74.95MB, reserved: 11427.22MB
+INFO - 11/17/26 17:28:13 - 0:10:26 - __log__:{"epoch": 8, "valid_AMPLITUDE_xe_loss": 0.28372623550168213, "valid_AMPLITUDE_greedy_acc": 48.18, "valid_AMPLITUDE_acc": 67.18, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 89.87704918032787, "valid_AMPLITUDE_acc_1": 45.546875, "valid_AMPLITUDE_avg_correct_sign": 0.6956, "valid_AMPLITUDE_avg_correct_module": 0.9472}
+INFO - 11/17/26 17:28:13 - 0:10:26 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:28:14 - 0:10:27 - ============ Starting epoch 9 ... ============
+INFO - 11/17/26 17:28:18 - 0:10:32 -   14200 - 1422.60 examples/s - 19995.39 words/s - LOSS:  0.2759 - LR: 3.0000e-04
+INFO - 11/17/26 17:28:25 - 0:10:38 -   14400 - 2006.46 examples/s - 28200.44 words/s - LOSS:  0.2692 - LR: 3.0000e-04
+INFO - 11/17/26 17:28:31 - 0:10:45 -   14600 - 1983.78 examples/s - 27877.48 words/s - LOSS:  0.2766 - LR: 3.0000e-04
+INFO - 11/17/26 17:28:37 - 0:10:51 -   14800 - 2036.12 examples/s - 28616.25 words/s - LOSS:  0.2770 - LR: 3.0000e-04
+INFO - 11/17/26 17:28:44 - 0:10:57 -   15000 - 1993.65 examples/s - 28023.19 words/s - LOSS:  0.2723 - LR: 3.0000e-04
+INFO - 11/17/26 17:28:50 - 0:11:04 -   15200 - 1980.54 examples/s - 27827.68 words/s - LOSS:  0.2594 - LR: 3.0000e-04
+INFO - 11/17/26 17:28:57 - 0:11:10 -   15400 - 2021.68 examples/s - 28407.14 words/s - LOSS:  0.2688 - LR: 3.0000e-04
+INFO - 11/17/26 17:29:03 - 0:11:16 -   15600 - 2029.55 examples/s - 28526.15 words/s - LOSS:  0.2718 - LR: 3.0000e-04
+INFO - 11/17/26 17:29:04 - 0:11:17 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:29:04 - 0:11:17 - ============ End of epoch 9 ============
+INFO - 11/17/26 17:29:04 - 0:11:17 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:29:04 - 0:11:17 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:29:04 - 0:11:17 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:29:04 - 0:11:17 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:29:04 - 0:11:18 - (1000/5000) Found 489/1000 valid top-1 predictions.
+INFO - 11/17/26 17:29:04 - 0:11:18 - Found 698/1000 solutions in hypotheses.
+INFO - 11/17/26 17:29:04 - 0:11:18 - (2000/5000) Found 509/1000 valid top-1 predictions.
+INFO - 11/17/26 17:29:04 - 0:11:18 - Found 699/1000 solutions in hypotheses.
+INFO - 11/17/26 17:29:05 - 0:11:18 - (3000/5000) Found 503/1000 valid top-1 predictions.
+INFO - 11/17/26 17:29:05 - 0:11:18 - Found 709/1000 solutions in hypotheses.
+INFO - 11/17/26 17:29:05 - 0:11:18 - (4000/5000) Found 490/1000 valid top-1 predictions.
+INFO - 11/17/26 17:29:05 - 0:11:18 - Found 684/1000 solutions in hypotheses.
+INFO - 11/17/26 17:29:05 - 0:11:18 - (5000/5000) Found 489/1000 valid top-1 predictions.
+INFO - 11/17/26 17:29:05 - 0:11:18 - Found 694/1000 solutions in hypotheses.
+INFO - 11/17/26 17:29:05 - 0:11:18 - 3484/5000 (69.68%) equations were evaluated correctly.
+INFO - 11/17/26 17:29:05 - 0:11:18 - -1: 2257 / 2440 (92.50%)
+INFO - 11/17/26 17:29:05 - 0:11:18 - 1: 1227 / 2560 (47.93%)
+INFO - 11/17/26 17:29:05 - 0:11:18 - correct_sign: 0.711000 (over 5000 samples)
+INFO - 11/17/26 17:29:05 - 0:11:18 - correct_module: 0.965000 (over 5000 samples)
+INFO - 11/17/26 17:29:05 - 0:11:18 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 17:29:05 - 0:11:18 - __log__:{"epoch": 9, "valid_AMPLITUDE_xe_loss": 0.2643165104789629, "valid_AMPLITUDE_greedy_acc": 49.6, "valid_AMPLITUDE_acc": 69.68, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 92.5, "valid_AMPLITUDE_acc_1": 47.9296875, "valid_AMPLITUDE_avg_correct_sign": 0.711, "valid_AMPLITUDE_avg_correct_module": 0.965}
+INFO - 11/17/26 17:29:05 - 0:11:18 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:29:06 - 0:11:20 - ============ Starting epoch 10 ... ============
+INFO - 11/17/26 17:29:12 - 0:11:25 -   15800 - 1467.83 examples/s - 20628.57 words/s - LOSS:  0.2613 - LR: 3.0000e-04
+INFO - 11/17/26 17:29:18 - 0:11:31 -   16000 - 2026.87 examples/s - 28488.73 words/s - LOSS:  0.2742 - LR: 3.0000e-04
+INFO - 11/17/26 17:29:24 - 0:11:38 -   16200 - 2012.67 examples/s - 28288.30 words/s - LOSS:  0.2690 - LR: 3.0000e-04
+INFO - 11/17/26 17:29:31 - 0:11:44 -   16400 - 1998.34 examples/s - 28078.92 words/s - LOSS:  0.2652 - LR: 3.0000e-04
+INFO - 11/17/26 17:29:37 - 0:11:51 -   16600 - 1941.83 examples/s - 27292.61 words/s - LOSS:  0.2688 - LR: 3.0000e-04
+INFO - 11/17/26 17:29:44 - 0:11:57 -   16800 - 1944.35 examples/s - 27318.77 words/s - LOSS:  0.2586 - LR: 3.0000e-04
+INFO - 11/17/26 17:29:50 - 0:12:04 -   17000 - 2014.96 examples/s - 28316.50 words/s - LOSS:  0.2646 - LR: 3.0000e-04
+INFO - 11/17/26 17:29:56 - 0:12:10 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:29:56 - 0:12:10 - ============ End of epoch 10 ============
+INFO - 11/17/26 17:29:56 - 0:12:10 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:29:56 - 0:12:10 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:29:56 - 0:12:10 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:29:56 - 0:12:10 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:29:57 - 0:12:10 - (1000/5000) Found 491/1000 valid top-1 predictions.
+INFO - 11/17/26 17:29:57 - 0:12:10 - Found 695/1000 solutions in hypotheses.
+INFO - 11/17/26 17:29:57 - 0:12:10 - (2000/5000) Found 487/1000 valid top-1 predictions.
+INFO - 11/17/26 17:29:57 - 0:12:10 - Found 690/1000 solutions in hypotheses.
+INFO - 11/17/26 17:29:57 - 0:12:11 - (3000/5000) Found 496/1000 valid top-1 predictions.
+INFO - 11/17/26 17:29:57 - 0:12:11 - Found 716/1000 solutions in hypotheses.
+INFO - 11/17/26 17:29:57 - 0:12:11 - (4000/5000) Found 519/1000 valid top-1 predictions.
+INFO - 11/17/26 17:29:57 - 0:12:11 - Found 741/1000 solutions in hypotheses.
+INFO - 11/17/26 17:29:57 - 0:12:11 - (5000/5000) Found 516/1000 valid top-1 predictions.
+INFO - 11/17/26 17:29:57 - 0:12:11 - Found 697/1000 solutions in hypotheses.
+INFO - 11/17/26 17:29:57 - 0:12:11 - 3539/5000 (70.78%) equations were evaluated correctly.
+INFO - 11/17/26 17:29:57 - 0:12:11 - -1: 1667 / 2440 (68.32%)
+INFO - 11/17/26 17:29:57 - 0:12:11 - 1: 1872 / 2560 (73.12%)
+INFO - 11/17/26 17:29:57 - 0:12:11 - correct_sign: 0.726600 (over 5000 samples)
+INFO - 11/17/26 17:29:57 - 0:12:11 - correct_module: 0.963200 (over 5000 samples)
+INFO - 11/17/26 17:29:57 - 0:12:11 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 17:29:57 - 0:12:11 - __log__:{"epoch": 10, "valid_AMPLITUDE_xe_loss": 0.26339054787957655, "valid_AMPLITUDE_greedy_acc": 50.18, "valid_AMPLITUDE_acc": 70.78, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 68.31967213114754, "valid_AMPLITUDE_acc_1": 73.125, "valid_AMPLITUDE_avg_correct_sign": 0.7266, "valid_AMPLITUDE_avg_correct_module": 0.9632}
+INFO - 11/17/26 17:29:57 - 0:12:11 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:29:58 - 0:12:12 - ============ Starting epoch 11 ... ============
+INFO - 11/17/26 17:29:58 - 0:12:12 -   17200 - 1554.16 examples/s - 21844.17 words/s - LOSS:  0.2700 - LR: 3.0000e-04
+INFO - 11/17/26 17:30:05 - 0:12:19 -   17400 - 1892.07 examples/s - 26593.76 words/s - LOSS:  0.2578 - LR: 3.0000e-04
+INFO - 11/17/26 17:30:11 - 0:12:25 -   17600 - 2030.84 examples/s - 28536.53 words/s - LOSS:  0.2551 - LR: 3.0000e-04
+INFO - 11/17/26 17:30:18 - 0:12:31 -   17800 - 1993.92 examples/s - 28019.55 words/s - LOSS:  0.2587 - LR: 3.0000e-04
+INFO - 11/17/26 17:30:24 - 0:12:38 -   18000 - 2056.28 examples/s - 28896.57 words/s - LOSS:  0.2610 - LR: 3.0000e-04
+INFO - 11/17/26 17:30:30 - 0:12:44 -   18200 - 2015.88 examples/s - 28329.59 words/s - LOSS:  0.2627 - LR: 3.0000e-04
+INFO - 11/17/26 17:30:37 - 0:12:50 -   18400 - 2032.23 examples/s - 28557.62 words/s - LOSS:  0.2564 - LR: 3.0000e-04
+INFO - 11/17/26 17:30:43 - 0:12:57 -   18600 - 1995.57 examples/s - 28049.32 words/s - LOSS:  0.2520 - LR: 3.0000e-04
+INFO - 11/17/26 17:30:48 - 0:13:02 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:30:48 - 0:13:02 - ============ End of epoch 11 ============
+INFO - 11/17/26 17:30:48 - 0:13:02 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:30:48 - 0:13:02 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:30:48 - 0:13:02 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:30:48 - 0:13:02 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:30:49 - 0:13:02 - (1000/5000) Found 500/1000 valid top-1 predictions.
+INFO - 11/17/26 17:30:49 - 0:13:02 - Found 680/1000 solutions in hypotheses.
+INFO - 11/17/26 17:30:49 - 0:13:02 - (2000/5000) Found 508/1000 valid top-1 predictions.
+INFO - 11/17/26 17:30:49 - 0:13:02 - Found 708/1000 solutions in hypotheses.
+INFO - 11/17/26 17:30:49 - 0:13:02 - (3000/5000) Found 510/1000 valid top-1 predictions.
+INFO - 11/17/26 17:30:49 - 0:13:02 - Found 668/1000 solutions in hypotheses.
+INFO - 11/17/26 17:30:49 - 0:13:02 - (4000/5000) Found 483/1000 valid top-1 predictions.
+INFO - 11/17/26 17:30:49 - 0:13:02 - Found 684/1000 solutions in hypotheses.
+INFO - 11/17/26 17:30:49 - 0:13:02 - (5000/5000) Found 493/1000 valid top-1 predictions.
+INFO - 11/17/26 17:30:49 - 0:13:02 - Found 690/1000 solutions in hypotheses.
+INFO - 11/17/26 17:30:49 - 0:13:02 - 3430/5000 (68.6%) equations were evaluated correctly.
+INFO - 11/17/26 17:30:49 - 0:13:02 - -1: 2285 / 2440 (93.65%)
+INFO - 11/17/26 17:30:49 - 0:13:02 - 1: 1145 / 2560 (44.73%)
+INFO - 11/17/26 17:30:49 - 0:13:02 - correct_sign: 0.704000 (over 5000 samples)
+INFO - 11/17/26 17:30:49 - 0:13:02 - correct_module: 0.965000 (over 5000 samples)
+INFO - 11/17/26 17:30:49 - 0:13:02 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 17:30:49 - 0:13:02 - __log__:{"epoch": 11, "valid_AMPLITUDE_xe_loss": 0.26471393620755296, "valid_AMPLITUDE_greedy_acc": 49.88, "valid_AMPLITUDE_acc": 68.6, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 93.64754098360656, "valid_AMPLITUDE_acc_1": 44.7265625, "valid_AMPLITUDE_avg_correct_sign": 0.704, "valid_AMPLITUDE_avg_correct_module": 0.965}
+INFO - 11/17/26 17:30:49 - 0:13:02 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:30:49 - 0:13:03 - ============ Starting epoch 12 ... ============
+INFO - 11/17/26 17:30:51 - 0:13:04 -   18800 - 1724.30 examples/s - 24235.82 words/s - LOSS:  0.2593 - LR: 3.0000e-04
+INFO - 11/17/26 17:30:57 - 0:13:10 -   19000 - 2007.16 examples/s - 28210.55 words/s - LOSS:  0.2632 - LR: 3.0000e-04
+INFO - 11/17/26 17:31:03 - 0:13:17 -   19200 - 2029.67 examples/s - 28525.87 words/s - LOSS:  0.2579 - LR: 3.0000e-04
+INFO - 11/17/26 17:31:10 - 0:13:23 -   19400 - 2016.97 examples/s - 28347.20 words/s - LOSS:  0.2469 - LR: 3.0000e-04
+INFO - 11/17/26 17:31:16 - 0:13:30 -   19600 - 1911.40 examples/s - 26857.45 words/s - LOSS:  0.2485 - LR: 3.0000e-04
+INFO - 11/17/26 17:31:23 - 0:13:36 -   19800 - 2017.38 examples/s - 28350.66 words/s - LOSS:  0.2604 - LR: 3.0000e-04
+INFO - 11/17/26 17:31:29 - 0:13:43 -   20000 - 2019.60 examples/s - 28381.26 words/s - LOSS:  0.2489 - LR: 3.0000e-04
+INFO - 11/17/26 17:31:35 - 0:13:49 -   20200 - 1991.97 examples/s - 27992.96 words/s - LOSS:  0.2429 - LR: 3.0000e-04
+INFO - 11/17/26 17:31:39 - 0:13:53 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:31:39 - 0:13:53 - ============ End of epoch 12 ============
+INFO - 11/17/26 17:31:39 - 0:13:53 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:31:39 - 0:13:53 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:31:39 - 0:13:53 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:31:39 - 0:13:53 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:31:40 - 0:13:53 - (1000/5000) Found 554/1000 valid top-1 predictions.
+INFO - 11/17/26 17:31:40 - 0:13:53 - Found 734/1000 solutions in hypotheses.
+INFO - 11/17/26 17:31:40 - 0:13:54 - (2000/5000) Found 533/1000 valid top-1 predictions.
+INFO - 11/17/26 17:31:40 - 0:13:54 - Found 716/1000 solutions in hypotheses.
+INFO - 11/17/26 17:31:40 - 0:13:54 - (3000/5000) Found 532/1000 valid top-1 predictions.
+INFO - 11/17/26 17:31:40 - 0:13:54 - Found 694/1000 solutions in hypotheses.
+INFO - 11/17/26 17:31:40 - 0:13:54 - (4000/5000) Found 496/1000 valid top-1 predictions.
+INFO - 11/17/26 17:31:40 - 0:13:54 - Found 695/1000 solutions in hypotheses.
+INFO - 11/17/26 17:31:40 - 0:13:54 - (5000/5000) Found 527/1000 valid top-1 predictions.
+INFO - 11/17/26 17:31:40 - 0:13:54 - Found 697/1000 solutions in hypotheses.
+INFO - 11/17/26 17:31:40 - 0:13:54 - 3536/5000 (70.72%) equations were evaluated correctly.
+INFO - 11/17/26 17:31:40 - 0:13:54 - -1: 1899 / 2440 (77.83%)
+INFO - 11/17/26 17:31:40 - 0:13:54 - 1: 1637 / 2560 (63.95%)
+INFO - 11/17/26 17:31:40 - 0:13:54 - correct_sign: 0.721200 (over 5000 samples)
+INFO - 11/17/26 17:31:40 - 0:13:54 - correct_module: 0.970800 (over 5000 samples)
+INFO - 11/17/26 17:31:40 - 0:13:54 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 17:31:40 - 0:13:54 - __log__:{"epoch": 12, "valid_AMPLITUDE_xe_loss": 0.2560990066531915, "valid_AMPLITUDE_greedy_acc": 52.84, "valid_AMPLITUDE_acc": 70.72, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 77.82786885245902, "valid_AMPLITUDE_acc_1": 63.9453125, "valid_AMPLITUDE_avg_correct_sign": 0.7212, "valid_AMPLITUDE_avg_correct_module": 0.9708}
+INFO - 11/17/26 17:31:40 - 0:13:54 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:31:41 - 0:13:55 - ============ Starting epoch 13 ... ============
+INFO - 11/17/26 17:31:44 - 0:13:57 -   20400 - 1559.62 examples/s - 21920.09 words/s - LOSS:  0.2498 - LR: 3.0000e-04
+INFO - 11/17/26 17:31:50 - 0:14:03 -   20600 - 2044.88 examples/s - 28747.36 words/s - LOSS:  0.2554 - LR: 3.0000e-04
+INFO - 11/17/26 17:31:56 - 0:14:10 -   20800 - 2006.49 examples/s - 28196.01 words/s - LOSS:  0.2444 - LR: 3.0000e-04
+INFO - 11/17/26 17:32:03 - 0:14:16 -   21000 - 2022.58 examples/s - 28425.77 words/s - LOSS:  0.2475 - LR: 3.0000e-04
+INFO - 11/17/26 17:32:09 - 0:14:22 -   21200 - 2050.19 examples/s - 28813.79 words/s - LOSS:  0.2443 - LR: 3.0000e-04
+INFO - 11/17/26 17:32:15 - 0:14:29 -   21400 - 2020.36 examples/s - 28392.88 words/s - LOSS:  0.2407 - LR: 3.0000e-04
+INFO - 11/17/26 17:32:22 - 0:14:35 -   21600 - 2026.01 examples/s - 28467.88 words/s - LOSS:  0.2447 - LR: 3.0000e-04
+INFO - 11/17/26 17:32:28 - 0:14:41 -   21800 - 2026.45 examples/s - 28483.78 words/s - LOSS:  0.2475 - LR: 3.0000e-04
+INFO - 11/17/26 17:32:30 - 0:14:44 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:32:30 - 0:14:44 - ============ End of epoch 13 ============
+INFO - 11/17/26 17:32:30 - 0:14:44 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:32:30 - 0:14:44 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:32:30 - 0:14:44 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:32:30 - 0:14:44 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:32:31 - 0:14:44 - (1000/5000) Found 547/1000 valid top-1 predictions.
+INFO - 11/17/26 17:32:31 - 0:14:44 - Found 713/1000 solutions in hypotheses.
+INFO - 11/17/26 17:32:31 - 0:14:45 - (2000/5000) Found 539/1000 valid top-1 predictions.
+INFO - 11/17/26 17:32:31 - 0:14:45 - Found 719/1000 solutions in hypotheses.
+INFO - 11/17/26 17:32:31 - 0:14:45 - (3000/5000) Found 523/1000 valid top-1 predictions.
+INFO - 11/17/26 17:32:31 - 0:14:45 - Found 718/1000 solutions in hypotheses.
+INFO - 11/17/26 17:32:31 - 0:14:45 - (4000/5000) Found 560/1000 valid top-1 predictions.
+INFO - 11/17/26 17:32:31 - 0:14:45 - Found 745/1000 solutions in hypotheses.
+INFO - 11/17/26 17:32:31 - 0:14:45 - (5000/5000) Found 550/1000 valid top-1 predictions.
+INFO - 11/17/26 17:32:31 - 0:14:45 - Found 725/1000 solutions in hypotheses.
+INFO - 11/17/26 17:32:31 - 0:14:45 - 3620/5000 (72.4%) equations were evaluated correctly.
+INFO - 11/17/26 17:32:31 - 0:14:45 - -1: 1322 / 2440 (54.18%)
+INFO - 11/17/26 17:32:31 - 0:14:45 - 1: 2298 / 2560 (89.77%)
+INFO - 11/17/26 17:32:31 - 0:14:45 - correct_sign: 0.738400 (over 5000 samples)
+INFO - 11/17/26 17:32:31 - 0:14:45 - correct_module: 0.974200 (over 5000 samples)
+INFO - 11/17/26 17:32:31 - 0:14:45 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 17:32:31 - 0:14:45 - __log__:{"epoch": 13, "valid_AMPLITUDE_xe_loss": 0.24399854043520372, "valid_AMPLITUDE_greedy_acc": 54.38, "valid_AMPLITUDE_acc": 72.4, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 54.18032786885246, "valid_AMPLITUDE_acc_1": 89.765625, "valid_AMPLITUDE_avg_correct_sign": 0.7384, "valid_AMPLITUDE_avg_correct_module": 0.9742}
+INFO - 11/17/26 17:32:31 - 0:14:45 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:32:32 - 0:14:45 - ============ Starting epoch 14 ... ============
+INFO - 11/17/26 17:32:35 - 0:14:49 -   22000 - 1696.59 examples/s - 23844.98 words/s - LOSS:  0.2417 - LR: 3.0000e-04
+INFO - 11/17/26 17:32:42 - 0:14:55 -   22200 - 1975.77 examples/s - 27763.44 words/s - LOSS:  0.2352 - LR: 3.0000e-04
+INFO - 11/17/26 17:32:48 - 0:15:02 -   22400 - 2052.37 examples/s - 28846.52 words/s - LOSS:  0.2437 - LR: 3.0000e-04
+INFO - 11/17/26 17:32:55 - 0:15:08 -   22600 - 1989.30 examples/s - 27957.79 words/s - LOSS:  0.2336 - LR: 3.0000e-04
+INFO - 11/17/26 17:33:01 - 0:15:14 -   22800 - 2024.57 examples/s - 28459.39 words/s - LOSS:  0.2419 - LR: 3.0000e-04
+INFO - 11/17/26 17:33:07 - 0:15:21 -   23000 - 2036.72 examples/s - 28621.64 words/s - LOSS:  0.2387 - LR: 3.0000e-04
+INFO - 11/17/26 17:33:13 - 0:15:27 -   23200 - 2033.20 examples/s - 28574.66 words/s - LOSS:  0.2427 - LR: 3.0000e-04
+INFO - 11/17/26 17:33:20 - 0:15:33 -   23400 - 2015.14 examples/s - 28327.66 words/s - LOSS:  0.2320 - LR: 3.0000e-04
+INFO - 11/17/26 17:33:21 - 0:15:35 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:33:21 - 0:15:35 - ============ End of epoch 14 ============
+INFO - 11/17/26 17:33:21 - 0:15:35 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:33:21 - 0:15:35 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:33:21 - 0:15:35 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:33:21 - 0:15:35 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:33:22 - 0:15:35 - (1000/5000) Found 575/1000 valid top-1 predictions.
+INFO - 11/17/26 17:33:22 - 0:15:35 - Found 741/1000 solutions in hypotheses.
+INFO - 11/17/26 17:33:22 - 0:15:35 - (2000/5000) Found 551/1000 valid top-1 predictions.
+INFO - 11/17/26 17:33:22 - 0:15:35 - Found 720/1000 solutions in hypotheses.
+INFO - 11/17/26 17:33:24 - 0:15:38 - (3000/5000) Found 567/1000 valid top-1 predictions.
+INFO - 11/17/26 17:33:24 - 0:15:38 - Found 749/1000 solutions in hypotheses.
+INFO - 11/17/26 17:33:24 - 0:15:38 - (4000/5000) Found 545/1000 valid top-1 predictions.
+INFO - 11/17/26 17:33:24 - 0:15:38 - Found 739/1000 solutions in hypotheses.
+INFO - 11/17/26 17:33:24 - 0:15:38 - (5000/5000) Found 574/1000 valid top-1 predictions.
+INFO - 11/17/26 17:33:24 - 0:15:38 - Found 746/1000 solutions in hypotheses.
+INFO - 11/17/26 17:33:24 - 0:15:38 - 3695/5000 (73.9%) equations were evaluated correctly.
+INFO - 11/17/26 17:33:24 - 0:15:38 - -1: 1873 / 2440 (76.76%)
+INFO - 11/17/26 17:33:24 - 0:15:38 - 1: 1822 / 2560 (71.17%)
+INFO - 11/17/26 17:33:24 - 0:15:38 - correct_sign: 0.748000 (over 5000 samples)
+INFO - 11/17/26 17:33:24 - 0:15:38 - correct_module: 0.978200 (over 5000 samples)
+INFO - 11/17/26 17:33:24 - 0:15:38 - Memory allocated: 74.95MB, reserved: 11413.22MB
+INFO - 11/17/26 17:33:24 - 0:15:38 - __log__:{"epoch": 14, "valid_AMPLITUDE_xe_loss": 0.23278765989167358, "valid_AMPLITUDE_greedy_acc": 56.24, "valid_AMPLITUDE_acc": 73.9, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 76.76229508196721, "valid_AMPLITUDE_acc_1": 71.171875, "valid_AMPLITUDE_avg_correct_sign": 0.748, "valid_AMPLITUDE_avg_correct_module": 0.9782}
+INFO - 11/17/26 17:33:24 - 0:15:38 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:33:25 - 0:15:39 - ============ Starting epoch 15 ... ============
+INFO - 11/17/26 17:33:30 - 0:15:44 -   23600 - 1228.06 examples/s - 17260.33 words/s - LOSS:  0.2306 - LR: 3.0000e-04
+INFO - 11/17/26 17:33:36 - 0:15:50 -   23800 - 2052.96 examples/s - 28855.47 words/s - LOSS:  0.2246 - LR: 3.0000e-04
+INFO - 11/17/26 17:33:43 - 0:15:56 -   24000 - 2025.16 examples/s - 28455.86 words/s - LOSS:  0.2332 - LR: 3.0000e-04
+INFO - 11/17/26 17:33:49 - 0:16:03 -   24200 - 2024.41 examples/s - 28457.95 words/s - LOSS:  0.2282 - LR: 3.0000e-04
+INFO - 11/17/26 17:33:56 - 0:16:09 -   24400 - 1974.58 examples/s - 27749.41 words/s - LOSS:  0.2283 - LR: 3.0000e-04
+INFO - 11/17/26 17:34:02 - 0:16:15 -   24600 - 2006.17 examples/s - 28187.41 words/s - LOSS:  0.2329 - LR: 3.0000e-04
+INFO - 11/17/26 17:34:08 - 0:16:22 -   24800 - 2054.43 examples/s - 28875.50 words/s - LOSS:  0.2207 - LR: 3.0000e-04
+INFO - 11/17/26 17:34:14 - 0:16:28 -   25000 - 2046.98 examples/s - 28766.78 words/s - LOSS:  0.2191 - LR: 3.0000e-04
+INFO - 11/17/26 17:34:15 - 0:16:28 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:34:15 - 0:16:28 - ============ End of epoch 15 ============
+INFO - 11/17/26 17:34:15 - 0:16:28 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:34:15 - 0:16:28 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:34:15 - 0:16:28 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:34:15 - 0:16:28 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:34:15 - 0:16:28 - (1000/5000) Found 607/1000 valid top-1 predictions.
+INFO - 11/17/26 17:34:15 - 0:16:28 - Found 754/1000 solutions in hypotheses.
+INFO - 11/17/26 17:34:15 - 0:16:29 - (2000/5000) Found 584/1000 valid top-1 predictions.
+INFO - 11/17/26 17:34:15 - 0:16:29 - Found 746/1000 solutions in hypotheses.
+INFO - 11/17/26 17:34:15 - 0:16:29 - (3000/5000) Found 610/1000 valid top-1 predictions.
+INFO - 11/17/26 17:34:15 - 0:16:29 - Found 768/1000 solutions in hypotheses.
+INFO - 11/17/26 17:34:15 - 0:16:29 - (4000/5000) Found 591/1000 valid top-1 predictions.
+INFO - 11/17/26 17:34:15 - 0:16:29 - Found 754/1000 solutions in hypotheses.
+INFO - 11/17/26 17:34:15 - 0:16:29 - (5000/5000) Found 644/1000 valid top-1 predictions.
+INFO - 11/17/26 17:34:15 - 0:16:29 - Found 785/1000 solutions in hypotheses.
+INFO - 11/17/26 17:34:15 - 0:16:29 - 3807/5000 (76.14%) equations were evaluated correctly.
+INFO - 11/17/26 17:34:15 - 0:16:29 - -1: 1810 / 2440 (74.18%)
+INFO - 11/17/26 17:34:15 - 0:16:29 - 1: 1997 / 2560 (78.01%)
+INFO - 11/17/26 17:34:15 - 0:16:29 - correct_sign: 0.770800 (over 5000 samples)
+INFO - 11/17/26 17:34:15 - 0:16:29 - correct_module: 0.982000 (over 5000 samples)
+INFO - 11/17/26 17:34:15 - 0:16:29 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 17:34:15 - 0:16:29 - __log__:{"epoch": 15, "valid_AMPLITUDE_xe_loss": 0.21742683963712647, "valid_AMPLITUDE_greedy_acc": 60.72, "valid_AMPLITUDE_acc": 76.14, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 74.18032786885246, "valid_AMPLITUDE_acc_1": 78.0078125, "valid_AMPLITUDE_avg_correct_sign": 0.7708, "valid_AMPLITUDE_avg_correct_module": 0.982}
+INFO - 11/17/26 17:34:15 - 0:16:29 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:34:16 - 0:16:29 - ============ Starting epoch 16 ... ============
+INFO - 11/17/26 17:34:22 - 0:16:35 -   25200 - 1739.28 examples/s - 24442.70 words/s - LOSS:  0.2177 - LR: 3.0000e-04
+INFO - 11/17/26 17:34:28 - 0:16:42 -   25400 - 2032.48 examples/s - 28565.66 words/s - LOSS:  0.2069 - LR: 3.0000e-04
+INFO - 11/17/26 17:34:34 - 0:16:48 -   25600 - 2011.16 examples/s - 28262.76 words/s - LOSS:  0.2093 - LR: 3.0000e-04
+INFO - 11/17/26 17:34:41 - 0:16:54 -   25800 - 2024.85 examples/s - 28463.21 words/s - LOSS:  0.2210 - LR: 3.0000e-04
+INFO - 11/17/26 17:34:47 - 0:17:01 -   26000 - 2009.20 examples/s - 28232.36 words/s - LOSS:  0.2147 - LR: 3.0000e-04
+INFO - 11/17/26 17:34:53 - 0:17:07 -   26200 - 2026.41 examples/s - 28480.05 words/s - LOSS:  0.2035 - LR: 3.0000e-04
+INFO - 11/17/26 17:35:00 - 0:17:13 -   26400 - 2055.27 examples/s - 28885.76 words/s - LOSS:  0.2158 - LR: 3.0000e-04
+INFO - 11/17/26 17:35:05 - 0:17:19 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:35:05 - 0:17:19 - ============ End of epoch 16 ============
+INFO - 11/17/26 17:35:05 - 0:17:19 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:35:05 - 0:17:19 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:35:05 - 0:17:19 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:35:05 - 0:17:19 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:35:05 - 0:17:19 - (1000/5000) Found 638/1000 valid top-1 predictions.
+INFO - 11/17/26 17:35:05 - 0:17:19 - Found 790/1000 solutions in hypotheses.
+INFO - 11/17/26 17:35:06 - 0:17:19 - (2000/5000) Found 623/1000 valid top-1 predictions.
+INFO - 11/17/26 17:35:06 - 0:17:19 - Found 765/1000 solutions in hypotheses.
+INFO - 11/17/26 17:35:06 - 0:17:19 - (3000/5000) Found 630/1000 valid top-1 predictions.
+INFO - 11/17/26 17:35:06 - 0:17:19 - Found 753/1000 solutions in hypotheses.
+INFO - 11/17/26 17:35:06 - 0:17:19 - (4000/5000) Found 613/1000 valid top-1 predictions.
+INFO - 11/17/26 17:35:06 - 0:17:19 - Found 758/1000 solutions in hypotheses.
+INFO - 11/17/26 17:35:06 - 0:17:19 - (5000/5000) Found 629/1000 valid top-1 predictions.
+INFO - 11/17/26 17:35:06 - 0:17:19 - Found 767/1000 solutions in hypotheses.
+INFO - 11/17/26 17:35:06 - 0:17:19 - 3833/5000 (76.66%) equations were evaluated correctly.
+INFO - 11/17/26 17:35:06 - 0:17:19 - -1: 1844 / 2440 (75.57%)
+INFO - 11/17/26 17:35:06 - 0:17:19 - 1: 1989 / 2560 (77.70%)
+INFO - 11/17/26 17:35:06 - 0:17:19 - correct_sign: 0.778000 (over 5000 samples)
+INFO - 11/17/26 17:35:06 - 0:17:19 - correct_module: 0.978800 (over 5000 samples)
+INFO - 11/17/26 17:35:06 - 0:17:19 - Memory allocated: 74.95MB, reserved: 11421.22MB
+INFO - 11/17/26 17:35:06 - 0:17:19 - __log__:{"epoch": 16, "valid_AMPLITUDE_xe_loss": 0.20829598434192256, "valid_AMPLITUDE_greedy_acc": 62.66, "valid_AMPLITUDE_acc": 76.66, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 75.57377049180327, "valid_AMPLITUDE_acc_1": 77.6953125, "valid_AMPLITUDE_avg_correct_sign": 0.778, "valid_AMPLITUDE_avg_correct_module": 0.9788}
+INFO - 11/17/26 17:35:06 - 0:17:19 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:35:06 - 0:17:20 - ============ Starting epoch 17 ... ============
+INFO - 11/17/26 17:35:07 - 0:17:20 -   26600 - 1750.91 examples/s - 24601.14 words/s - LOSS:  0.2049 - LR: 3.0000e-04
+INFO - 11/17/26 17:35:13 - 0:17:27 -   26800 - 2016.07 examples/s - 28331.29 words/s - LOSS:  0.2098 - LR: 3.0000e-04
+INFO - 11/17/26 17:35:20 - 0:17:33 -   27000 - 2041.81 examples/s - 28696.20 words/s - LOSS:  0.2075 - LR: 3.0000e-04
+INFO - 11/17/26 17:35:26 - 0:17:39 -   27200 - 2051.51 examples/s - 28830.30 words/s - LOSS:  0.1990 - LR: 3.0000e-04
+INFO - 11/17/26 17:35:32 - 0:17:46 -   27400 - 2032.35 examples/s - 28561.08 words/s - LOSS:  0.1944 - LR: 3.0000e-04
+INFO - 11/17/26 17:35:38 - 0:17:52 -   27600 - 2019.79 examples/s - 28381.95 words/s - LOSS:  0.1920 - LR: 3.0000e-04
+INFO - 11/17/26 17:35:45 - 0:17:58 -   27800 - 2041.46 examples/s - 28694.12 words/s - LOSS:  0.1949 - LR: 3.0000e-04
+INFO - 11/17/26 17:35:51 - 0:18:05 -   28000 - 2007.40 examples/s - 28209.10 words/s - LOSS:  0.1850 - LR: 3.0000e-04
+INFO - 11/17/26 17:35:55 - 0:18:09 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:35:55 - 0:18:09 - ============ End of epoch 17 ============
+INFO - 11/17/26 17:35:55 - 0:18:09 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:35:55 - 0:18:09 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:35:55 - 0:18:09 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:35:55 - 0:18:09 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:35:56 - 0:18:09 - (1000/5000) Found 686/1000 valid top-1 predictions.
+INFO - 11/17/26 17:35:56 - 0:18:09 - Found 797/1000 solutions in hypotheses.
+INFO - 11/17/26 17:35:56 - 0:18:09 - (2000/5000) Found 673/1000 valid top-1 predictions.
+INFO - 11/17/26 17:35:56 - 0:18:09 - Found 803/1000 solutions in hypotheses.
+INFO - 11/17/26 17:35:56 - 0:18:09 - (3000/5000) Found 676/1000 valid top-1 predictions.
+INFO - 11/17/26 17:35:56 - 0:18:09 - Found 807/1000 solutions in hypotheses.
+INFO - 11/17/26 17:35:56 - 0:18:10 - (4000/5000) Found 628/1000 valid top-1 predictions.
+INFO - 11/17/26 17:35:56 - 0:18:10 - Found 764/1000 solutions in hypotheses.
+INFO - 11/17/26 17:35:56 - 0:18:10 - (5000/5000) Found 658/1000 valid top-1 predictions.
+INFO - 11/17/26 17:35:56 - 0:18:10 - Found 789/1000 solutions in hypotheses.
+INFO - 11/17/26 17:35:56 - 0:18:10 - 3960/5000 (79.2%) equations were evaluated correctly.
+INFO - 11/17/26 17:35:56 - 0:18:10 - -1: 1889 / 2440 (77.42%)
+INFO - 11/17/26 17:35:56 - 0:18:10 - 1: 2071 / 2560 (80.90%)
+INFO - 11/17/26 17:35:56 - 0:18:10 - correct_sign: 0.806800 (over 5000 samples)
+INFO - 11/17/26 17:35:56 - 0:18:10 - correct_module: 0.974200 (over 5000 samples)
+INFO - 11/17/26 17:35:56 - 0:18:10 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 17:35:56 - 0:18:10 - __log__:{"epoch": 17, "valid_AMPLITUDE_xe_loss": 0.20006025557544108, "valid_AMPLITUDE_greedy_acc": 66.42, "valid_AMPLITUDE_acc": 79.2, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 77.41803278688525, "valid_AMPLITUDE_acc_1": 80.8984375, "valid_AMPLITUDE_avg_correct_sign": 0.8068, "valid_AMPLITUDE_avg_correct_module": 0.9742}
+INFO - 11/17/26 17:35:56 - 0:18:10 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:35:56 - 0:18:10 - ============ Starting epoch 18 ... ============
+INFO - 11/17/26 17:35:58 - 0:18:12 -   28200 - 1765.08 examples/s - 24806.39 words/s - LOSS:  0.1925 - LR: 3.0000e-04
+INFO - 11/17/26 17:36:05 - 0:18:18 -   28400 - 2040.49 examples/s - 28667.40 words/s - LOSS:  0.1877 - LR: 3.0000e-04
+INFO - 11/17/26 17:36:11 - 0:18:24 -   28600 - 2061.89 examples/s - 28976.86 words/s - LOSS:  0.1924 - LR: 3.0000e-04
+INFO - 11/17/26 17:36:17 - 0:18:31 -   28800 - 2044.29 examples/s - 28729.98 words/s - LOSS:  0.1890 - LR: 3.0000e-04
+INFO - 11/17/26 17:36:23 - 0:18:37 -   29000 - 2035.72 examples/s - 28616.39 words/s - LOSS:  0.1866 - LR: 3.0000e-04
+INFO - 11/17/26 17:36:30 - 0:18:43 -   29200 - 2025.26 examples/s - 28465.26 words/s - LOSS:  0.1734 - LR: 3.0000e-04
+INFO - 11/17/26 17:36:36 - 0:18:50 -   29400 - 2027.37 examples/s - 28497.20 words/s - LOSS:  0.1727 - LR: 3.0000e-04
+INFO - 11/17/26 17:36:42 - 0:18:56 -   29600 - 2046.38 examples/s - 28764.21 words/s - LOSS:  0.1757 - LR: 3.0000e-04
+INFO - 11/17/26 17:36:45 - 0:18:59 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:36:45 - 0:18:59 - ============ End of epoch 18 ============
+INFO - 11/17/26 17:36:45 - 0:18:59 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:36:45 - 0:18:59 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:36:45 - 0:18:59 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:36:45 - 0:18:59 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:36:46 - 0:18:59 - (1000/5000) Found 678/1000 valid top-1 predictions.
+INFO - 11/17/26 17:36:46 - 0:18:59 - Found 785/1000 solutions in hypotheses.
+INFO - 11/17/26 17:36:46 - 0:18:59 - (2000/5000) Found 705/1000 valid top-1 predictions.
+INFO - 11/17/26 17:36:46 - 0:18:59 - Found 798/1000 solutions in hypotheses.
+INFO - 11/17/26 17:37:21 - 0:19:34 - (3000/5000) Found 697/1000 valid top-1 predictions.
+INFO - 11/17/26 17:37:21 - 0:19:34 - Found 789/1000 solutions in hypotheses.
+INFO - 11/17/26 17:37:21 - 0:19:34 - (4000/5000) Found 650/1000 valid top-1 predictions.
+INFO - 11/17/26 17:37:21 - 0:19:34 - Found 761/1000 solutions in hypotheses.
+INFO - 11/17/26 17:37:21 - 0:19:34 - (5000/5000) Found 699/1000 valid top-1 predictions.
+INFO - 11/17/26 17:37:21 - 0:19:34 - Found 790/1000 solutions in hypotheses.
+INFO - 11/17/26 17:37:21 - 0:19:34 - 3923/5000 (78.46%) equations were evaluated correctly.
+INFO - 11/17/26 17:37:21 - 0:19:34 - -1: 2292 / 2440 (93.93%)
+INFO - 11/17/26 17:37:21 - 0:19:34 - 1: 1631 / 2560 (63.71%)
+INFO - 11/17/26 17:37:21 - 0:19:34 - correct_sign: 0.793200 (over 5000 samples)
+INFO - 11/17/26 17:37:21 - 0:19:34 - correct_module: 0.984600 (over 5000 samples)
+INFO - 11/17/26 17:37:21 - 0:19:34 - Memory allocated: 74.95MB, reserved: 11413.22MB
+INFO - 11/17/26 17:37:21 - 0:19:34 - __log__:{"epoch": 18, "valid_AMPLITUDE_xe_loss": 0.1899051087093616, "valid_AMPLITUDE_greedy_acc": 68.58, "valid_AMPLITUDE_acc": 78.46, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 93.93442622950819, "valid_AMPLITUDE_acc_1": 63.7109375, "valid_AMPLITUDE_avg_correct_sign": 0.7932, "valid_AMPLITUDE_avg_correct_module": 0.9846}
+INFO - 11/17/26 17:37:21 - 0:19:34 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:37:21 - 0:19:35 - ============ Starting epoch 19 ... ============
+INFO - 11/17/26 17:37:25 - 0:19:38 -   29800 -  303.04 examples/s -  4258.68 words/s - LOSS:  0.1779 - LR: 3.0000e-04
+INFO - 11/17/26 17:37:31 - 0:19:45 -   30000 - 1980.73 examples/s - 27835.18 words/s - LOSS:  0.1789 - LR: 3.0000e-04
+INFO - 11/17/26 17:37:37 - 0:19:51 -   30200 - 2037.08 examples/s - 28628.35 words/s - LOSS:  0.1724 - LR: 3.0000e-04
+INFO - 11/17/26 17:37:44 - 0:19:57 -   30400 - 1979.88 examples/s - 27818.08 words/s - LOSS:  0.1659 - LR: 3.0000e-04
+INFO - 11/17/26 17:37:50 - 0:20:04 -   30600 - 2011.52 examples/s - 28263.71 words/s - LOSS:  0.1696 - LR: 3.0000e-04
+INFO - 11/17/26 17:37:56 - 0:20:10 -   30800 - 2043.28 examples/s - 28716.54 words/s - LOSS:  0.1624 - LR: 3.0000e-04
+INFO - 11/17/26 17:38:03 - 0:20:16 -   31000 - 2029.62 examples/s - 28517.94 words/s - LOSS:  0.1629 - LR: 3.0000e-04
+INFO - 11/17/26 17:38:09 - 0:20:22 -   31200 - 2055.18 examples/s - 28884.59 words/s - LOSS:  0.1630 - LR: 3.0000e-04
+INFO - 11/17/26 17:38:11 - 0:20:24 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:38:11 - 0:20:24 - ============ End of epoch 19 ============
+INFO - 11/17/26 17:38:11 - 0:20:24 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:38:11 - 0:20:24 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:38:11 - 0:20:24 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:38:11 - 0:20:24 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:38:11 - 0:20:25 - (1000/5000) Found 750/1000 valid top-1 predictions.
+INFO - 11/17/26 17:38:11 - 0:20:25 - Found 846/1000 solutions in hypotheses.
+INFO - 11/17/26 17:38:11 - 0:20:25 - (2000/5000) Found 757/1000 valid top-1 predictions.
+INFO - 11/17/26 17:38:11 - 0:20:25 - Found 840/1000 solutions in hypotheses.
+INFO - 11/17/26 17:38:12 - 0:20:25 - (3000/5000) Found 739/1000 valid top-1 predictions.
+INFO - 11/17/26 17:38:12 - 0:20:25 - Found 825/1000 solutions in hypotheses.
+INFO - 11/17/26 17:38:12 - 0:20:25 - (4000/5000) Found 723/1000 valid top-1 predictions.
+INFO - 11/17/26 17:38:12 - 0:20:25 - Found 828/1000 solutions in hypotheses.
+INFO - 11/17/26 17:38:12 - 0:20:25 - (5000/5000) Found 765/1000 valid top-1 predictions.
+INFO - 11/17/26 17:38:12 - 0:20:25 - Found 852/1000 solutions in hypotheses.
+INFO - 11/17/26 17:38:12 - 0:20:25 - 4191/5000 (83.82%) equations were evaluated correctly.
+INFO - 11/17/26 17:38:12 - 0:20:25 - -1: 2041 / 2440 (83.65%)
+INFO - 11/17/26 17:38:12 - 0:20:25 - 1: 2150 / 2560 (83.98%)
+INFO - 11/17/26 17:38:12 - 0:20:25 - correct_sign: 0.844000 (over 5000 samples)
+INFO - 11/17/26 17:38:12 - 0:20:25 - correct_module: 0.989200 (over 5000 samples)
+INFO - 11/17/26 17:38:12 - 0:20:25 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 17:38:12 - 0:20:25 - __log__:{"epoch": 19, "valid_AMPLITUDE_xe_loss": 0.15492087993656056, "valid_AMPLITUDE_greedy_acc": 74.68, "valid_AMPLITUDE_acc": 83.82, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 83.64754098360656, "valid_AMPLITUDE_acc_1": 83.984375, "valid_AMPLITUDE_avg_correct_sign": 0.844, "valid_AMPLITUDE_avg_correct_module": 0.9892}
+INFO - 11/17/26 17:38:12 - 0:20:25 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:38:12 - 0:20:26 - ============ Starting epoch 20 ... ============
+INFO - 11/17/26 17:38:17 - 0:20:30 -   31400 - 1639.44 examples/s - 23039.15 words/s - LOSS:  0.1542 - LR: 3.0000e-04
+INFO - 11/17/26 17:38:23 - 0:20:37 -   31600 - 1993.43 examples/s - 28022.44 words/s - LOSS:  0.1603 - LR: 3.0000e-04
+INFO - 11/17/26 17:38:29 - 0:20:43 -   31800 - 2046.33 examples/s - 28765.36 words/s - LOSS:  0.1569 - LR: 3.0000e-04
+INFO - 11/17/26 17:38:36 - 0:20:49 -   32000 - 2001.23 examples/s - 28126.15 words/s - LOSS:  0.1487 - LR: 3.0000e-04
+INFO - 11/17/26 17:38:42 - 0:20:56 -   32200 - 2030.37 examples/s - 28535.08 words/s - LOSS:  0.1440 - LR: 3.0000e-04
+INFO - 11/17/26 17:38:48 - 0:21:02 -   32400 - 2083.31 examples/s - 29275.12 words/s - LOSS:  0.1432 - LR: 3.0000e-04
+INFO - 11/17/26 17:38:55 - 0:21:08 -   32600 - 2013.93 examples/s - 28297.22 words/s - LOSS:  0.1494 - LR: 3.0000e-04
+INFO - 11/17/26 17:39:01 - 0:21:14 -   32800 - 2024.68 examples/s - 28453.93 words/s - LOSS:  0.1428 - LR: 3.0000e-04
+INFO - 11/17/26 17:39:02 - 0:21:15 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:39:02 - 0:21:15 - ============ End of epoch 20 ============
+INFO - 11/17/26 17:39:02 - 0:21:15 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:39:02 - 0:21:15 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:39:02 - 0:21:15 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:39:02 - 0:21:15 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:39:02 - 0:21:16 - (1000/5000) Found 758/1000 valid top-1 predictions.
+INFO - 11/17/26 17:39:02 - 0:21:16 - Found 843/1000 solutions in hypotheses.
+INFO - 11/17/26 17:39:02 - 0:21:16 - (2000/5000) Found 740/1000 valid top-1 predictions.
+INFO - 11/17/26 17:39:02 - 0:21:16 - Found 836/1000 solutions in hypotheses.
+INFO - 11/17/26 17:39:02 - 0:21:16 - (3000/5000) Found 754/1000 valid top-1 predictions.
+INFO - 11/17/26 17:39:02 - 0:21:16 - Found 832/1000 solutions in hypotheses.
+INFO - 11/17/26 17:39:02 - 0:21:16 - (4000/5000) Found 756/1000 valid top-1 predictions.
+INFO - 11/17/26 17:39:02 - 0:21:16 - Found 838/1000 solutions in hypotheses.
+INFO - 11/17/26 17:39:02 - 0:21:16 - (5000/5000) Found 763/1000 valid top-1 predictions.
+INFO - 11/17/26 17:39:02 - 0:21:16 - Found 840/1000 solutions in hypotheses.
+INFO - 11/17/26 17:39:02 - 0:21:16 - 4189/5000 (83.78%) equations were evaluated correctly.
+INFO - 11/17/26 17:39:02 - 0:21:16 - -1: 1853 / 2440 (75.94%)
+INFO - 11/17/26 17:39:02 - 0:21:16 - 1: 2336 / 2560 (91.25%)
+INFO - 11/17/26 17:39:02 - 0:21:16 - correct_sign: 0.848200 (over 5000 samples)
+INFO - 11/17/26 17:39:02 - 0:21:16 - correct_module: 0.983600 (over 5000 samples)
+INFO - 11/17/26 17:39:02 - 0:21:16 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 17:39:02 - 0:21:16 - __log__:{"epoch": 20, "valid_AMPLITUDE_xe_loss": 0.1596908820108003, "valid_AMPLITUDE_greedy_acc": 75.42, "valid_AMPLITUDE_acc": 83.78, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 75.94262295081967, "valid_AMPLITUDE_acc_1": 91.25, "valid_AMPLITUDE_avg_correct_sign": 0.8482, "valid_AMPLITUDE_avg_correct_module": 0.9836}
+INFO - 11/17/26 17:39:02 - 0:21:16 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:39:03 - 0:21:16 - ============ Starting epoch 21 ... ============
+INFO - 11/17/26 17:39:08 - 0:21:22 -   33000 - 1738.90 examples/s - 24441.95 words/s - LOSS:  0.1427 - LR: 3.0000e-04
+INFO - 11/17/26 17:39:15 - 0:21:28 -   33200 - 2003.35 examples/s - 28155.21 words/s - LOSS:  0.1376 - LR: 3.0000e-04
+INFO - 11/17/26 17:39:21 - 0:21:35 -   33400 - 1985.10 examples/s - 27891.70 words/s - LOSS:  0.1324 - LR: 3.0000e-04
+INFO - 11/17/26 17:39:27 - 0:21:41 -   33600 - 2024.54 examples/s - 28459.48 words/s - LOSS:  0.1310 - LR: 3.0000e-04
+INFO - 11/17/26 17:39:34 - 0:21:47 -   33800 - 2026.30 examples/s - 28475.67 words/s - LOSS:  0.1286 - LR: 3.0000e-04
+INFO - 11/17/26 17:39:40 - 0:21:54 -   34000 - 1996.90 examples/s - 28060.87 words/s - LOSS:  0.1272 - LR: 3.0000e-04
+INFO - 11/17/26 17:39:48 - 0:22:01 -   34200 - 1740.53 examples/s - 24464.53 words/s - LOSS:  0.1292 - LR: 3.0000e-04
+INFO - 11/17/26 17:39:56 - 0:22:10 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:39:56 - 0:22:10 - ============ End of epoch 21 ============
+INFO - 11/17/26 17:39:56 - 0:22:10 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:39:56 - 0:22:10 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:39:56 - 0:22:10 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:39:56 - 0:22:10 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:39:58 - 0:22:12 - (1000/5000) Found 818/1000 valid top-1 predictions.
+INFO - 11/17/26 17:39:58 - 0:22:12 - Found 873/1000 solutions in hypotheses.
+INFO - 11/17/26 17:39:59 - 0:22:12 - (2000/5000) Found 781/1000 valid top-1 predictions.
+INFO - 11/17/26 17:39:59 - 0:22:12 - Found 851/1000 solutions in hypotheses.
+INFO - 11/17/26 17:39:59 - 0:22:12 - (3000/5000) Found 822/1000 valid top-1 predictions.
+INFO - 11/17/26 17:39:59 - 0:22:12 - Found 894/1000 solutions in hypotheses.
+INFO - 11/17/26 17:39:59 - 0:22:12 - (4000/5000) Found 807/1000 valid top-1 predictions.
+INFO - 11/17/26 17:39:59 - 0:22:12 - Found 870/1000 solutions in hypotheses.
+INFO - 11/17/26 17:39:59 - 0:22:12 - (5000/5000) Found 814/1000 valid top-1 predictions.
+INFO - 11/17/26 17:39:59 - 0:22:12 - Found 875/1000 solutions in hypotheses.
+INFO - 11/17/26 17:39:59 - 0:22:12 - 4363/5000 (87.26%) equations were evaluated correctly.
+INFO - 11/17/26 17:39:59 - 0:22:12 - -1: 2138 / 2440 (87.62%)
+INFO - 11/17/26 17:39:59 - 0:22:12 - 1: 2225 / 2560 (86.91%)
+INFO - 11/17/26 17:39:59 - 0:22:12 - correct_sign: 0.875800 (over 5000 samples)
+INFO - 11/17/26 17:39:59 - 0:22:12 - correct_module: 0.993800 (over 5000 samples)
+INFO - 11/17/26 17:39:59 - 0:22:12 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 17:39:59 - 0:22:12 - __log__:{"epoch": 21, "valid_AMPLITUDE_xe_loss": 0.12465016005366114, "valid_AMPLITUDE_greedy_acc": 80.84, "valid_AMPLITUDE_acc": 87.26, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 87.62295081967213, "valid_AMPLITUDE_acc_1": 86.9140625, "valid_AMPLITUDE_avg_correct_sign": 0.8758, "valid_AMPLITUDE_avg_correct_module": 0.9938}
+INFO - 11/17/26 17:39:59 - 0:22:12 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:43:13 - 0:25:26 - ============ Starting epoch 22 ... ============
+INFO - 11/17/26 17:43:13 - 0:25:27 -   34400 -   62.18 examples/s -   873.93 words/s - LOSS:  0.1202 - LR: 3.0000e-04
+INFO - 11/17/26 17:43:20 - 0:25:34 -   34600 - 1927.86 examples/s - 27096.91 words/s - LOSS:  0.1190 - LR: 3.0000e-04
+INFO - 11/17/26 17:58:27 - 0:40:40 -   34800 -   14.12 examples/s -   198.35 words/s - LOSS:  0.1197 - LR: 3.0000e-04
+INFO - 11/17/26 17:58:36 - 0:40:50 -   35000 - 1355.22 examples/s - 19046.78 words/s - LOSS:  0.1107 - LR: 3.0000e-04
+INFO - 11/17/26 17:58:46 - 0:40:59 -   35200 - 1303.53 examples/s - 18325.12 words/s - LOSS:  0.1127 - LR: 3.0000e-04
+INFO - 11/17/26 17:58:55 - 0:41:09 -   35400 - 1357.41 examples/s - 19077.96 words/s - LOSS:  0.1146 - LR: 3.0000e-04
+INFO - 11/17/26 17:59:06 - 0:41:19 -   35600 - 1209.90 examples/s - 17001.30 words/s - LOSS:  0.1087 - LR: 3.0000e-04
+INFO - 11/17/26 17:59:17 - 0:41:31 -   35800 - 1157.69 examples/s - 16266.78 words/s - LOSS:  0.1099 - LR: 3.0000e-04
+INFO - 11/17/26 17:59:25 - 0:41:38 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 17:59:25 - 0:41:38 - ============ End of epoch 22 ============
+INFO - 11/17/26 17:59:25 - 0:41:38 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 17:59:25 - 0:41:38 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 17:59:25 - 0:41:38 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:59:25 - 0:41:38 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 17:59:26 - 0:41:39 - (1000/5000) Found 852/1000 valid top-1 predictions.
+INFO - 11/17/26 17:59:26 - 0:41:39 - Found 914/1000 solutions in hypotheses.
+INFO - 11/17/26 17:59:26 - 0:41:39 - (2000/5000) Found 831/1000 valid top-1 predictions.
+INFO - 11/17/26 17:59:26 - 0:41:39 - Found 878/1000 solutions in hypotheses.
+INFO - 11/17/26 17:59:26 - 0:41:39 - (3000/5000) Found 844/1000 valid top-1 predictions.
+INFO - 11/17/26 17:59:26 - 0:41:39 - Found 892/1000 solutions in hypotheses.
+INFO - 11/17/26 17:59:26 - 0:41:40 - (4000/5000) Found 841/1000 valid top-1 predictions.
+INFO - 11/17/26 17:59:26 - 0:41:40 - Found 885/1000 solutions in hypotheses.
+INFO - 11/17/26 17:59:26 - 0:41:40 - (5000/5000) Found 852/1000 valid top-1 predictions.
+INFO - 11/17/26 17:59:27 - 0:41:40 - Found 902/1000 solutions in hypotheses.
+INFO - 11/17/26 17:59:27 - 0:41:40 - 4471/5000 (89.42%) equations were evaluated correctly.
+INFO - 11/17/26 17:59:27 - 0:41:40 - -1: 2061 / 2440 (84.47%)
+INFO - 11/17/26 17:59:27 - 0:41:40 - 1: 2410 / 2560 (94.14%)
+INFO - 11/17/26 17:59:27 - 0:41:40 - correct_sign: 0.897000 (over 5000 samples)
+INFO - 11/17/26 17:59:27 - 0:41:40 - correct_module: 0.994800 (over 5000 samples)
+INFO - 11/17/26 17:59:27 - 0:41:40 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 17:59:27 - 0:41:40 - __log__:{"epoch": 22, "valid_AMPLITUDE_xe_loss": 0.10653854823183213, "valid_AMPLITUDE_greedy_acc": 84.4, "valid_AMPLITUDE_acc": 89.42, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 84.4672131147541, "valid_AMPLITUDE_acc_1": 94.140625, "valid_AMPLITUDE_avg_correct_sign": 0.897, "valid_AMPLITUDE_avg_correct_module": 0.9948}
+INFO - 11/17/26 17:59:27 - 0:41:40 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 17:59:28 - 0:41:41 - ============ Starting epoch 23 ... ============
+INFO - 11/17/26 17:59:30 - 0:41:43 -   36000 -  992.17 examples/s - 13945.02 words/s - LOSS:  0.1017 - LR: 3.0000e-04
+INFO - 11/17/26 17:59:41 - 0:41:54 -   36200 - 1210.84 examples/s - 17019.43 words/s - LOSS:  0.1019 - LR: 3.0000e-04
+INFO - 11/17/26 17:59:51 - 0:42:04 -   36400 - 1282.32 examples/s - 18021.20 words/s - LOSS:  0.1049 - LR: 3.0000e-04
+INFO - 11/17/26 18:00:00 - 0:42:14 -   36600 - 1335.19 examples/s - 18762.97 words/s - LOSS:  0.1029 - LR: 3.0000e-04
+INFO - 11/17/26 18:00:11 - 0:42:24 -   36800 - 1220.42 examples/s - 17152.50 words/s - LOSS:  0.0909 - LR: 3.0000e-04
+INFO - 11/17/26 18:00:21 - 0:42:34 -   37000 - 1284.15 examples/s - 18047.87 words/s - LOSS:  0.0915 - LR: 3.0000e-04
+INFO - 11/17/26 18:00:30 - 0:42:44 -   37200 - 1286.82 examples/s - 18085.12 words/s - LOSS:  0.0970 - LR: 3.0000e-04
+INFO - 11/17/26 18:00:40 - 0:42:54 -   37400 - 1283.04 examples/s - 18033.46 words/s - LOSS:  0.0909 - LR: 3.0000e-04
+INFO - 11/17/26 18:00:46 - 0:43:00 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:00:46 - 0:43:00 - ============ End of epoch 23 ============
+INFO - 11/17/26 18:00:46 - 0:43:00 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:00:46 - 0:43:00 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:00:46 - 0:43:00 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:00:46 - 0:43:00 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:00:47 - 0:43:00 - (1000/5000) Found 888/1000 valid top-1 predictions.
+INFO - 11/17/26 18:00:47 - 0:43:00 - Found 913/1000 solutions in hypotheses.
+INFO - 11/17/26 18:00:47 - 0:43:01 - (2000/5000) Found 871/1000 valid top-1 predictions.
+INFO - 11/17/26 18:00:47 - 0:43:01 - Found 906/1000 solutions in hypotheses.
+INFO - 11/17/26 18:00:47 - 0:43:01 - (3000/5000) Found 873/1000 valid top-1 predictions.
+INFO - 11/17/26 18:00:47 - 0:43:01 - Found 904/1000 solutions in hypotheses.
+INFO - 11/17/26 18:00:47 - 0:43:01 - (4000/5000) Found 878/1000 valid top-1 predictions.
+INFO - 11/17/26 18:00:47 - 0:43:01 - Found 912/1000 solutions in hypotheses.
+INFO - 11/17/26 18:00:47 - 0:43:01 - (5000/5000) Found 863/1000 valid top-1 predictions.
+INFO - 11/17/26 18:00:47 - 0:43:01 - Found 900/1000 solutions in hypotheses.
+INFO - 11/17/26 18:00:47 - 0:43:01 - 4535/5000 (90.7%) equations were evaluated correctly.
+INFO - 11/17/26 18:00:47 - 0:43:01 - -1: 2175 / 2440 (89.14%)
+INFO - 11/17/26 18:00:47 - 0:43:01 - 1: 2360 / 2560 (92.19%)
+INFO - 11/17/26 18:00:47 - 0:43:01 - correct_sign: 0.912600 (over 5000 samples)
+INFO - 11/17/26 18:00:47 - 0:43:01 - correct_module: 0.992000 (over 5000 samples)
+INFO - 11/17/26 18:00:47 - 0:43:01 - Memory allocated: 74.95MB, reserved: 11413.22MB
+INFO - 11/17/26 18:00:47 - 0:43:01 - __log__:{"epoch": 23, "valid_AMPLITUDE_xe_loss": 0.08949225587823827, "valid_AMPLITUDE_greedy_acc": 87.46, "valid_AMPLITUDE_acc": 90.7, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 89.13934426229508, "valid_AMPLITUDE_acc_1": 92.1875, "valid_AMPLITUDE_avg_correct_sign": 0.9126, "valid_AMPLITUDE_avg_correct_module": 0.992}
+INFO - 11/17/26 18:00:47 - 0:43:01 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:00:48 - 0:43:01 - ============ Starting epoch 24 ... ============
+INFO - 11/17/26 18:00:52 - 0:43:06 -   37600 - 1075.75 examples/s - 15118.93 words/s - LOSS:  0.0914 - LR: 3.0000e-04
+INFO - 11/17/26 18:01:02 - 0:43:16 -   37800 - 1266.43 examples/s - 17798.60 words/s - LOSS:  0.0897 - LR: 3.0000e-04
+INFO - 11/17/26 18:01:12 - 0:43:26 -   38000 - 1326.01 examples/s - 18636.40 words/s - LOSS:  0.0889 - LR: 3.0000e-04
+INFO - 11/17/26 18:01:22 - 0:43:36 -   38200 - 1284.53 examples/s - 18051.57 words/s - LOSS:  0.0806 - LR: 3.0000e-04
+INFO - 11/17/26 18:01:33 - 0:43:46 -   38400 - 1197.69 examples/s - 16832.33 words/s - LOSS:  0.0758 - LR: 3.0000e-04
+INFO - 11/17/26 18:01:43 - 0:43:57 -   38600 - 1211.96 examples/s - 17029.99 words/s - LOSS:  0.0793 - LR: 3.0000e-04
+INFO - 11/17/26 18:01:53 - 0:44:07 -   38800 - 1298.39 examples/s - 18251.26 words/s - LOSS:  0.0782 - LR: 3.0000e-04
+INFO - 11/17/26 18:02:03 - 0:44:17 -   39000 - 1292.32 examples/s - 18162.94 words/s - LOSS:  0.0781 - LR: 3.0000e-04
+INFO - 11/17/26 18:02:07 - 0:44:20 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:02:07 - 0:44:20 - ============ End of epoch 24 ============
+INFO - 11/17/26 18:02:07 - 0:44:20 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:02:07 - 0:44:20 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:02:07 - 0:44:20 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:02:07 - 0:44:20 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:02:08 - 0:44:21 - (1000/5000) Found 900/1000 valid top-1 predictions.
+INFO - 11/17/26 18:02:08 - 0:44:21 - Found 927/1000 solutions in hypotheses.
+INFO - 11/17/26 18:02:08 - 0:44:21 - (2000/5000) Found 879/1000 valid top-1 predictions.
+INFO - 11/17/26 18:02:08 - 0:44:21 - Found 913/1000 solutions in hypotheses.
+INFO - 11/17/26 18:02:08 - 0:44:21 - (3000/5000) Found 888/1000 valid top-1 predictions.
+INFO - 11/17/26 18:02:08 - 0:44:21 - Found 924/1000 solutions in hypotheses.
+INFO - 11/17/26 18:02:08 - 0:44:22 - (4000/5000) Found 894/1000 valid top-1 predictions.
+INFO - 11/17/26 18:02:08 - 0:44:22 - Found 929/1000 solutions in hypotheses.
+INFO - 11/17/26 18:02:08 - 0:44:22 - (5000/5000) Found 889/1000 valid top-1 predictions.
+INFO - 11/17/26 18:02:08 - 0:44:22 - Found 917/1000 solutions in hypotheses.
+INFO - 11/17/26 18:02:08 - 0:44:22 - 4610/5000 (92.2%) equations were evaluated correctly.
+INFO - 11/17/26 18:02:08 - 0:44:22 - -1: 2173 / 2440 (89.06%)
+INFO - 11/17/26 18:02:08 - 0:44:22 - 1: 2437 / 2560 (95.20%)
+INFO - 11/17/26 18:02:08 - 0:44:22 - correct_sign: 0.929200 (over 5000 samples)
+INFO - 11/17/26 18:02:08 - 0:44:22 - correct_module: 0.991000 (over 5000 samples)
+INFO - 11/17/26 18:02:08 - 0:44:22 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 18:02:08 - 0:44:22 - __log__:{"epoch": 24, "valid_AMPLITUDE_xe_loss": 0.083736421072215, "valid_AMPLITUDE_greedy_acc": 89.0, "valid_AMPLITUDE_acc": 92.2, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 89.05737704918033, "valid_AMPLITUDE_acc_1": 95.1953125, "valid_AMPLITUDE_avg_correct_sign": 0.9292, "valid_AMPLITUDE_avg_correct_module": 0.991}
+INFO - 11/17/26 18:02:08 - 0:44:22 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:02:09 - 0:44:22 - ============ Starting epoch 25 ... ============
+INFO - 11/17/26 18:02:15 - 0:44:28 -   39200 - 1093.56 examples/s - 15372.43 words/s - LOSS:  0.0732 - LR: 3.0000e-04
+INFO - 11/17/26 18:02:25 - 0:44:39 -   39400 - 1225.97 examples/s - 17227.71 words/s - LOSS:  0.0769 - LR: 3.0000e-04
+INFO - 11/17/26 18:02:36 - 0:44:49 -   39600 - 1211.65 examples/s - 17026.78 words/s - LOSS:  0.0695 - LR: 3.0000e-04
+INFO - 11/17/26 18:02:46 - 0:45:00 -   39800 - 1233.27 examples/s - 17333.03 words/s - LOSS:  0.0759 - LR: 3.0000e-04
+INFO - 11/17/26 18:02:57 - 0:45:10 -   40000 - 1239.50 examples/s - 17414.72 words/s - LOSS:  0.0759 - LR: 3.0000e-04
+INFO - 11/17/26 18:03:07 - 0:45:21 -   40200 - 1213.07 examples/s - 17049.15 words/s - LOSS:  0.0693 - LR: 3.0000e-04
+INFO - 11/17/26 18:03:18 - 0:45:31 -   40400 - 1211.07 examples/s - 17017.57 words/s - LOSS:  0.0683 - LR: 3.0000e-04
+INFO - 11/17/26 18:03:28 - 0:45:41 -   40600 - 1239.64 examples/s - 17417.79 words/s - LOSS:  0.0673 - LR: 3.0000e-04
+INFO - 11/17/26 18:03:30 - 0:45:43 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:03:30 - 0:45:43 - ============ End of epoch 25 ============
+INFO - 11/17/26 18:03:30 - 0:45:43 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:03:30 - 0:45:43 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:03:30 - 0:45:43 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:03:30 - 0:45:43 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:03:31 - 0:45:44 - (1000/5000) Found 903/1000 valid top-1 predictions.
+INFO - 11/17/26 18:03:31 - 0:45:44 - Found 927/1000 solutions in hypotheses.
+INFO - 11/17/26 18:03:31 - 0:45:44 - (2000/5000) Found 893/1000 valid top-1 predictions.
+INFO - 11/17/26 18:03:31 - 0:45:44 - Found 920/1000 solutions in hypotheses.
+INFO - 11/17/26 18:03:31 - 0:45:44 - (3000/5000) Found 898/1000 valid top-1 predictions.
+INFO - 11/17/26 18:03:31 - 0:45:44 - Found 926/1000 solutions in hypotheses.
+INFO - 11/17/26 18:03:31 - 0:45:44 - (4000/5000) Found 886/1000 valid top-1 predictions.
+INFO - 11/17/26 18:03:31 - 0:45:45 - Found 906/1000 solutions in hypotheses.
+INFO - 11/17/26 18:03:32 - 0:45:45 - (5000/5000) Found 911/1000 valid top-1 predictions.
+INFO - 11/17/26 18:03:32 - 0:45:45 - Found 931/1000 solutions in hypotheses.
+INFO - 11/17/26 18:03:32 - 0:45:45 - 4610/5000 (92.2%) equations were evaluated correctly.
+INFO - 11/17/26 18:03:32 - 0:45:45 - -1: 2369 / 2440 (97.09%)
+INFO - 11/17/26 18:03:32 - 0:45:45 - 1: 2241 / 2560 (87.54%)
+INFO - 11/17/26 18:03:32 - 0:45:45 - correct_sign: 0.928200 (over 5000 samples)
+INFO - 11/17/26 18:03:32 - 0:45:45 - correct_module: 0.991600 (over 5000 samples)
+INFO - 11/17/26 18:03:32 - 0:45:45 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 18:03:32 - 0:45:45 - __log__:{"epoch": 25, "valid_AMPLITUDE_xe_loss": 0.07817163901293404, "valid_AMPLITUDE_greedy_acc": 89.82, "valid_AMPLITUDE_acc": 92.2, "valid_AMPLITUDE_well_formed": 99.98, "valid_AMPLITUDE_acc_-1": 97.09016393442623, "valid_AMPLITUDE_acc_1": 87.5390625, "valid_AMPLITUDE_avg_correct_sign": 0.9282, "valid_AMPLITUDE_avg_correct_module": 0.9916}
+INFO - 11/17/26 18:03:32 - 0:45:45 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:03:32 - 0:45:45 - ============ Starting epoch 26 ... ============
+INFO - 11/17/26 18:03:41 - 0:45:54 -   40800 - 1014.08 examples/s - 14253.38 words/s - LOSS:  0.0681 - LR: 3.0000e-04
+INFO - 11/17/26 18:03:51 - 0:46:05 -   41000 - 1213.47 examples/s - 17051.42 words/s - LOSS:  0.0682 - LR: 3.0000e-04
+INFO - 11/17/26 18:04:02 - 0:46:15 -   41200 - 1214.87 examples/s - 17072.16 words/s - LOSS:  0.0650 - LR: 3.0000e-04
+INFO - 11/17/26 18:04:12 - 0:46:26 -   41400 - 1204.77 examples/s - 16930.53 words/s - LOSS:  0.0579 - LR: 3.0000e-04
+INFO - 11/17/26 18:04:22 - 0:46:35 -   41600 - 1365.16 examples/s - 19188.82 words/s - LOSS:  0.0557 - LR: 3.0000e-04
+INFO - 11/17/26 18:04:28 - 0:46:42 -   41800 - 1987.57 examples/s - 27928.92 words/s - LOSS:  0.0566 - LR: 3.0000e-04
+INFO - 11/17/26 18:04:35 - 0:46:48 -   42000 - 2002.89 examples/s - 28153.76 words/s - LOSS:  0.0515 - LR: 3.0000e-04
+INFO - 11/17/26 18:04:41 - 0:46:54 -   42200 - 1993.90 examples/s - 28020.80 words/s - LOSS:  0.0572 - LR: 3.0000e-04
+INFO - 11/17/26 18:04:41 - 0:46:54 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:04:41 - 0:46:54 - ============ End of epoch 26 ============
+INFO - 11/17/26 18:04:41 - 0:46:54 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:04:41 - 0:46:54 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:04:41 - 0:46:54 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:04:41 - 0:46:54 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:04:42 - 0:46:55 - (1000/5000) Found 937/1000 valid top-1 predictions.
+INFO - 11/17/26 18:04:42 - 0:46:55 - Found 952/1000 solutions in hypotheses.
+INFO - 11/17/26 18:04:42 - 0:46:55 - (2000/5000) Found 926/1000 valid top-1 predictions.
+INFO - 11/17/26 18:04:42 - 0:46:55 - Found 945/1000 solutions in hypotheses.
+INFO - 11/17/26 18:04:42 - 0:46:55 - (3000/5000) Found 934/1000 valid top-1 predictions.
+INFO - 11/17/26 18:04:42 - 0:46:55 - Found 953/1000 solutions in hypotheses.
+INFO - 11/17/26 18:04:42 - 0:46:55 - (4000/5000) Found 932/1000 valid top-1 predictions.
+INFO - 11/17/26 18:04:42 - 0:46:55 - Found 951/1000 solutions in hypotheses.
+INFO - 11/17/26 18:04:42 - 0:46:56 - (5000/5000) Found 929/1000 valid top-1 predictions.
+INFO - 11/17/26 18:04:42 - 0:46:56 - Found 952/1000 solutions in hypotheses.
+INFO - 11/17/26 18:04:42 - 0:46:56 - 4753/5000 (95.06%) equations were evaluated correctly.
+INFO - 11/17/26 18:04:42 - 0:46:56 - -1: 2318 / 2440 (95.00%)
+INFO - 11/17/26 18:04:42 - 0:46:56 - 1: 2435 / 2560 (95.12%)
+INFO - 11/17/26 18:04:42 - 0:46:56 - correct_sign: 0.956000 (over 5000 samples)
+INFO - 11/17/26 18:04:42 - 0:46:56 - correct_module: 0.993600 (over 5000 samples)
+INFO - 11/17/26 18:04:42 - 0:46:56 - Memory allocated: 74.95MB, reserved: 11427.22MB
+INFO - 11/17/26 18:04:42 - 0:46:56 - __log__:{"epoch": 26, "valid_AMPLITUDE_xe_loss": 0.055128136646553, "valid_AMPLITUDE_greedy_acc": 93.16, "valid_AMPLITUDE_acc": 95.06, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 95.0, "valid_AMPLITUDE_acc_1": 95.1171875, "valid_AMPLITUDE_avg_correct_sign": 0.956, "valid_AMPLITUDE_avg_correct_module": 0.9936}
+INFO - 11/17/26 18:04:42 - 0:46:56 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:04:43 - 0:46:56 - ============ Starting epoch 27 ... ============
+INFO - 11/17/26 18:04:49 - 0:47:03 -   42400 - 1562.88 examples/s - 21966.33 words/s - LOSS:  0.0567 - LR: 3.0000e-04
+INFO - 11/17/26 18:04:55 - 0:47:09 -   42600 - 2019.83 examples/s - 28387.94 words/s - LOSS:  0.0574 - LR: 3.0000e-04
+INFO - 11/17/26 18:05:02 - 0:47:15 -   42800 - 2014.22 examples/s - 28303.50 words/s - LOSS:  0.0508 - LR: 3.0000e-04
+INFO - 11/17/26 18:05:08 - 0:47:22 -   43000 - 2039.96 examples/s - 28668.72 words/s - LOSS:  0.0539 - LR: 3.0000e-04
+INFO - 11/17/26 18:05:15 - 0:47:28 -   43200 - 1978.56 examples/s - 27805.64 words/s - LOSS:  0.0513 - LR: 3.0000e-04
+INFO - 11/17/26 18:05:21 - 0:47:34 -   43400 - 2055.15 examples/s - 28874.57 words/s - LOSS:  0.0546 - LR: 3.0000e-04
+INFO - 11/17/26 18:05:27 - 0:47:41 -   43600 - 2005.51 examples/s - 28182.49 words/s - LOSS:  0.0493 - LR: 3.0000e-04
+INFO - 11/17/26 18:05:32 - 0:47:46 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:05:32 - 0:47:46 - ============ End of epoch 27 ============
+INFO - 11/17/26 18:05:32 - 0:47:46 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:05:32 - 0:47:46 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:05:32 - 0:47:46 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:05:32 - 0:47:46 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:05:33 - 0:47:46 - (1000/5000) Found 931/1000 valid top-1 predictions.
+INFO - 11/17/26 18:05:33 - 0:47:46 - Found 949/1000 solutions in hypotheses.
+INFO - 11/17/26 18:05:33 - 0:47:46 - (2000/5000) Found 945/1000 valid top-1 predictions.
+INFO - 11/17/26 18:05:33 - 0:47:46 - Found 964/1000 solutions in hypotheses.
+INFO - 11/17/26 18:05:33 - 0:47:47 - (3000/5000) Found 946/1000 valid top-1 predictions.
+INFO - 11/17/26 18:05:33 - 0:47:47 - Found 958/1000 solutions in hypotheses.
+INFO - 11/17/26 18:05:33 - 0:47:47 - (4000/5000) Found 930/1000 valid top-1 predictions.
+INFO - 11/17/26 18:05:33 - 0:47:47 - Found 950/1000 solutions in hypotheses.
+INFO - 11/17/26 18:05:33 - 0:47:47 - (5000/5000) Found 949/1000 valid top-1 predictions.
+INFO - 11/17/26 18:05:33 - 0:47:47 - Found 963/1000 solutions in hypotheses.
+INFO - 11/17/26 18:05:33 - 0:47:47 - 4784/5000 (95.68%) equations were evaluated correctly.
+INFO - 11/17/26 18:05:33 - 0:47:47 - -1: 2329 / 2440 (95.45%)
+INFO - 11/17/26 18:05:33 - 0:47:47 - 1: 2455 / 2560 (95.90%)
+INFO - 11/17/26 18:05:33 - 0:47:47 - correct_sign: 0.962200 (over 5000 samples)
+INFO - 11/17/26 18:05:33 - 0:47:47 - correct_module: 0.993400 (over 5000 samples)
+INFO - 11/17/26 18:05:33 - 0:47:47 - Memory allocated: 74.95MB, reserved: 11427.22MB
+INFO - 11/17/26 18:05:33 - 0:47:47 - __log__:{"epoch": 27, "valid_AMPLITUDE_xe_loss": 0.050606139651162056, "valid_AMPLITUDE_greedy_acc": 94.02, "valid_AMPLITUDE_acc": 95.68, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 95.45081967213115, "valid_AMPLITUDE_acc_1": 95.8984375, "valid_AMPLITUDE_avg_correct_sign": 0.9622, "valid_AMPLITUDE_avg_correct_module": 0.9934}
+INFO - 11/17/26 18:05:33 - 0:47:47 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:05:33 - 0:47:47 - ============ Starting epoch 28 ... ============
+INFO - 11/17/26 18:05:35 - 0:47:48 -   43800 - 1721.04 examples/s - 24187.95 words/s - LOSS:  0.0501 - LR: 3.0000e-04
+INFO - 11/17/26 18:05:41 - 0:47:54 -   44000 - 2005.97 examples/s - 28190.56 words/s - LOSS:  0.0536 - LR: 3.0000e-04
+INFO - 11/17/26 18:05:47 - 0:48:01 -   44200 - 2023.53 examples/s - 28437.42 words/s - LOSS:  0.0452 - LR: 3.0000e-04
+INFO - 11/17/26 18:05:54 - 0:48:07 -   44400 - 2008.71 examples/s - 28224.12 words/s - LOSS:  0.0476 - LR: 3.0000e-04
+INFO - 11/17/26 18:06:00 - 0:48:13 -   44600 - 2027.64 examples/s - 28493.28 words/s - LOSS:  0.0490 - LR: 3.0000e-04
+INFO - 11/17/26 18:06:06 - 0:48:20 -   44800 - 2016.63 examples/s - 28346.51 words/s - LOSS:  0.0461 - LR: 3.0000e-04
+INFO - 11/17/26 18:06:13 - 0:48:26 -   45000 - 1964.05 examples/s - 27603.74 words/s - LOSS:  0.0466 - LR: 3.0000e-04
+INFO - 11/17/26 18:06:19 - 0:48:33 -   45200 - 1986.44 examples/s - 27911.34 words/s - LOSS:  0.0469 - LR: 3.0000e-04
+INFO - 11/17/26 18:06:23 - 0:48:37 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:06:23 - 0:48:37 - ============ End of epoch 28 ============
+INFO - 11/17/26 18:06:23 - 0:48:37 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:06:23 - 0:48:37 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:06:23 - 0:48:37 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:06:23 - 0:48:37 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:06:24 - 0:48:37 - (1000/5000) Found 950/1000 valid top-1 predictions.
+INFO - 11/17/26 18:06:24 - 0:48:37 - Found 964/1000 solutions in hypotheses.
+INFO - 11/17/26 18:06:24 - 0:48:37 - (2000/5000) Found 947/1000 valid top-1 predictions.
+INFO - 11/17/26 18:06:24 - 0:48:37 - Found 956/1000 solutions in hypotheses.
+INFO - 11/17/26 18:06:24 - 0:48:38 - (3000/5000) Found 942/1000 valid top-1 predictions.
+INFO - 11/17/26 18:06:24 - 0:48:38 - Found 954/1000 solutions in hypotheses.
+INFO - 11/17/26 18:06:24 - 0:48:38 - (4000/5000) Found 936/1000 valid top-1 predictions.
+INFO - 11/17/26 18:06:24 - 0:48:38 - Found 951/1000 solutions in hypotheses.
+INFO - 11/17/26 18:06:24 - 0:48:38 - (5000/5000) Found 948/1000 valid top-1 predictions.
+INFO - 11/17/26 18:06:24 - 0:48:38 - Found 962/1000 solutions in hypotheses.
+INFO - 11/17/26 18:06:24 - 0:48:38 - 4787/5000 (95.74%) equations were evaluated correctly.
+INFO - 11/17/26 18:06:24 - 0:48:38 - -1: 2314 / 2440 (94.84%)
+INFO - 11/17/26 18:06:24 - 0:48:38 - 1: 2473 / 2560 (96.60%)
+INFO - 11/17/26 18:06:24 - 0:48:38 - correct_sign: 0.962400 (over 5000 samples)
+INFO - 11/17/26 18:06:24 - 0:48:38 - correct_module: 0.994000 (over 5000 samples)
+INFO - 11/17/26 18:06:24 - 0:48:38 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 18:06:24 - 0:48:38 - __log__:{"epoch": 28, "valid_AMPLITUDE_xe_loss": 0.04606767782045916, "valid_AMPLITUDE_greedy_acc": 94.46, "valid_AMPLITUDE_acc": 95.74, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 94.8360655737705, "valid_AMPLITUDE_acc_1": 96.6015625, "valid_AMPLITUDE_avg_correct_sign": 0.9624, "valid_AMPLITUDE_avg_correct_module": 0.994}
+INFO - 11/17/26 18:06:24 - 0:48:38 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:06:25 - 0:48:38 - ============ Starting epoch 29 ... ============
+INFO - 11/17/26 18:06:27 - 0:48:40 -   45400 - 1678.28 examples/s - 23578.59 words/s - LOSS:  0.0418 - LR: 3.0000e-04
+INFO - 11/17/26 18:06:33 - 0:48:47 -   45600 - 2015.32 examples/s - 28319.37 words/s - LOSS:  0.0483 - LR: 3.0000e-04
+INFO - 11/17/26 18:06:40 - 0:48:53 -   45800 - 1993.77 examples/s - 28019.95 words/s - LOSS:  0.0380 - LR: 3.0000e-04
+INFO - 11/17/26 18:06:46 - 0:49:00 -   46000 - 2020.13 examples/s - 28388.23 words/s - LOSS:  0.0391 - LR: 3.0000e-04
+INFO - 11/17/26 18:06:53 - 0:49:06 -   46200 - 1977.42 examples/s - 27786.49 words/s - LOSS:  0.0389 - LR: 3.0000e-04
+INFO - 11/17/26 18:06:59 - 0:49:12 -   46400 - 1977.79 examples/s - 27803.15 words/s - LOSS:  0.0434 - LR: 3.0000e-04
+INFO - 11/17/26 18:07:05 - 0:49:19 -   46600 - 2065.48 examples/s - 29030.50 words/s - LOSS:  0.0417 - LR: 3.0000e-04
+INFO - 11/17/26 18:07:11 - 0:49:25 -   46800 - 2047.51 examples/s - 28772.30 words/s - LOSS:  0.0364 - LR: 3.0000e-04
+INFO - 11/17/26 18:07:14 - 0:49:28 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:07:14 - 0:49:28 - ============ End of epoch 29 ============
+INFO - 11/17/26 18:07:14 - 0:49:28 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:07:14 - 0:49:28 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:07:14 - 0:49:28 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:07:14 - 0:49:28 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:07:15 - 0:49:28 - (1000/5000) Found 957/1000 valid top-1 predictions.
+INFO - 11/17/26 18:07:15 - 0:49:28 - Found 967/1000 solutions in hypotheses.
+INFO - 11/17/26 18:07:15 - 0:49:28 - (2000/5000) Found 962/1000 valid top-1 predictions.
+INFO - 11/17/26 18:07:15 - 0:49:28 - Found 967/1000 solutions in hypotheses.
+INFO - 11/17/26 18:07:15 - 0:49:28 - (3000/5000) Found 959/1000 valid top-1 predictions.
+INFO - 11/17/26 18:07:15 - 0:49:28 - Found 968/1000 solutions in hypotheses.
+INFO - 11/17/26 18:07:15 - 0:49:29 - (4000/5000) Found 959/1000 valid top-1 predictions.
+INFO - 11/17/26 18:07:15 - 0:49:29 - Found 969/1000 solutions in hypotheses.
+INFO - 11/17/26 18:07:15 - 0:49:29 - (5000/5000) Found 964/1000 valid top-1 predictions.
+INFO - 11/17/26 18:07:15 - 0:49:29 - Found 972/1000 solutions in hypotheses.
+INFO - 11/17/26 18:07:15 - 0:49:29 - 4843/5000 (96.86%) equations were evaluated correctly.
+INFO - 11/17/26 18:07:15 - 0:49:29 - -1: 2349 / 2440 (96.27%)
+INFO - 11/17/26 18:07:15 - 0:49:29 - 1: 2494 / 2560 (97.42%)
+INFO - 11/17/26 18:07:15 - 0:49:29 - correct_sign: 0.972200 (over 5000 samples)
+INFO - 11/17/26 18:07:15 - 0:49:29 - correct_module: 0.995400 (over 5000 samples)
+INFO - 11/17/26 18:07:15 - 0:49:29 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 18:07:15 - 0:49:29 - __log__:{"epoch": 29, "valid_AMPLITUDE_xe_loss": 0.037113203628395805, "valid_AMPLITUDE_greedy_acc": 96.02, "valid_AMPLITUDE_acc": 96.86, "valid_AMPLITUDE_well_formed": 99.98, "valid_AMPLITUDE_acc_-1": 96.27049180327869, "valid_AMPLITUDE_acc_1": 97.421875, "valid_AMPLITUDE_avg_correct_sign": 0.9722, "valid_AMPLITUDE_avg_correct_module": 0.9954}
+INFO - 11/17/26 18:07:15 - 0:49:29 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:07:15 - 0:49:29 - ============ Starting epoch 30 ... ============
+INFO - 11/17/26 18:07:19 - 0:49:32 -   47000 - 1746.87 examples/s - 24554.98 words/s - LOSS:  0.0372 - LR: 3.0000e-04
+INFO - 11/17/26 18:07:25 - 0:49:39 -   47200 - 2022.72 examples/s - 28425.57 words/s - LOSS:  0.0415 - LR: 3.0000e-04
+INFO - 11/17/26 18:07:31 - 0:49:45 -   47400 - 2088.55 examples/s - 29351.74 words/s - LOSS:  0.0398 - LR: 3.0000e-04
+INFO - 11/17/26 18:07:38 - 0:49:51 -   47600 - 2006.84 examples/s - 28205.57 words/s - LOSS:  0.0386 - LR: 3.0000e-04
+INFO - 11/17/26 18:07:44 - 0:49:57 -   47800 - 2096.08 examples/s - 29458.54 words/s - LOSS:  0.0355 - LR: 3.0000e-04
+INFO - 11/17/26 18:07:50 - 0:50:03 -   48000 - 2045.75 examples/s - 28753.92 words/s - LOSS:  0.0362 - LR: 3.0000e-04
+INFO - 11/17/26 18:07:56 - 0:50:10 -   48200 - 2044.86 examples/s - 28735.69 words/s - LOSS:  0.0355 - LR: 3.0000e-04
+INFO - 11/17/26 18:08:02 - 0:50:16 -   48400 - 2050.46 examples/s - 28816.44 words/s - LOSS:  0.0353 - LR: 3.0000e-04
+INFO - 11/17/26 18:08:04 - 0:50:18 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:08:04 - 0:50:18 - ============ End of epoch 30 ============
+INFO - 11/17/26 18:08:04 - 0:50:18 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:08:04 - 0:50:18 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:08:04 - 0:50:18 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:08:04 - 0:50:18 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:08:04 - 0:50:18 - (1000/5000) Found 961/1000 valid top-1 predictions.
+INFO - 11/17/26 18:08:04 - 0:50:18 - Found 971/1000 solutions in hypotheses.
+INFO - 11/17/26 18:08:05 - 0:50:18 - (2000/5000) Found 956/1000 valid top-1 predictions.
+INFO - 11/17/26 18:08:05 - 0:50:18 - Found 960/1000 solutions in hypotheses.
+INFO - 11/17/26 18:08:05 - 0:50:18 - (3000/5000) Found 963/1000 valid top-1 predictions.
+INFO - 11/17/26 18:08:05 - 0:50:18 - Found 971/1000 solutions in hypotheses.
+INFO - 11/17/26 18:08:05 - 0:50:18 - (4000/5000) Found 956/1000 valid top-1 predictions.
+INFO - 11/17/26 18:08:05 - 0:50:18 - Found 963/1000 solutions in hypotheses.
+INFO - 11/17/26 18:08:05 - 0:50:18 - (5000/5000) Found 961/1000 valid top-1 predictions.
+INFO - 11/17/26 18:08:05 - 0:50:18 - Found 972/1000 solutions in hypotheses.
+INFO - 11/17/26 18:08:05 - 0:50:18 - 4837/5000 (96.74%) equations were evaluated correctly.
+INFO - 11/17/26 18:08:05 - 0:50:18 - -1: 2351 / 2440 (96.35%)
+INFO - 11/17/26 18:08:05 - 0:50:18 - 1: 2486 / 2560 (97.11%)
+INFO - 11/17/26 18:08:05 - 0:50:18 - correct_sign: 0.970400 (over 5000 samples)
+INFO - 11/17/26 18:08:05 - 0:50:18 - correct_module: 0.996400 (over 5000 samples)
+INFO - 11/17/26 18:08:05 - 0:50:18 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 18:08:05 - 0:50:18 - __log__:{"epoch": 30, "valid_AMPLITUDE_xe_loss": 0.03411569020337111, "valid_AMPLITUDE_greedy_acc": 95.94, "valid_AMPLITUDE_acc": 96.74, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 96.35245901639344, "valid_AMPLITUDE_acc_1": 97.109375, "valid_AMPLITUDE_avg_correct_sign": 0.9704, "valid_AMPLITUDE_avg_correct_module": 0.9964}
+INFO - 11/17/26 18:08:05 - 0:50:18 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:08:05 - 0:50:18 - ============ Starting epoch 31 ... ============
+INFO - 11/17/26 18:08:10 - 0:50:23 -   48600 - 1803.55 examples/s - 25352.47 words/s - LOSS:  0.0331 - LR: 3.0000e-04
+INFO - 11/17/26 18:08:16 - 0:50:29 -   48800 - 2047.82 examples/s - 28770.12 words/s - LOSS:  0.0331 - LR: 3.0000e-04
+INFO - 11/17/26 18:08:22 - 0:50:36 -   49000 - 1987.25 examples/s - 27922.47 words/s - LOSS:  0.0388 - LR: 3.0000e-04
+INFO - 11/17/26 18:08:28 - 0:50:42 -   49200 - 2058.67 examples/s - 28932.83 words/s - LOSS:  0.0352 - LR: 3.0000e-04
+INFO - 11/17/26 18:08:35 - 0:50:48 -   49400 - 2035.67 examples/s - 28603.01 words/s - LOSS:  0.0344 - LR: 3.0000e-04
+INFO - 11/17/26 18:08:41 - 0:50:55 -   49600 - 2016.08 examples/s - 28335.41 words/s - LOSS:  0.0310 - LR: 3.0000e-04
+INFO - 11/17/26 18:08:47 - 0:51:01 -   49800 - 2000.33 examples/s - 28111.63 words/s - LOSS:  0.0322 - LR: 3.0000e-04
+INFO - 11/17/26 18:08:54 - 0:51:07 -   50000 - 2027.54 examples/s - 28491.69 words/s - LOSS:  0.0311 - LR: 3.0000e-04
+INFO - 11/17/26 18:08:54 - 0:51:08 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:08:54 - 0:51:08 - ============ End of epoch 31 ============
+INFO - 11/17/26 18:08:54 - 0:51:08 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:08:54 - 0:51:08 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:08:54 - 0:51:08 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:08:54 - 0:51:08 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:08:55 - 0:51:08 - (1000/5000) Found 961/1000 valid top-1 predictions.
+INFO - 11/17/26 18:08:55 - 0:51:08 - Found 971/1000 solutions in hypotheses.
+INFO - 11/17/26 18:08:55 - 0:51:08 - (2000/5000) Found 975/1000 valid top-1 predictions.
+INFO - 11/17/26 18:08:55 - 0:51:08 - Found 980/1000 solutions in hypotheses.
+INFO - 11/17/26 18:08:55 - 0:51:08 - (3000/5000) Found 957/1000 valid top-1 predictions.
+INFO - 11/17/26 18:08:55 - 0:51:08 - Found 969/1000 solutions in hypotheses.
+INFO - 11/17/26 18:08:55 - 0:51:09 - (4000/5000) Found 954/1000 valid top-1 predictions.
+INFO - 11/17/26 18:08:55 - 0:51:09 - Found 965/1000 solutions in hypotheses.
+INFO - 11/17/26 18:08:55 - 0:51:09 - (5000/5000) Found 949/1000 valid top-1 predictions.
+INFO - 11/17/26 18:08:55 - 0:51:09 - Found 959/1000 solutions in hypotheses.
+INFO - 11/17/26 18:08:55 - 0:51:09 - 4844/5000 (96.88%) equations were evaluated correctly.
+INFO - 11/17/26 18:08:55 - 0:51:09 - -1: 2395 / 2440 (98.16%)
+INFO - 11/17/26 18:08:55 - 0:51:09 - 1: 2449 / 2560 (95.66%)
+INFO - 11/17/26 18:08:55 - 0:51:09 - correct_sign: 0.972400 (over 5000 samples)
+INFO - 11/17/26 18:08:55 - 0:51:09 - correct_module: 0.996000 (over 5000 samples)
+INFO - 11/17/26 18:08:55 - 0:51:09 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 18:08:55 - 0:51:09 - __log__:{"epoch": 31, "valid_AMPLITUDE_xe_loss": 0.03502716613420344, "valid_AMPLITUDE_greedy_acc": 95.92, "valid_AMPLITUDE_acc": 96.88, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 98.15573770491804, "valid_AMPLITUDE_acc_1": 95.6640625, "valid_AMPLITUDE_avg_correct_sign": 0.9724, "valid_AMPLITUDE_avg_correct_module": 0.996}
+INFO - 11/17/26 18:08:55 - 0:51:09 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:08:55 - 0:51:09 - ============ Starting epoch 32 ... ============
+INFO - 11/17/26 18:09:01 - 0:51:15 -   50200 - 1778.35 examples/s - 24991.90 words/s - LOSS:  0.0352 - LR: 3.0000e-04
+INFO - 11/17/26 18:09:08 - 0:51:21 -   50400 - 1971.74 examples/s - 27701.70 words/s - LOSS:  0.0308 - LR: 3.0000e-04
+INFO - 11/17/26 18:09:14 - 0:51:27 -   50600 - 2022.76 examples/s - 28428.78 words/s - LOSS:  0.0350 - LR: 3.0000e-04
+INFO - 11/17/26 18:09:20 - 0:51:34 -   50800 - 1943.23 examples/s - 27311.90 words/s - LOSS:  0.0432 - LR: 3.0000e-04
+INFO - 11/17/26 18:09:27 - 0:51:40 -   51000 - 2039.13 examples/s - 28651.02 words/s - LOSS:  0.0291 - LR: 3.0000e-04
+INFO - 11/17/26 18:09:33 - 0:51:47 -   51200 - 1998.71 examples/s - 28088.11 words/s - LOSS:  0.0275 - LR: 3.0000e-04
+INFO - 11/17/26 18:09:39 - 0:51:53 -   51400 - 2012.85 examples/s - 28287.29 words/s - LOSS:  0.0261 - LR: 3.0000e-04
+INFO - 11/17/26 18:09:45 - 0:51:59 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:09:45 - 0:51:59 - ============ End of epoch 32 ============
+INFO - 11/17/26 18:09:45 - 0:51:59 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:09:45 - 0:51:59 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:09:45 - 0:51:59 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:09:45 - 0:51:59 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:09:46 - 0:51:59 - (1000/5000) Found 979/1000 valid top-1 predictions.
+INFO - 11/17/26 18:09:46 - 0:51:59 - Found 986/1000 solutions in hypotheses.
+INFO - 11/17/26 18:09:46 - 0:51:59 - (2000/5000) Found 965/1000 valid top-1 predictions.
+INFO - 11/17/26 18:09:46 - 0:51:59 - Found 972/1000 solutions in hypotheses.
+INFO - 11/17/26 18:09:46 - 0:51:59 - (3000/5000) Found 960/1000 valid top-1 predictions.
+INFO - 11/17/26 18:09:46 - 0:51:59 - Found 964/1000 solutions in hypotheses.
+INFO - 11/17/26 18:09:46 - 0:51:59 - (4000/5000) Found 953/1000 valid top-1 predictions.
+INFO - 11/17/26 18:09:46 - 0:51:59 - Found 968/1000 solutions in hypotheses.
+INFO - 11/17/26 18:09:46 - 0:52:00 - (5000/5000) Found 972/1000 valid top-1 predictions.
+INFO - 11/17/26 18:09:46 - 0:52:00 - Found 980/1000 solutions in hypotheses.
+INFO - 11/17/26 18:09:46 - 0:52:00 - 4870/5000 (97.4%) equations were evaluated correctly.
+INFO - 11/17/26 18:09:46 - 0:52:00 - -1: 2375 / 2440 (97.34%)
+INFO - 11/17/26 18:09:46 - 0:52:00 - 1: 2495 / 2560 (97.46%)
+INFO - 11/17/26 18:09:46 - 0:52:00 - correct_sign: 0.978000 (over 5000 samples)
+INFO - 11/17/26 18:09:46 - 0:52:00 - correct_module: 0.995400 (over 5000 samples)
+INFO - 11/17/26 18:09:46 - 0:52:00 - Memory allocated: 74.95MB, reserved: 11413.22MB
+INFO - 11/17/26 18:09:46 - 0:52:00 - __log__:{"epoch": 32, "valid_AMPLITUDE_xe_loss": 0.03250343959387311, "valid_AMPLITUDE_greedy_acc": 96.58, "valid_AMPLITUDE_acc": 97.4, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 97.3360655737705, "valid_AMPLITUDE_acc_1": 97.4609375, "valid_AMPLITUDE_avg_correct_sign": 0.978, "valid_AMPLITUDE_avg_correct_module": 0.9954}
+INFO - 11/17/26 18:09:46 - 0:52:00 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:09:46 - 0:52:00 - ============ Starting epoch 33 ... ============
+INFO - 11/17/26 18:09:47 - 0:52:00 -   51600 - 1697.72 examples/s - 23862.52 words/s - LOSS:  0.0237 - LR: 3.0000e-04
+INFO - 11/17/26 18:09:53 - 0:52:07 -   51800 - 2011.50 examples/s - 28267.09 words/s - LOSS:  0.0371 - LR: 3.0000e-04
+INFO - 11/17/26 18:10:00 - 0:52:13 -   52000 - 2024.05 examples/s - 28449.23 words/s - LOSS:  0.0322 - LR: 3.0000e-04
+INFO - 11/17/26 18:10:06 - 0:52:20 -   52200 - 1986.37 examples/s - 27900.99 words/s - LOSS:  0.0294 - LR: 3.0000e-04
+INFO - 11/17/26 18:10:12 - 0:52:26 -   52400 - 2038.17 examples/s - 28642.94 words/s - LOSS:  0.0332 - LR: 3.0000e-04
+INFO - 11/17/26 18:10:19 - 0:52:32 -   52600 - 2031.44 examples/s - 28552.53 words/s - LOSS:  0.0299 - LR: 3.0000e-04
+INFO - 11/17/26 18:10:25 - 0:52:39 -   52800 - 2022.37 examples/s - 28426.46 words/s - LOSS:  0.0283 - LR: 3.0000e-04
+INFO - 11/17/26 18:10:31 - 0:52:45 -   53000 - 2062.54 examples/s - 28980.61 words/s - LOSS:  0.0284 - LR: 3.0000e-04
+INFO - 11/17/26 18:10:36 - 0:52:49 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:10:36 - 0:52:49 - ============ End of epoch 33 ============
+INFO - 11/17/26 18:10:36 - 0:52:49 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:10:36 - 0:52:49 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:10:36 - 0:52:49 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:10:36 - 0:52:49 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:10:36 - 0:52:50 - (1000/5000) Found 975/1000 valid top-1 predictions.
+INFO - 11/17/26 18:10:36 - 0:52:50 - Found 982/1000 solutions in hypotheses.
+INFO - 11/17/26 18:10:36 - 0:52:50 - (2000/5000) Found 972/1000 valid top-1 predictions.
+INFO - 11/17/26 18:10:36 - 0:52:50 - Found 977/1000 solutions in hypotheses.
+INFO - 11/17/26 18:10:37 - 0:52:50 - (3000/5000) Found 974/1000 valid top-1 predictions.
+INFO - 11/17/26 18:10:37 - 0:52:50 - Found 984/1000 solutions in hypotheses.
+INFO - 11/17/26 18:10:37 - 0:52:50 - (4000/5000) Found 970/1000 valid top-1 predictions.
+INFO - 11/17/26 18:10:37 - 0:52:50 - Found 972/1000 solutions in hypotheses.
+INFO - 11/17/26 18:10:37 - 0:52:50 - (5000/5000) Found 965/1000 valid top-1 predictions.
+INFO - 11/17/26 18:10:37 - 0:52:50 - Found 967/1000 solutions in hypotheses.
+INFO - 11/17/26 18:10:37 - 0:52:50 - 4882/5000 (97.64%) equations were evaluated correctly.
+INFO - 11/17/26 18:10:37 - 0:52:50 - -1: 2388 / 2440 (97.87%)
+INFO - 11/17/26 18:10:37 - 0:52:50 - 1: 2494 / 2560 (97.42%)
+INFO - 11/17/26 18:10:37 - 0:52:50 - correct_sign: 0.980200 (over 5000 samples)
+INFO - 11/17/26 18:10:37 - 0:52:50 - correct_module: 0.995600 (over 5000 samples)
+INFO - 11/17/26 18:10:37 - 0:52:50 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 18:10:37 - 0:52:50 - __log__:{"epoch": 33, "valid_AMPLITUDE_xe_loss": 0.028536737865730643, "valid_AMPLITUDE_greedy_acc": 97.12, "valid_AMPLITUDE_acc": 97.64, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 97.8688524590164, "valid_AMPLITUDE_acc_1": 97.421875, "valid_AMPLITUDE_avg_correct_sign": 0.9802, "valid_AMPLITUDE_avg_correct_module": 0.9956}
+INFO - 11/17/26 18:10:37 - 0:52:50 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:10:37 - 0:52:50 - ============ Starting epoch 34 ... ============
+INFO - 11/17/26 18:10:39 - 0:52:52 -   53200 - 1705.06 examples/s - 23964.11 words/s - LOSS:  0.0236 - LR: 3.0000e-04
+INFO - 11/17/26 18:10:45 - 0:52:59 -   53400 - 1990.98 examples/s - 27977.65 words/s - LOSS:  0.0279 - LR: 3.0000e-04
+INFO - 11/17/26 18:10:52 - 0:53:05 -   53600 - 2017.38 examples/s - 28354.27 words/s - LOSS:  0.0273 - LR: 3.0000e-04
+INFO - 11/17/26 18:10:58 - 0:53:12 -   53800 - 1947.72 examples/s - 27371.84 words/s - LOSS:  0.0225 - LR: 3.0000e-04
+INFO - 11/17/26 18:11:05 - 0:53:18 -   54000 - 1994.95 examples/s - 28037.41 words/s - LOSS:  0.0301 - LR: 3.0000e-04
+INFO - 11/17/26 18:11:11 - 0:53:24 -   54200 - 2063.45 examples/s - 28998.11 words/s - LOSS:  0.0244 - LR: 3.0000e-04
+INFO - 11/17/26 18:11:17 - 0:53:31 -   54400 - 2034.58 examples/s - 28590.61 words/s - LOSS:  0.0261 - LR: 3.0000e-04
+INFO - 11/17/26 18:11:23 - 0:53:37 -   54600 - 2035.01 examples/s - 28602.01 words/s - LOSS:  0.0299 - LR: 3.0000e-04
+INFO - 11/17/26 18:11:27 - 0:53:40 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:11:27 - 0:53:40 - ============ End of epoch 34 ============
+INFO - 11/17/26 18:11:27 - 0:53:40 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:11:27 - 0:53:40 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:11:27 - 0:53:40 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:11:27 - 0:53:40 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:11:27 - 0:53:40 - (1000/5000) Found 957/1000 valid top-1 predictions.
+INFO - 11/17/26 18:11:27 - 0:53:40 - Found 965/1000 solutions in hypotheses.
+INFO - 11/17/26 18:11:27 - 0:53:41 - (2000/5000) Found 972/1000 valid top-1 predictions.
+INFO - 11/17/26 18:11:27 - 0:53:41 - Found 977/1000 solutions in hypotheses.
+INFO - 11/17/26 18:11:27 - 0:53:41 - (3000/5000) Found 971/1000 valid top-1 predictions.
+INFO - 11/17/26 18:11:27 - 0:53:41 - Found 978/1000 solutions in hypotheses.
+INFO - 11/17/26 18:11:27 - 0:53:41 - (4000/5000) Found 965/1000 valid top-1 predictions.
+INFO - 11/17/26 18:11:27 - 0:53:41 - Found 973/1000 solutions in hypotheses.
+INFO - 11/17/26 18:11:27 - 0:53:41 - (5000/5000) Found 972/1000 valid top-1 predictions.
+INFO - 11/17/26 18:11:27 - 0:53:41 - Found 976/1000 solutions in hypotheses.
+INFO - 11/17/26 18:11:27 - 0:53:41 - 4869/5000 (97.38%) equations were evaluated correctly.
+INFO - 11/17/26 18:11:27 - 0:53:41 - -1: 2372 / 2440 (97.21%)
+INFO - 11/17/26 18:11:27 - 0:53:41 - 1: 2497 / 2560 (97.54%)
+INFO - 11/17/26 18:11:27 - 0:53:41 - correct_sign: 0.978000 (over 5000 samples)
+INFO - 11/17/26 18:11:27 - 0:53:41 - correct_module: 0.995200 (over 5000 samples)
+INFO - 11/17/26 18:11:27 - 0:53:41 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 18:11:27 - 0:53:41 - __log__:{"epoch": 34, "valid_AMPLITUDE_xe_loss": 0.03184472362718323, "valid_AMPLITUDE_greedy_acc": 96.74, "valid_AMPLITUDE_acc": 97.38, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 97.21311475409836, "valid_AMPLITUDE_acc_1": 97.5390625, "valid_AMPLITUDE_avg_correct_sign": 0.978, "valid_AMPLITUDE_avg_correct_module": 0.9952}
+INFO - 11/17/26 18:11:27 - 0:53:41 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:11:28 - 0:53:41 - ============ Starting epoch 35 ... ============
+INFO - 11/17/26 18:11:31 - 0:53:44 -   54800 - 1767.99 examples/s - 24846.95 words/s - LOSS:  0.0332 - LR: 3.0000e-04
+INFO - 11/17/26 18:11:37 - 0:53:50 -   55000 - 2019.67 examples/s - 28386.00 words/s - LOSS:  0.0218 - LR: 3.0000e-04
+INFO - 11/17/26 18:11:43 - 0:53:57 -   55200 - 1955.86 examples/s - 27487.60 words/s - LOSS:  0.0236 - LR: 3.0000e-04
+INFO - 11/17/26 18:11:50 - 0:54:03 -   55400 - 1995.13 examples/s - 28040.20 words/s - LOSS:  0.0277 - LR: 3.0000e-04
+INFO - 11/17/26 18:11:56 - 0:54:10 -   55600 - 1977.12 examples/s - 27777.33 words/s - LOSS:  0.0213 - LR: 3.0000e-04
+INFO - 11/17/26 18:12:03 - 0:54:16 -   55800 - 2043.98 examples/s - 28725.33 words/s - LOSS:  0.0235 - LR: 3.0000e-04
+INFO - 11/17/26 18:12:09 - 0:54:22 -   56000 - 2043.46 examples/s - 28721.57 words/s - LOSS:  0.0273 - LR: 3.0000e-04
+INFO - 11/17/26 18:12:15 - 0:54:29 -   56200 - 1990.84 examples/s - 27976.37 words/s - LOSS:  0.0209 - LR: 3.0000e-04
+INFO - 11/17/26 18:12:17 - 0:54:31 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:12:17 - 0:54:31 - ============ End of epoch 35 ============
+INFO - 11/17/26 18:12:17 - 0:54:31 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:12:17 - 0:54:31 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:12:17 - 0:54:31 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:12:17 - 0:54:31 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:12:18 - 0:54:31 - (1000/5000) Found 965/1000 valid top-1 predictions.
+INFO - 11/17/26 18:12:18 - 0:54:31 - Found 973/1000 solutions in hypotheses.
+INFO - 11/17/26 18:12:18 - 0:54:31 - (2000/5000) Found 960/1000 valid top-1 predictions.
+INFO - 11/17/26 18:12:18 - 0:54:31 - Found 973/1000 solutions in hypotheses.
+INFO - 11/17/26 18:12:18 - 0:54:31 - (3000/5000) Found 975/1000 valid top-1 predictions.
+INFO - 11/17/26 18:12:18 - 0:54:31 - Found 985/1000 solutions in hypotheses.
+INFO - 11/17/26 18:12:18 - 0:54:31 - (4000/5000) Found 962/1000 valid top-1 predictions.
+INFO - 11/17/26 18:12:18 - 0:54:31 - Found 973/1000 solutions in hypotheses.
+INFO - 11/17/26 18:12:18 - 0:54:32 - (5000/5000) Found 967/1000 valid top-1 predictions.
+INFO - 11/17/26 18:12:18 - 0:54:32 - Found 972/1000 solutions in hypotheses.
+INFO - 11/17/26 18:12:18 - 0:54:32 - 4876/5000 (97.52%) equations were evaluated correctly.
+INFO - 11/17/26 18:12:18 - 0:54:32 - -1: 2390 / 2440 (97.95%)
+INFO - 11/17/26 18:12:18 - 0:54:32 - 1: 2486 / 2560 (97.11%)
+INFO - 11/17/26 18:12:18 - 0:54:32 - correct_sign: 0.979400 (over 5000 samples)
+INFO - 11/17/26 18:12:18 - 0:54:32 - correct_module: 0.995400 (over 5000 samples)
+INFO - 11/17/26 18:12:18 - 0:54:32 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 18:12:18 - 0:54:32 - __log__:{"epoch": 35, "valid_AMPLITUDE_xe_loss": 0.03129538079576941, "valid_AMPLITUDE_greedy_acc": 96.58, "valid_AMPLITUDE_acc": 97.52, "valid_AMPLITUDE_well_formed": 99.98, "valid_AMPLITUDE_acc_-1": 97.95081967213115, "valid_AMPLITUDE_acc_1": 97.109375, "valid_AMPLITUDE_avg_correct_sign": 0.9794, "valid_AMPLITUDE_avg_correct_module": 0.9954}
+INFO - 11/17/26 18:12:18 - 0:54:32 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:12:18 - 0:54:32 - ============ Starting epoch 36 ... ============
+INFO - 11/17/26 18:12:22 - 0:54:36 -   56400 - 1817.49 examples/s - 25547.88 words/s - LOSS:  0.0263 - LR: 3.0000e-04
+INFO - 11/17/26 18:12:29 - 0:54:42 -   56600 - 2018.11 examples/s - 28355.68 words/s - LOSS:  0.0217 - LR: 3.0000e-04
+INFO - 11/17/26 18:12:35 - 0:54:48 -   56800 - 2016.17 examples/s - 28328.99 words/s - LOSS:  0.0231 - LR: 3.0000e-04
+INFO - 11/17/26 18:12:41 - 0:54:55 -   57000 - 1969.91 examples/s - 27683.24 words/s - LOSS:  0.0299 - LR: 3.0000e-04
+INFO - 11/17/26 18:12:48 - 0:55:01 -   57200 - 2023.99 examples/s - 28448.95 words/s - LOSS:  0.0227 - LR: 3.0000e-04
+INFO - 11/17/26 18:12:54 - 0:55:08 -   57400 - 1995.60 examples/s - 28044.42 words/s - LOSS:  0.0212 - LR: 3.0000e-04
+INFO - 11/17/26 18:13:00 - 0:55:14 -   57600 - 2059.05 examples/s - 28941.82 words/s - LOSS:  0.0201 - LR: 3.0000e-04
+INFO - 11/17/26 18:13:07 - 0:55:20 -   57800 - 1974.63 examples/s - 27750.21 words/s - LOSS:  0.0258 - LR: 3.0000e-04
+INFO - 11/17/26 18:13:08 - 0:55:21 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:13:08 - 0:55:21 - ============ End of epoch 36 ============
+INFO - 11/17/26 18:13:08 - 0:55:21 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:13:08 - 0:55:21 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:13:08 - 0:55:21 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:13:08 - 0:55:21 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:13:08 - 0:55:22 - (1000/5000) Found 978/1000 valid top-1 predictions.
+INFO - 11/17/26 18:13:08 - 0:55:22 - Found 985/1000 solutions in hypotheses.
+INFO - 11/17/26 18:13:08 - 0:55:22 - (2000/5000) Found 983/1000 valid top-1 predictions.
+INFO - 11/17/26 18:13:08 - 0:55:22 - Found 985/1000 solutions in hypotheses.
+INFO - 11/17/26 18:13:09 - 0:55:22 - (3000/5000) Found 974/1000 valid top-1 predictions.
+INFO - 11/17/26 18:13:09 - 0:55:22 - Found 982/1000 solutions in hypotheses.
+INFO - 11/17/26 18:13:09 - 0:55:22 - (4000/5000) Found 985/1000 valid top-1 predictions.
+INFO - 11/17/26 18:13:09 - 0:55:22 - Found 987/1000 solutions in hypotheses.
+INFO - 11/17/26 18:13:09 - 0:55:22 - (5000/5000) Found 969/1000 valid top-1 predictions.
+INFO - 11/17/26 18:13:09 - 0:55:22 - Found 973/1000 solutions in hypotheses.
+INFO - 11/17/26 18:13:09 - 0:55:22 - 4912/5000 (98.24%) equations were evaluated correctly.
+INFO - 11/17/26 18:13:09 - 0:55:22 - -1: 2388 / 2440 (97.87%)
+INFO - 11/17/26 18:13:09 - 0:55:22 - 1: 2524 / 2560 (98.59%)
+INFO - 11/17/26 18:13:09 - 0:55:22 - correct_sign: 0.986600 (over 5000 samples)
+INFO - 11/17/26 18:13:09 - 0:55:22 - correct_module: 0.995400 (over 5000 samples)
+INFO - 11/17/26 18:13:09 - 0:55:22 - Memory allocated: 74.95MB, reserved: 11413.22MB
+INFO - 11/17/26 18:13:09 - 0:55:22 - __log__:{"epoch": 36, "valid_AMPLITUDE_xe_loss": 0.0216879813571784, "valid_AMPLITUDE_greedy_acc": 97.78, "valid_AMPLITUDE_acc": 98.24, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 97.8688524590164, "valid_AMPLITUDE_acc_1": 98.59375, "valid_AMPLITUDE_avg_correct_sign": 0.9866, "valid_AMPLITUDE_avg_correct_module": 0.9954}
+INFO - 11/17/26 18:13:09 - 0:55:22 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:13:09 - 0:55:23 - ============ Starting epoch 37 ... ============
+INFO - 11/17/26 18:13:14 - 0:55:28 -   58000 - 1694.87 examples/s - 23820.38 words/s - LOSS:  0.0242 - LR: 3.0000e-04
+INFO - 11/17/26 18:13:21 - 0:55:34 -   58200 - 2039.44 examples/s - 28667.54 words/s - LOSS:  0.0214 - LR: 3.0000e-04
+INFO - 11/17/26 18:13:27 - 0:55:41 -   58400 - 2032.27 examples/s - 28566.83 words/s - LOSS:  0.0264 - LR: 3.0000e-04
+INFO - 11/17/26 18:13:33 - 0:55:47 -   58600 - 2022.78 examples/s - 28428.01 words/s - LOSS:  0.0215 - LR: 3.0000e-04
+INFO - 11/17/26 18:13:40 - 0:55:53 -   58800 - 2005.10 examples/s - 28177.12 words/s - LOSS:  0.0259 - LR: 3.0000e-04
+INFO - 11/17/26 18:13:46 - 0:56:00 -   59000 - 2015.94 examples/s - 28336.11 words/s - LOSS:  0.0207 - LR: 3.0000e-04
+INFO - 11/17/26 18:13:52 - 0:56:06 -   59200 - 2016.17 examples/s - 28336.15 words/s - LOSS:  0.0199 - LR: 3.0000e-04
+INFO - 11/17/26 18:13:59 - 0:56:12 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:13:59 - 0:56:12 - ============ End of epoch 37 ============
+INFO - 11/17/26 18:13:59 - 0:56:12 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:13:59 - 0:56:12 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:13:59 - 0:56:12 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:13:59 - 0:56:12 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:13:59 - 0:56:13 - (1000/5000) Found 979/1000 valid top-1 predictions.
+INFO - 11/17/26 18:13:59 - 0:56:13 - Found 984/1000 solutions in hypotheses.
+INFO - 11/17/26 18:13:59 - 0:56:13 - (2000/5000) Found 984/1000 valid top-1 predictions.
+INFO - 11/17/26 18:13:59 - 0:56:13 - Found 987/1000 solutions in hypotheses.
+INFO - 11/17/26 18:14:00 - 0:56:13 - (3000/5000) Found 981/1000 valid top-1 predictions.
+INFO - 11/17/26 18:14:00 - 0:56:13 - Found 987/1000 solutions in hypotheses.
+INFO - 11/17/26 18:14:00 - 0:56:13 - (4000/5000) Found 978/1000 valid top-1 predictions.
+INFO - 11/17/26 18:14:00 - 0:56:13 - Found 983/1000 solutions in hypotheses.
+INFO - 11/17/26 18:14:00 - 0:56:13 - (5000/5000) Found 976/1000 valid top-1 predictions.
+INFO - 11/17/26 18:14:00 - 0:56:13 - Found 984/1000 solutions in hypotheses.
+INFO - 11/17/26 18:14:00 - 0:56:13 - 4925/5000 (98.5%) equations were evaluated correctly.
+INFO - 11/17/26 18:14:00 - 0:56:13 - -1: 2400 / 2440 (98.36%)
+INFO - 11/17/26 18:14:00 - 0:56:13 - 1: 2525 / 2560 (98.63%)
+INFO - 11/17/26 18:14:00 - 0:56:13 - correct_sign: 0.987200 (over 5000 samples)
+INFO - 11/17/26 18:14:00 - 0:56:13 - correct_module: 0.997800 (over 5000 samples)
+INFO - 11/17/26 18:14:00 - 0:56:13 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 18:14:00 - 0:56:13 - __log__:{"epoch": 37, "valid_AMPLITUDE_xe_loss": 0.02078979489395608, "valid_AMPLITUDE_greedy_acc": 97.96, "valid_AMPLITUDE_acc": 98.5, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 98.36065573770492, "valid_AMPLITUDE_acc_1": 98.6328125, "valid_AMPLITUDE_avg_correct_sign": 0.9872, "valid_AMPLITUDE_avg_correct_module": 0.9978}
+INFO - 11/17/26 18:14:00 - 0:56:13 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:14:00 - 0:56:14 - ============ Starting epoch 38 ... ============
+INFO - 11/17/26 18:14:00 - 0:56:14 -   59400 - 1627.86 examples/s - 22879.39 words/s - LOSS:  0.0200 - LR: 3.0000e-04
+INFO - 11/17/26 18:14:07 - 0:56:20 -   59600 - 2008.85 examples/s - 28229.71 words/s - LOSS:  0.0174 - LR: 3.0000e-04
+INFO - 11/17/26 18:14:13 - 0:56:27 -   59800 - 2011.43 examples/s - 28265.98 words/s - LOSS:  0.0190 - LR: 3.0000e-04
+INFO - 11/17/26 18:14:20 - 0:56:33 -   60000 - 1986.36 examples/s - 27924.50 words/s - LOSS:  0.0244 - LR: 3.0000e-04
+INFO - 11/17/26 18:14:26 - 0:56:39 -   60200 - 1992.81 examples/s - 28005.00 words/s - LOSS:  0.0282 - LR: 3.0000e-04
+INFO - 11/17/26 18:14:32 - 0:56:46 -   60400 - 2056.00 examples/s - 28898.22 words/s - LOSS:  0.0280 - LR: 3.0000e-04
+INFO - 11/17/26 18:14:38 - 0:56:52 -   60600 - 2024.98 examples/s - 28457.88 words/s - LOSS:  0.0259 - LR: 3.0000e-04
+INFO - 11/17/26 18:14:45 - 0:56:59 -   60800 - 1961.43 examples/s - 27569.91 words/s - LOSS:  0.0239 - LR: 3.0000e-04
+INFO - 11/17/26 18:14:53 - 0:57:07 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:14:53 - 0:57:07 - ============ End of epoch 38 ============
+INFO - 11/17/26 18:14:53 - 0:57:07 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:14:53 - 0:57:07 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:14:53 - 0:57:07 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:14:53 - 0:57:07 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:14:54 - 0:57:07 - (1000/5000) Found 973/1000 valid top-1 predictions.
+INFO - 11/17/26 18:14:54 - 0:57:07 - Found 980/1000 solutions in hypotheses.
+INFO - 11/17/26 18:14:54 - 0:57:08 - (2000/5000) Found 986/1000 valid top-1 predictions.
+INFO - 11/17/26 18:14:54 - 0:57:08 - Found 989/1000 solutions in hypotheses.
+INFO - 11/17/26 18:14:54 - 0:57:08 - (3000/5000) Found 980/1000 valid top-1 predictions.
+INFO - 11/17/26 18:14:54 - 0:57:08 - Found 985/1000 solutions in hypotheses.
+INFO - 11/17/26 18:14:54 - 0:57:08 - (4000/5000) Found 977/1000 valid top-1 predictions.
+INFO - 11/17/26 18:14:54 - 0:57:08 - Found 983/1000 solutions in hypotheses.
+INFO - 11/17/26 18:14:54 - 0:57:08 - (5000/5000) Found 980/1000 valid top-1 predictions.
+INFO - 11/17/26 18:14:54 - 0:57:08 - Found 986/1000 solutions in hypotheses.
+INFO - 11/17/26 18:14:54 - 0:57:08 - 4923/5000 (98.46%) equations were evaluated correctly.
+INFO - 11/17/26 18:14:54 - 0:57:08 - -1: 2403 / 2440 (98.48%)
+INFO - 11/17/26 18:14:54 - 0:57:08 - 1: 2520 / 2560 (98.44%)
+INFO - 11/17/26 18:14:54 - 0:57:08 - correct_sign: 0.986600 (over 5000 samples)
+INFO - 11/17/26 18:14:54 - 0:57:08 - correct_module: 0.997600 (over 5000 samples)
+INFO - 11/17/26 18:14:54 - 0:57:08 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 18:14:54 - 0:57:08 - __log__:{"epoch": 38, "valid_AMPLITUDE_xe_loss": 0.018737801363718797, "valid_AMPLITUDE_greedy_acc": 97.92, "valid_AMPLITUDE_acc": 98.46, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 98.48360655737704, "valid_AMPLITUDE_acc_1": 98.4375, "valid_AMPLITUDE_avg_correct_sign": 0.9866, "valid_AMPLITUDE_avg_correct_module": 0.9976}
+INFO - 11/17/26 18:14:54 - 0:57:08 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:14:55 - 0:57:08 - ============ Starting epoch 39 ... ============
+INFO - 11/17/26 18:15:00 - 0:57:14 -   61000 -  839.26 examples/s - 11793.65 words/s - LOSS:  0.0157 - LR: 3.0000e-04
+INFO - 11/17/26 18:16:41 - 0:58:54 -   61200 -  127.12 examples/s -  1786.56 words/s - LOSS:  0.0180 - LR: 3.0000e-04
+INFO - 11/17/26 18:16:51 - 0:59:04 -   61400 - 1311.29 examples/s - 18432.12 words/s - LOSS:  0.0182 - LR: 3.0000e-04
+INFO - 11/17/26 18:17:09 - 0:59:22 -   61600 -  706.00 examples/s -  9922.77 words/s - LOSS:  0.0197 - LR: 3.0000e-04
+INFO - 11/17/26 18:19:22 - 1:01:36 -   61800 -   96.05 examples/s -  1349.82 words/s - LOSS:  0.0183 - LR: 3.0000e-04
+INFO - 11/17/26 18:20:01 - 1:02:14 -   62000 -  331.08 examples/s -  4652.93 words/s - LOSS:  0.0208 - LR: 3.0000e-04
+INFO - 11/17/26 18:20:10 - 1:02:24 -   62200 - 1384.41 examples/s - 19457.28 words/s - LOSS:  0.0199 - LR: 3.0000e-04
+INFO - 11/17/26 18:20:18 - 1:02:31 -   62400 - 1658.12 examples/s - 23299.88 words/s - LOSS:  0.0282 - LR: 3.0000e-04
+INFO - 11/17/26 18:20:23 - 1:02:36 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:20:23 - 1:02:36 - ============ End of epoch 39 ============
+INFO - 11/17/26 18:20:23 - 1:02:36 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:20:23 - 1:02:36 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:20:23 - 1:02:36 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:20:23 - 1:02:36 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:20:24 - 1:02:37 - (1000/5000) Found 979/1000 valid top-1 predictions.
+INFO - 11/17/26 18:20:24 - 1:02:37 - Found 982/1000 solutions in hypotheses.
+INFO - 11/17/26 18:20:35 - 1:02:49 - (2000/5000) Found 982/1000 valid top-1 predictions.
+INFO - 11/17/26 18:20:35 - 1:02:49 - Found 986/1000 solutions in hypotheses.
+INFO - 11/17/26 18:20:36 - 1:02:49 - (3000/5000) Found 978/1000 valid top-1 predictions.
+INFO - 11/17/26 18:20:36 - 1:02:49 - Found 982/1000 solutions in hypotheses.
+INFO - 11/17/26 18:20:36 - 1:02:49 - (4000/5000) Found 984/1000 valid top-1 predictions.
+INFO - 11/17/26 18:20:36 - 1:02:49 - Found 986/1000 solutions in hypotheses.
+INFO - 11/17/26 18:20:36 - 1:02:49 - (5000/5000) Found 980/1000 valid top-1 predictions.
+INFO - 11/17/26 18:20:36 - 1:02:49 - Found 984/1000 solutions in hypotheses.
+INFO - 11/17/26 18:20:36 - 1:02:49 - 4920/5000 (98.4%) equations were evaluated correctly.
+INFO - 11/17/26 18:20:36 - 1:02:49 - -1: 2418 / 2440 (99.10%)
+INFO - 11/17/26 18:20:36 - 1:02:49 - 1: 2502 / 2560 (97.73%)
+INFO - 11/17/26 18:20:36 - 1:02:49 - correct_sign: 0.987200 (over 5000 samples)
+INFO - 11/17/26 18:20:36 - 1:02:49 - correct_module: 0.996400 (over 5000 samples)
+INFO - 11/17/26 18:20:36 - 1:02:49 - Memory allocated: 74.95MB, reserved: 11421.22MB
+INFO - 11/17/26 18:20:36 - 1:02:49 - __log__:{"epoch": 39, "valid_AMPLITUDE_xe_loss": 0.019284414334931638, "valid_AMPLITUDE_greedy_acc": 98.06, "valid_AMPLITUDE_acc": 98.4, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 99.09836065573771, "valid_AMPLITUDE_acc_1": 97.734375, "valid_AMPLITUDE_avg_correct_sign": 0.9872, "valid_AMPLITUDE_avg_correct_module": 0.9964}
+INFO - 11/17/26 18:20:36 - 1:02:49 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:20:36 - 1:02:49 - ============ Starting epoch 40 ... ============
+INFO - 11/17/26 18:20:39 - 1:02:53 -   62600 -  588.24 examples/s -  8266.70 words/s - LOSS:  0.0210 - LR: 3.0000e-04
+INFO - 11/17/26 18:20:50 - 1:03:04 -   62800 - 1207.57 examples/s - 16968.98 words/s - LOSS:  0.0189 - LR: 3.0000e-04
+INFO - 11/17/26 18:26:00 - 1:08:14 -   63000 -   41.29 examples/s -   580.20 words/s - LOSS:  0.0190 - LR: 3.0000e-04
+INFO - 11/17/26 18:26:08 - 1:08:22 -   63200 - 1602.06 examples/s - 22519.68 words/s - LOSS:  0.0169 - LR: 3.0000e-04
+INFO - 11/17/26 18:31:16 - 1:13:29 -   63400 -   41.60 examples/s -   584.58 words/s - LOSS:  0.0166 - LR: 3.0000e-04
+INFO - 11/17/26 18:31:26 - 1:13:40 -   63600 - 1198.08 examples/s - 16836.87 words/s - LOSS:  0.0201 - LR: 3.0000e-04
+INFO - 11/17/26 18:31:35 - 1:13:48 -   63800 - 1579.46 examples/s - 22197.77 words/s - LOSS:  0.0164 - LR: 3.0000e-04
+INFO - 11/17/26 18:31:42 - 1:13:56 -   64000 - 1640.95 examples/s - 23061.46 words/s - LOSS:  0.0198 - LR: 3.0000e-04
+INFO - 11/17/26 18:31:46 - 1:13:59 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:31:46 - 1:13:59 - ============ End of epoch 40 ============
+INFO - 11/17/26 18:31:46 - 1:13:59 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:31:46 - 1:13:59 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:31:46 - 1:13:59 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:31:46 - 1:13:59 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:31:47 - 1:14:00 - (1000/5000) Found 970/1000 valid top-1 predictions.
+INFO - 11/17/26 18:31:47 - 1:14:00 - Found 979/1000 solutions in hypotheses.
+INFO - 11/17/26 18:31:47 - 1:14:00 - (2000/5000) Found 972/1000 valid top-1 predictions.
+INFO - 11/17/26 18:31:47 - 1:14:00 - Found 979/1000 solutions in hypotheses.
+INFO - 11/17/26 18:31:47 - 1:14:00 - (3000/5000) Found 964/1000 valid top-1 predictions.
+INFO - 11/17/26 18:31:47 - 1:14:00 - Found 972/1000 solutions in hypotheses.
+INFO - 11/17/26 18:31:47 - 1:14:01 - (4000/5000) Found 970/1000 valid top-1 predictions.
+INFO - 11/17/26 18:31:47 - 1:14:01 - Found 975/1000 solutions in hypotheses.
+INFO - 11/17/26 18:36:45 - 1:18:59 - (5000/5000) Found 973/1000 valid top-1 predictions.
+INFO - 11/17/26 18:36:45 - 1:18:59 - Found 980/1000 solutions in hypotheses.
+INFO - 11/17/26 18:36:45 - 1:18:59 - 4885/5000 (97.7%) equations were evaluated correctly.
+INFO - 11/17/26 18:36:45 - 1:18:59 - -1: 2386 / 2440 (97.79%)
+INFO - 11/17/26 18:36:45 - 1:18:59 - 1: 2499 / 2560 (97.62%)
+INFO - 11/17/26 18:36:45 - 1:18:59 - correct_sign: 0.981400 (over 5000 samples)
+INFO - 11/17/26 18:36:45 - 1:18:59 - correct_module: 0.995200 (over 5000 samples)
+INFO - 11/17/26 18:36:45 - 1:18:59 - Memory allocated: 74.95MB, reserved: 11413.22MB
+INFO - 11/17/26 18:36:45 - 1:18:59 - __log__:{"epoch": 40, "valid_AMPLITUDE_xe_loss": 0.027014762999728503, "valid_AMPLITUDE_greedy_acc": 96.98, "valid_AMPLITUDE_acc": 97.7, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 97.78688524590164, "valid_AMPLITUDE_acc_1": 97.6171875, "valid_AMPLITUDE_avg_correct_sign": 0.9814, "valid_AMPLITUDE_avg_correct_module": 0.9952}
+INFO - 11/17/26 18:36:45 - 1:18:59 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:36:46 - 1:18:59 - ============ Starting epoch 41 ... ============
+INFO - 11/17/26 18:36:52 - 1:19:05 -   64200 -   41.39 examples/s -   581.80 words/s - LOSS:  0.0213 - LR: 3.0000e-04
+INFO - 11/17/26 18:37:02 - 1:19:15 -   64400 - 1264.75 examples/s - 17772.63 words/s - LOSS:  0.0210 - LR: 3.0000e-04
+INFO - 11/17/26 18:37:12 - 1:19:26 -   64600 - 1233.02 examples/s - 17321.92 words/s - LOSS:  0.0173 - LR: 3.0000e-04
+INFO - 11/17/26 18:37:23 - 1:19:36 -   64800 - 1209.03 examples/s - 16994.91 words/s - LOSS:  0.0206 - LR: 3.0000e-04
+INFO - 11/17/26 18:37:34 - 1:19:47 -   65000 - 1158.11 examples/s - 16272.27 words/s - LOSS:  0.0166 - LR: 3.0000e-04
+INFO - 11/17/26 18:37:44 - 1:19:57 -   65200 - 1293.17 examples/s - 18173.12 words/s - LOSS:  0.0191 - LR: 3.0000e-04
+INFO - 11/17/26 18:37:54 - 1:20:07 -   65400 - 1248.83 examples/s - 17551.74 words/s - LOSS:  0.0199 - LR: 3.0000e-04
+INFO - 11/17/26 18:38:04 - 1:20:17 -   65600 - 1262.74 examples/s - 17745.70 words/s - LOSS:  0.0174 - LR: 3.0000e-04
+INFO - 11/17/26 18:38:06 - 1:20:20 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:38:06 - 1:20:20 - ============ End of epoch 41 ============
+INFO - 11/17/26 18:38:06 - 1:20:20 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:38:06 - 1:20:20 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:38:06 - 1:20:20 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:38:06 - 1:20:20 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:38:07 - 1:20:21 - (1000/5000) Found 983/1000 valid top-1 predictions.
+INFO - 11/17/26 18:38:07 - 1:20:21 - Found 985/1000 solutions in hypotheses.
+INFO - 11/17/26 18:38:08 - 1:20:21 - (2000/5000) Found 982/1000 valid top-1 predictions.
+INFO - 11/17/26 18:38:08 - 1:20:21 - Found 986/1000 solutions in hypotheses.
+INFO - 11/17/26 18:38:08 - 1:20:21 - (3000/5000) Found 985/1000 valid top-1 predictions.
+INFO - 11/17/26 18:38:08 - 1:20:21 - Found 986/1000 solutions in hypotheses.
+INFO - 11/17/26 18:38:08 - 1:20:21 - (4000/5000) Found 981/1000 valid top-1 predictions.
+INFO - 11/17/26 18:38:08 - 1:20:21 - Found 983/1000 solutions in hypotheses.
+INFO - 11/17/26 18:38:08 - 1:20:21 - (5000/5000) Found 993/1000 valid top-1 predictions.
+INFO - 11/17/26 18:38:08 - 1:20:21 - Found 995/1000 solutions in hypotheses.
+INFO - 11/17/26 18:38:08 - 1:20:21 - 4935/5000 (98.7%) equations were evaluated correctly.
+INFO - 11/17/26 18:38:08 - 1:20:21 - -1: 2405 / 2440 (98.57%)
+INFO - 11/17/26 18:38:08 - 1:20:21 - 1: 2530 / 2560 (98.83%)
+INFO - 11/17/26 18:38:08 - 1:20:21 - correct_sign: 0.990600 (over 5000 samples)
+INFO - 11/17/26 18:38:08 - 1:20:21 - correct_module: 0.996000 (over 5000 samples)
+INFO - 11/17/26 18:38:08 - 1:20:21 - Memory allocated: 74.95MB, reserved: 11413.22MB
+INFO - 11/17/26 18:38:08 - 1:20:21 - __log__:{"epoch": 41, "valid_AMPLITUDE_xe_loss": 0.0168356587329443, "valid_AMPLITUDE_greedy_acc": 98.48, "valid_AMPLITUDE_acc": 98.7, "valid_AMPLITUDE_well_formed": 99.98, "valid_AMPLITUDE_acc_-1": 98.56557377049181, "valid_AMPLITUDE_acc_1": 98.828125, "valid_AMPLITUDE_avg_correct_sign": 0.9906, "valid_AMPLITUDE_avg_correct_module": 0.996}
+INFO - 11/17/26 18:38:08 - 1:20:21 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:38:08 - 1:20:22 - ============ Starting epoch 42 ... ============
+INFO - 11/17/26 18:38:17 - 1:20:31 -   65800 -  980.80 examples/s - 13780.65 words/s - LOSS:  0.0142 - LR: 3.0000e-04
+INFO - 11/17/26 18:38:27 - 1:20:41 -   66000 - 1222.09 examples/s - 17181.44 words/s - LOSS:  0.0184 - LR: 3.0000e-04
+INFO - 11/17/26 18:38:38 - 1:20:51 -   66200 - 1236.51 examples/s - 17376.43 words/s - LOSS:  0.0189 - LR: 3.0000e-04
+INFO - 11/17/26 18:38:48 - 1:21:01 -   66400 - 1311.13 examples/s - 18422.77 words/s - LOSS:  0.0204 - LR: 3.0000e-04
+INFO - 11/17/26 18:38:57 - 1:21:11 -   66600 - 1294.89 examples/s - 18199.48 words/s - LOSS:  0.0171 - LR: 3.0000e-04
+INFO - 11/17/26 18:39:07 - 1:21:21 -   66800 - 1332.98 examples/s - 18733.83 words/s - LOSS:  0.0190 - LR: 3.0000e-04
+INFO - 11/17/26 18:39:16 - 1:21:30 -   67000 - 1423.10 examples/s - 20001.11 words/s - LOSS:  0.0189 - LR: 3.0000e-04
+INFO - 11/17/26 18:39:22 - 1:21:36 -   67200 - 2005.18 examples/s - 28186.52 words/s - LOSS:  0.0200 - LR: 3.0000e-04
+INFO - 11/17/26 18:39:23 - 1:21:36 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 18:39:23 - 1:21:36 - ============ End of epoch 42 ============
+INFO - 11/17/26 18:39:23 - 1:21:36 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 18:39:23 - 1:21:36 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 18:39:23 - 1:21:36 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:39:23 - 1:21:36 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 18:39:23 - 1:21:37 - (1000/5000) Found 980/1000 valid top-1 predictions.
+INFO - 11/17/26 18:39:23 - 1:21:37 - Found 985/1000 solutions in hypotheses.
+INFO - 11/17/26 18:39:24 - 1:21:37 - (2000/5000) Found 981/1000 valid top-1 predictions.
+INFO - 11/17/26 18:39:24 - 1:21:37 - Found 987/1000 solutions in hypotheses.
+INFO - 11/17/26 18:39:24 - 1:21:37 - (3000/5000) Found 977/1000 valid top-1 predictions.
+INFO - 11/17/26 18:39:24 - 1:21:37 - Found 981/1000 solutions in hypotheses.
+INFO - 11/17/26 18:39:24 - 1:21:37 - (4000/5000) Found 975/1000 valid top-1 predictions.
+INFO - 11/17/26 18:39:24 - 1:21:37 - Found 979/1000 solutions in hypotheses.
+INFO - 11/17/26 18:39:24 - 1:21:37 - (5000/5000) Found 980/1000 valid top-1 predictions.
+INFO - 11/17/26 18:39:24 - 1:21:37 - Found 984/1000 solutions in hypotheses.
+INFO - 11/17/26 18:39:24 - 1:21:37 - 4916/5000 (98.32%) equations were evaluated correctly.
+INFO - 11/17/26 18:39:24 - 1:21:37 - -1: 2410 / 2440 (98.77%)
+INFO - 11/17/26 18:39:24 - 1:21:37 - 1: 2506 / 2560 (97.89%)
+INFO - 11/17/26 18:39:24 - 1:21:37 - correct_sign: 0.989200 (over 5000 samples)
+INFO - 11/17/26 18:39:24 - 1:21:37 - correct_module: 0.993200 (over 5000 samples)
+INFO - 11/17/26 18:39:24 - 1:21:37 - Memory allocated: 74.95MB, reserved: 11421.22MB
+INFO - 11/17/26 18:39:24 - 1:21:37 - __log__:{"epoch": 42, "valid_AMPLITUDE_xe_loss": 0.02203437594360592, "valid_AMPLITUDE_greedy_acc": 97.86, "valid_AMPLITUDE_acc": 98.32, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 98.77049180327869, "valid_AMPLITUDE_acc_1": 97.890625, "valid_AMPLITUDE_avg_correct_sign": 0.9892, "valid_AMPLITUDE_avg_correct_module": 0.9932}
+INFO - 11/17/26 18:39:24 - 1:21:37 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 18:39:24 - 1:21:38 - ============ Starting epoch 43 ... ============
+INFO - 11/17/26 18:39:30 - 1:21:44 -   67400 - 1670.61 examples/s - 23478.28 words/s - LOSS:  0.0173 - LR: 3.0000e-04
+INFO - 11/17/26 18:39:37 - 1:21:51 -   67600 - 1862.03 examples/s - 26166.06 words/s - LOSS:  0.0169 - LR: 3.0000e-04
+INFO - 11/17/26 18:39:43 - 1:21:57 -   67800 - 2010.46 examples/s - 28253.59 words/s - LOSS:  0.0119 - LR: 3.0000e-04
+INFO - 11/17/26 18:49:45 - 1:31:58 -   68000 -   21.29 examples/s -   299.08 words/s - LOSS:  0.0159 - LR: 3.0000e-04
+INFO - 11/17/26 18:54:47 - 1:37:00 -   68200 -   42.35 examples/s -   595.22 words/s - LOSS:  0.0169 - LR: 3.0000e-04
+INFO - 11/17/26 19:12:11 - 1:54:25 -   68400 -   12.26 examples/s -   172.24 words/s - LOSS:  0.0192 - LR: 3.0000e-04
+INFO - 11/17/26 19:12:41 - 1:54:55 -   68600 -  431.19 examples/s -  6060.17 words/s - LOSS:  0.0153 - LR: 3.0000e-04
+INFO - 11/17/26 19:27:22 - 2:09:35 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 19:27:22 - 2:09:35 - ============ End of epoch 43 ============
+INFO - 11/17/26 19:27:22 - 2:09:35 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 19:27:22 - 2:09:35 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 19:27:22 - 2:09:35 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 19:27:22 - 2:09:35 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 19:27:23 - 2:09:36 - (1000/5000) Found 969/1000 valid top-1 predictions.
+INFO - 11/17/26 19:27:23 - 2:09:36 - Found 978/1000 solutions in hypotheses.
+INFO - 11/17/26 19:27:23 - 2:09:36 - (2000/5000) Found 982/1000 valid top-1 predictions.
+INFO - 11/17/26 19:27:23 - 2:09:36 - Found 986/1000 solutions in hypotheses.
+INFO - 11/17/26 19:27:23 - 2:09:36 - (3000/5000) Found 990/1000 valid top-1 predictions.
+INFO - 11/17/26 19:27:23 - 2:09:36 - Found 995/1000 solutions in hypotheses.
+INFO - 11/17/26 19:27:23 - 2:09:36 - (4000/5000) Found 988/1000 valid top-1 predictions.
+INFO - 11/17/26 19:27:23 - 2:09:36 - Found 990/1000 solutions in hypotheses.
+INFO - 11/17/26 19:27:23 - 2:09:36 - (5000/5000) Found 983/1000 valid top-1 predictions.
+INFO - 11/17/26 19:27:23 - 2:09:36 - Found 987/1000 solutions in hypotheses.
+INFO - 11/17/26 19:27:23 - 2:09:36 - 4936/5000 (98.72%) equations were evaluated correctly.
+INFO - 11/17/26 19:27:23 - 2:09:36 - -1: 2415 / 2440 (98.98%)
+INFO - 11/17/26 19:27:23 - 2:09:36 - 1: 2521 / 2560 (98.48%)
+INFO - 11/17/26 19:27:23 - 2:09:36 - correct_sign: 0.989400 (over 5000 samples)
+INFO - 11/17/26 19:27:23 - 2:09:36 - correct_module: 0.997000 (over 5000 samples)
+INFO - 11/17/26 19:27:23 - 2:09:36 - Memory allocated: 74.95MB, reserved: 11413.22MB
+INFO - 11/17/26 19:27:23 - 2:09:36 - __log__:{"epoch": 43, "valid_AMPLITUDE_xe_loss": 0.014941673259205273, "valid_AMPLITUDE_greedy_acc": 98.24, "valid_AMPLITUDE_acc": 98.72, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 98.97540983606558, "valid_AMPLITUDE_acc_1": 98.4765625, "valid_AMPLITUDE_avg_correct_sign": 0.9894, "valid_AMPLITUDE_avg_correct_module": 0.997}
+INFO - 11/17/26 19:27:23 - 2:09:36 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 19:27:23 - 2:09:37 - ============ Starting epoch 44 ... ============
+INFO - 11/17/26 19:27:26 - 2:09:40 -   68800 -   14.46 examples/s -   203.14 words/s - LOSS:  0.0143 - LR: 3.0000e-04
+INFO - 11/17/26 19:39:48 - 2:22:02 -   69000 -   17.25 examples/s -   242.38 words/s - LOSS:  0.0225 - LR: 3.0000e-04
+INFO - 11/17/26 20:10:15 - 2:52:29 -   69200 -    7.01 examples/s -    98.47 words/s - LOSS:  0.0216 - LR: 3.0000e-04
+INFO - 11/17/26 20:25:37 - 3:07:51 -   69400 -   13.89 examples/s -   195.16 words/s - LOSS:  0.0148 - LR: 3.0000e-04
+INFO - 11/17/26 20:25:44 - 3:07:57 -   69600 - 1978.20 examples/s - 27797.78 words/s - LOSS:  0.0086 - LR: 3.0000e-04
+INFO - 11/17/26 20:25:50 - 3:08:04 -   69800 - 2022.83 examples/s - 28425.84 words/s - LOSS:  0.0163 - LR: 3.0000e-04
+INFO - 11/17/26 20:25:56 - 3:08:10 -   70000 - 2059.50 examples/s - 28941.92 words/s - LOSS:  0.0195 - LR: 3.0000e-04
+INFO - 11/17/26 20:26:03 - 3:08:16 -   70200 - 2027.83 examples/s - 28500.97 words/s - LOSS:  0.0157 - LR: 3.0000e-04
+INFO - 11/17/26 20:26:07 - 3:08:20 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 20:26:07 - 3:08:20 - ============ End of epoch 44 ============
+INFO - 11/17/26 20:26:07 - 3:08:20 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 20:26:07 - 3:08:20 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 20:26:07 - 3:08:21 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 20:26:07 - 3:08:21 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 20:26:08 - 3:08:21 - (1000/5000) Found 989/1000 valid top-1 predictions.
+INFO - 11/17/26 20:26:08 - 3:08:21 - Found 992/1000 solutions in hypotheses.
+INFO - 11/17/26 20:26:08 - 3:08:22 - (2000/5000) Found 989/1000 valid top-1 predictions.
+INFO - 11/17/26 20:26:08 - 3:08:22 - Found 992/1000 solutions in hypotheses.
+INFO - 11/17/26 20:26:08 - 3:08:22 - (3000/5000) Found 983/1000 valid top-1 predictions.
+INFO - 11/17/26 20:26:08 - 3:08:22 - Found 987/1000 solutions in hypotheses.
+INFO - 11/17/26 20:26:08 - 3:08:22 - (4000/5000) Found 985/1000 valid top-1 predictions.
+INFO - 11/17/26 20:26:08 - 3:08:22 - Found 990/1000 solutions in hypotheses.
+INFO - 11/17/26 20:26:08 - 3:08:22 - (5000/5000) Found 983/1000 valid top-1 predictions.
+INFO - 11/17/26 20:26:08 - 3:08:22 - Found 985/1000 solutions in hypotheses.
+INFO - 11/17/26 20:26:08 - 3:08:22 - 4946/5000 (98.92%) equations were evaluated correctly.
+INFO - 11/17/26 20:26:08 - 3:08:22 - -1: 2414 / 2440 (98.93%)
+INFO - 11/17/26 20:26:08 - 3:08:22 - 1: 2532 / 2560 (98.91%)
+INFO - 11/17/26 20:26:08 - 3:08:22 - correct_sign: 0.992200 (over 5000 samples)
+INFO - 11/17/26 20:26:08 - 3:08:22 - correct_module: 0.996800 (over 5000 samples)
+INFO - 11/17/26 20:26:08 - 3:08:22 - Memory allocated: 74.95MB, reserved: 11433.22MB
+INFO - 11/17/26 20:26:08 - 3:08:22 - __log__:{"epoch": 44, "valid_AMPLITUDE_xe_loss": 0.015432009968471445, "valid_AMPLITUDE_greedy_acc": 98.58, "valid_AMPLITUDE_acc": 98.92, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 98.93442622950819, "valid_AMPLITUDE_acc_1": 98.90625, "valid_AMPLITUDE_avg_correct_sign": 0.9922, "valid_AMPLITUDE_avg_correct_module": 0.9968}
+INFO - 11/17/26 20:26:08 - 3:08:22 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 20:26:08 - 3:08:22 - ============ Starting epoch 45 ... ============
+INFO - 11/17/26 20:26:11 - 3:08:24 -   70400 - 1600.20 examples/s - 22486.14 words/s - LOSS:  0.0168 - LR: 3.0000e-04
+INFO - 11/17/26 20:26:17 - 3:08:30 -   70600 - 2055.46 examples/s - 28892.93 words/s - LOSS:  0.0136 - LR: 3.0000e-04
+INFO - 11/17/26 20:26:23 - 3:08:37 -   70800 - 2045.02 examples/s - 28741.11 words/s - LOSS:  0.0101 - LR: 3.0000e-04
+INFO - 11/17/26 20:26:29 - 3:08:43 -   71000 - 2025.39 examples/s - 28466.56 words/s - LOSS:  0.0120 - LR: 3.0000e-04
+INFO - 11/17/26 20:26:36 - 3:08:49 -   71200 - 1974.00 examples/s - 27744.02 words/s - LOSS:  0.0160 - LR: 3.0000e-04
+INFO - 11/17/26 20:26:42 - 3:08:56 -   71400 - 1996.77 examples/s - 28053.34 words/s - LOSS:  0.0228 - LR: 3.0000e-04
+INFO - 11/17/26 20:26:49 - 3:09:02 -   71600 - 2003.06 examples/s - 28149.05 words/s - LOSS:  0.0162 - LR: 3.0000e-04
+INFO - 11/17/26 20:26:55 - 3:09:09 -   71800 - 1997.90 examples/s - 28071.69 words/s - LOSS:  0.0131 - LR: 3.0000e-04
+INFO - 11/17/26 20:26:58 - 3:09:12 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 20:26:58 - 3:09:12 - ============ End of epoch 45 ============
+INFO - 11/17/26 20:26:58 - 3:09:12 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 20:26:58 - 3:09:12 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 20:26:58 - 3:09:12 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 20:26:58 - 3:09:12 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 20:26:59 - 3:09:12 - (1000/5000) Found 990/1000 valid top-1 predictions.
+INFO - 11/17/26 20:26:59 - 3:09:12 - Found 992/1000 solutions in hypotheses.
+INFO - 11/17/26 20:26:59 - 3:09:12 - (2000/5000) Found 990/1000 valid top-1 predictions.
+INFO - 11/17/26 20:26:59 - 3:09:12 - Found 993/1000 solutions in hypotheses.
+INFO - 11/17/26 20:26:59 - 3:09:13 - (3000/5000) Found 992/1000 valid top-1 predictions.
+INFO - 11/17/26 20:26:59 - 3:09:13 - Found 993/1000 solutions in hypotheses.
+INFO - 11/17/26 20:26:59 - 3:09:13 - (4000/5000) Found 981/1000 valid top-1 predictions.
+INFO - 11/17/26 20:26:59 - 3:09:13 - Found 985/1000 solutions in hypotheses.
+INFO - 11/17/26 20:26:59 - 3:09:13 - (5000/5000) Found 980/1000 valid top-1 predictions.
+INFO - 11/17/26 20:26:59 - 3:09:13 - Found 985/1000 solutions in hypotheses.
+INFO - 11/17/26 20:26:59 - 3:09:13 - 4948/5000 (98.96%) equations were evaluated correctly.
+INFO - 11/17/26 20:26:59 - 3:09:13 - -1: 2414 / 2440 (98.93%)
+INFO - 11/17/26 20:26:59 - 3:09:13 - 1: 2534 / 2560 (98.98%)
+INFO - 11/17/26 20:26:59 - 3:09:13 - correct_sign: 0.992600 (over 5000 samples)
+INFO - 11/17/26 20:26:59 - 3:09:13 - correct_module: 0.997000 (over 5000 samples)
+INFO - 11/17/26 20:26:59 - 3:09:13 - Memory allocated: 74.95MB, reserved: 11413.22MB
+INFO - 11/17/26 20:26:59 - 3:09:13 - __log__:{"epoch": 45, "valid_AMPLITUDE_xe_loss": 0.013793934948040997, "valid_AMPLITUDE_greedy_acc": 98.66, "valid_AMPLITUDE_acc": 98.96, "valid_AMPLITUDE_well_formed": 100.0, "valid_AMPLITUDE_acc_-1": 98.93442622950819, "valid_AMPLITUDE_acc_1": 98.984375, "valid_AMPLITUDE_avg_correct_sign": 0.9926, "valid_AMPLITUDE_avg_correct_module": 0.997}
+INFO - 11/17/26 20:26:59 - 3:09:13 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...
+INFO - 11/17/26 20:26:59 - 3:09:13 - ============ Starting epoch 46 ... ============
+INFO - 11/17/26 20:27:03 - 3:09:16 -   72000 - 1666.08 examples/s - 23417.61 words/s - LOSS:  0.0145 - LR: 3.0000e-04
+INFO - 11/17/26 20:27:12 - 3:09:25 -   72200 - 1449.21 examples/s - 20364.31 words/s - LOSS:  0.0195 - LR: 3.0000e-04
+INFO - 11/17/26 20:27:22 - 3:09:36 -   72400 - 1224.66 examples/s - 17209.82 words/s - LOSS:  0.0116 - LR: 3.0000e-04
+INFO - 11/17/26 20:27:29 - 3:09:42 -   72600 - 1952.40 examples/s - 27441.42 words/s - LOSS:  0.0129 - LR: 3.0000e-04
+INFO - 11/17/26 20:27:35 - 3:09:49 -   72800 - 1870.84 examples/s - 26298.08 words/s - LOSS:  0.0133 - LR: 3.0000e-04
+INFO - 11/17/26 20:27:42 - 3:09:56 -   73000 - 1898.92 examples/s - 26680.63 words/s - LOSS:  0.0209 - LR: 3.0000e-04
+INFO - 11/17/26 20:27:49 - 3:10:03 -   73200 - 1757.53 examples/s - 24698.58 words/s - LOSS:  0.0179 - LR: 3.0000e-04
+INFO - 11/17/26 20:27:56 - 3:10:10 -   73400 - 1917.71 examples/s - 26950.37 words/s - LOSS:  0.0148 - LR: 3.0000e-04
+INFO - 11/17/26 20:27:58 - 3:10:12 - Memory allocated: 74.95MB, reserved: 11401.22MB
+INFO - 11/17/26 20:27:58 - 3:10:12 - ============ End of epoch 46 ============
+INFO - 11/17/26 20:27:58 - 3:10:12 - Creating valid iterator for amplitude ...
+INFO - 11/17/26 20:27:58 - 3:10:12 - Loading data from ./data/5.valid ... seekpos 0
+INFO - 11/17/26 20:27:58 - 3:10:12 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 20:27:58 - 3:10:12 - Loaded 5000 equations from the disk.
+INFO - 11/17/26 20:27:59 - 3:10:13 - (1000/5000) Found 978/1000 valid top-1 predictions.
+INFO - 11/17/26 20:27:59 - 3:10:13 - Found 983/1000 solutions in hypotheses.
+INFO - 11/17/26 20:27:59 - 3:10:13 - (2000/5000) Found 979/1000 valid top-1 predictions.
+INFO - 11/17/26 20:27:59 - 3:10:13 - Found 985/1000 solutions in hypotheses.
+INFO - 11/17/26 20:27:59 - 3:10:13 - (3000/5000) Found 978/1000 valid top-1 predictions.
+INFO - 11/17/26 20:27:59 - 3:10:13 - Found 984/1000 solutions in hypotheses.
+INFO - 11/17/26 20:28:00 - 3:10:13 - (4000/5000) Found 976/1000 valid top-1 predictions.
+INFO - 11/17/26 20:28:00 - 3:10:13 - Found 977/1000 solutions in hypotheses.
+INFO - 11/17/26 20:28:00 - 3:10:13 - (5000/5000) Found 979/1000 valid top-1 predictions.
+INFO - 11/17/26 20:28:00 - 3:10:13 - Found 984/1000 solutions in hypotheses.
+INFO - 11/17/26 20:28:00 - 3:10:13 - 4913/5000 (98.26%) equations were evaluated correctly.
+INFO - 11/17/26 20:28:00 - 3:10:13 - -1: 2386 / 2440 (97.79%)
+INFO - 11/17/26 20:28:00 - 3:10:13 - 1: 2527 / 2560 (98.71%)
+INFO - 11/17/26 20:28:00 - 3:10:13 - correct_sign: 0.988800 (over 5000 samples)
+INFO - 11/17/26 20:28:00 - 3:10:13 - correct_module: 0.993000 (over 5000 samples)
+INFO - 11/17/26 20:28:00 - 3:10:13 - Memory allocated: 74.95MB, reserved: 11413.22MB
+INFO - 11/17/26 20:28:00 - 3:10:13 - __log__:{"epoch": 46, "valid_AMPLITUDE_xe_loss": 0.024830622558110905, "valid_AMPLITUDE_greedy_acc": 97.8, "valid_AMPLITUDE_acc": 98.26, "valid_AMPLITUDE_well_formed": 99.98, "valid_AMPLITUDE_acc_-1": 97.78688524590164, "valid_AMPLITUDE_acc_1": 98.7109375, "valid_AMPLITUDE_avg_correct_sign": 0.9888, "valid_AMPLITUDE_avg_correct_module": 0.993}
+INFO - 11/17/26 20:28:00 - 3:10:13 - Saving checkpoint to ./checkpoint_double_plateau/checkpoint.pth ...

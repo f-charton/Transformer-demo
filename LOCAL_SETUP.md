@@ -30,7 +30,7 @@ conda activate env_axolver
 ```bash
 jupyter notebook
 ```
-Jupyter notebook opens in your browser. Open `tutorial.ipynb`.
+Jupyter notebook opens in your browser. Open `Tutorial.ipynb`.
 
 ## Check which hardware you have
 
