@@ -5,3 +5,4 @@
 - **Shared results spreadsheet:** https://docs.google.com/spreadsheets/d/1lmHcAcWWMWpOF6BKaHu1cQ40khnsMDCfJxaUoaLX7wA/edit?usp=sharing  
   Add one row per training run.
 - **Running on your own laptop instead of Colab:** see [LOCAL_SETUP.md](LOCAL_SETUP.md).
+- **Interactive course on how the code works:** download the [transformer-demo-course](transformer-demo-course) folder to your computer and click on `index.html` to start the course.
